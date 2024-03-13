@@ -5,6 +5,8 @@ import ie.tudublin.*;
 public class MyVisual extends Visual {
     WaveForm wf;
     AudioBandsVisual abv;
+    int frame = 1;
+    
 
     public void settings() {
         size(1024, 500);
@@ -27,13 +29,23 @@ public class MyVisual extends Visual {
 
         wf = new WaveForm(this);
         abv = new AudioBandsVisual(this);
+        
     }
 
     public void keyPressed() {
-        if (key == ' ') {
+        if(key == ' ')
+        {
             getAudioPlayer().cue(0);
             getAudioPlayer().play();
         }
+        
+        if (key == '1') {
+            frame = 1;
+        }
+        if (key == '2') {
+            frame = 2;
+        }
+
     }
 
     public void draw() {
@@ -49,7 +61,15 @@ public class MyVisual extends Visual {
 
         // Call this is you want to get the average amplitude
         calculateAverageAmplitude();
-        wf.render();
-        abv.render();
+
+        if(frame == 1)
+        {
+            wf.render();   
+        }
+        else if(frame == 2)
+        {
+            abv.render();   
+        }
+        
     }
 }
