@@ -32,7 +32,7 @@ public class RotatingAudioBands extends Visual {
         setFrameSize(256);
 
         startMinim();
-        loadAudio("heroplanet.mp3");
+        loadAudio("Chris Christodoulou - The Face of the Deep  ROR2_ Survivors of the Void (2022).mp3");
         getAudioPlayer().play();
         //startListening(); 
         
