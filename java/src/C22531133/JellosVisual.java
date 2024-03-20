@@ -1,5 +1,7 @@
 package C22531133;
 
-public class JellosVisual {
+import ie.tudublin.*;
+
+public class JellosVisual extends Visual{
     
 }
