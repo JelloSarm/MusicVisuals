@@ -21,8 +21,13 @@ public class CalvinsVisual extends Visual {
         Cd.lights();
 
         //converts degrees to radians, first number is degrees
-        float rotX = -40 * PI / 180;
-        float rotZ = -15 * PI / 180;
+        //main planet
+        float mainRotX = -40 * PI / 180;
+        float mainRotZ = -15 * PI / 180;
+
+        //secondary planet
+        float secRotX = 40 * PI / 180;
+        float secRotZ = 15 * PI / 180;
         
 
         float gap = Cd.width / (float) Cd.getBands().length;
@@ -31,7 +36,7 @@ public class CalvinsVisual extends Visual {
             Cd.background(0);
             Cd.noStroke();
             Cd.pushMatrix();
-            Cd.translate(130, height/2, 0);
+            
             Cd.fill(125);
             Cd.box(100);
             Cd.popMatrix();
@@ -41,13 +46,16 @@ public class CalvinsVisual extends Visual {
             Cd.fill(0);
             Cd.pushMatrix();
             Cd.translate(width*7f, height*4f, -200f);
-            Cd.rotateX(rotX);
-            Cd.rotateZ(rotZ);
+            Cd.rotateX(mainRotX);
+            Cd.rotateZ(mainRotZ);
             Cd.rotateY(rotate);
             
             rotate += 0.0001 + getAmplitude() * 8.0f;
             Cd.sphere(200);
+            Cd.translate(width*7f, height*4f, -50f);
+            Cd.sphere(100);
             Cd.popMatrix(); 
+            Cd.translate(mouseX,mouseY);
             System.out.println("byeah");
         }
     }
