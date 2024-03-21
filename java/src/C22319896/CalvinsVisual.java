@@ -12,52 +12,51 @@ public class CalvinsVisual extends Visual {
     {
         this.Cd = Cd; 
     }
-    float rotate = 0;
+    
+    //converts degrees to radians, first number is degrees
+    //main planet
+    float mainRotX = -40 * PI / 180;
+    float mainRotY = 0 * PI / 180;
+    float mainRotZ = -15 * PI / 180;
+
+    //secondary (moon)
+    float secRotX = 40 * PI / 180;
+    float secRotZ = 15 * PI / 180;
 
     public void render() 
-    {
-        
+    { 
         Cd.background(0);
         Cd.lights();
-
-        //converts degrees to radians, first number is degrees
-        //main planet
-        float mainRotX = -40 * PI / 180;
-        float mainRotZ = -15 * PI / 180;
-
-        //secondary planet
-        float secRotX = 40 * PI / 180;
-        float secRotZ = 15 * PI / 180;
         
-
         float gap = Cd.width / (float) Cd.getBands().length;
         for(int i = 0 ; i < Cd.getBands().length ; i ++)
         {
             Cd.background(0);
             Cd.noStroke();
-            Cd.pushMatrix();
-            
-            Cd.fill(125);
-            Cd.box(100);
-            Cd.popMatrix();
 
-
+            // planet
             Cd.stroke(255);
             Cd.fill(0);
             Cd.pushMatrix();
-            Cd.translate(width*7f, height*4f, -200f);
+            Cd.translate(width*7, height*4, -1000);
             Cd.rotateX(mainRotX);
+            Cd.rotateY(mainRotY);
             Cd.rotateZ(mainRotZ);
-            Cd.rotateY(rotate);
             
-            rotate += 0.0001 + getAmplitude() * 8.0f;
+            mainRotY += 0.01 + Cd.getAmplitude() * 0.05f;
             Cd.sphere(200);
-            Cd.translate(width*7f, height*4f, -50f);
-            Cd.sphere(100);
+
+            // line
+            
+
+            // moon
+            Cd.fill(255);
+            Cd.stroke(180, 255, 255);
+            Cd.translate(width*7 - (Cd.getAmplitude() * 900f), 1 , -400);
+            Cd.sphere(90);
             Cd.popMatrix(); 
-            Cd.translate(mouseX,mouseY);
-            System.out.println("byeah");
+
+            System.out.println(getAmplitude());
         }
     }
-
 }

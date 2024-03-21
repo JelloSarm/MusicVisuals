@@ -65,6 +65,7 @@ public class RotatingAudioBands extends Visual {
         //translate(0, 0, -250);
 
         rot += getAmplitude() / 8.0f;
+        
 
         rotateY(rot);
         float[] bands = getSmoothedBands();
