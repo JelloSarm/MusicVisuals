@@ -28,17 +28,19 @@ public class CalvinsVisual extends Visual {
             Cd.background(0);
             Cd.noStroke();
             Cd.pushMatrix();
-            Cd.translate(300, height/2, 0);
+            Cd.translate(130, height/2, 0);
             Cd.rotateY(180);
             Cd.rotateX(rotate);
-            Cd.box(500);
+            Cd.box(100);
             Cd.popMatrix();
 
             Cd.noFill();
             Cd.stroke(255);
             Cd.pushMatrix();
             Cd.translate(width*7f, height*4f, -200f);
-            Cd.sphere(200);
+            Cd.sphere(200*-Cd.getSmoothedBands()[i] * 0.2f);
+            Cd.fill(0);
+            Cd.sphere(199*-Cd.getSmoothedBands()[i] * 0.2f);
             Cd.popMatrix(); 
             System.out.println("byeah");
         }
