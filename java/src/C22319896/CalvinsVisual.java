@@ -19,7 +19,9 @@ public class CalvinsVisual extends Visual {
         
         Cd.background(0);
         Cd.lights();
-        float rotX = -15 * PI / 180;
+
+        //converts degrees to radians, first number is degrees
+        float rotX = -40 * PI / 180;
         float rotZ = -15 * PI / 180;
         
 
@@ -40,10 +42,10 @@ public class CalvinsVisual extends Visual {
             Cd.pushMatrix();
             Cd.translate(width*7f, height*4f, -200f);
             Cd.rotateX(rotX);
-            Cd.rotateY(rotate);
             Cd.rotateZ(rotZ);
+            Cd.rotateY(rotate);
             
-            rotate += 0.0001 + getAmplitude() / 8.0f;
+            rotate += 0.0001 + getAmplitude() * 8.0f;
             Cd.sphere(200);
             Cd.popMatrix(); 
             System.out.println("byeah");
