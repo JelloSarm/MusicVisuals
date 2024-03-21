@@ -7,10 +7,12 @@ import processing.core.*;
 public class CalvinsVisual extends Visual {
 
     MyVisual Cd;
+    float cy;
 
     public CalvinsVisual(MyVisual Cd)
     {
         this.Cd = Cd; 
+        cy = this.Cd.height /2;
     }
     
     //converts degrees to radians, first number is degrees
@@ -32,25 +34,45 @@ public class CalvinsVisual extends Visual {
         float gap = Cd.width / (float) Cd.getBands().length;
         for(int i = 0 ; i < Cd.getBands().length ; i ++)
         {
-            Cd.background(0);
-            Cd.noStroke();
+            
 
-            // planet
+            // -- background stars --
+
+            // -- planet -- 
             Cd.stroke(255);
             Cd.fill(0);
             Cd.pushMatrix();
             Cd.translate(width*7, height*4, -1000);
+
+            //planet orientation
             Cd.rotateX(mainRotX);
             Cd.rotateY(mainRotY);
             Cd.rotateZ(mainRotZ);
             
+            // rotation
             mainRotY -= 0.0001 + Cd.getAmplitude() * 0.02f;
+
+            // create
             Cd.sphere(200);
             Cd.popMatrix();
-            // line
-            
 
-            // moon
+
+            // -- ring --
+            Cd.pushMatrix();
+            Cd.colorMode(PApplet.HSB);
+            for(int j = 0 ; j < Cd.getAudioBuffer().size() ; j ++)
+            {
+                Cd.stroke(
+                    PApplet.map(j, 0, Cd.getAudioBuffer().size(), 0, 255)
+                    , 255
+                    , 255
+                );
+                
+                Cd.line(width*7, height*4,-800, width*7, height*4 * Cd.getAudioBuffer().get(j),-1000);
+            }
+            Cd.popMatrix();
+
+            // -- moon --
             Cd.fill(255);
             Cd.stroke(180, 255, 255);
             Cd.pushMatrix();
@@ -68,5 +90,10 @@ public class CalvinsVisual extends Visual {
 
             System.out.println(getAmplitude());
         }
+    }
+
+    public void drawRing(float centerX, float centerY, float centerZ, float radius, int numPoints)
+    {
+        
     }
 }
