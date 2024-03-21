@@ -3,6 +3,7 @@ package C22319896;
 import example.MyVisual;
 import ie.tudublin.*;
 import processing.core.*;
+import java.lang.Math;
 
 public class CalvinsVisual extends Visual {
 
@@ -30,8 +31,8 @@ public class CalvinsVisual extends Visual {
     { 
         Cd.background(0);
         Cd.lights();
+        Cd.colorMode(PApplet.HSB);
         
-        float gap = Cd.width / (float) Cd.getBands().length;
         for(int i = 0 ; i < Cd.getBands().length ; i ++)
         {
             
@@ -50,26 +51,20 @@ public class CalvinsVisual extends Visual {
             Cd.rotateZ(mainRotZ);
             
             // rotation
-            mainRotY -= 0.0001 + Cd.getAmplitude() * 0.02f;
+            mainRotY -= 0.000 + Cd.getAmplitude() * 0.02f;
 
             // create
-            Cd.sphere(200);
+            Cd.sphere(300);
             Cd.popMatrix();
 
 
             // -- ring --
             Cd.pushMatrix();
-            Cd.colorMode(PApplet.HSB);
-            for(int j = 0 ; j < Cd.getAudioBuffer().size() ; j ++)
-            {
-                Cd.stroke(
-                    PApplet.map(j, 0, Cd.getAudioBuffer().size(), 0, 255)
-                    , 255
-                    , 255
-                );
-                
-                Cd.line(width*7, height*4,-800, width*7, height*4 * Cd.getAudioBuffer().get(j),-1000);
-            }
+            Cd.strokeWeight(3);
+    
+            drawRing(width*7, height*4,-1000,700,Cd.getAudioBuffer().size(),300);
+
+            Cd.strokeWeight(1);
             Cd.popMatrix();
 
             // -- moon --
@@ -81,10 +76,10 @@ public class CalvinsVisual extends Visual {
             Cd.rotateY(secRotY);
             Cd.rotateZ(mainRotZ);
             
-            secRotY += (0.0001 + Cd.getAmplitude() * 0.02f);
+            secRotY += (0.0001 + Cd.getAmplitude() * 0.04f);
 
             Cd.translate(width*7 - (Cd.getAmplitude() * 900f), 1 , -400);
-            Cd.rotateY(secRotY);
+            Cd.rotateY(secRotY*10);
             Cd.sphere(90);
             Cd.popMatrix(); 
 
@@ -92,8 +87,35 @@ public class CalvinsVisual extends Visual {
         }
     }
 
-    public void drawRing(float centerX, float centerY, float centerZ, float radius, int numPoints)
+    public void drawRing(float centerX, float centerY, float centerZ, float radius, int numPoints, float amplifier)
     {
-        
+        float angleIcrement = 2*PI / Cd.getAudioBuffer().size();
+        float angle = 0;
+
+        for (int i = 0; i < Cd.getAudioBuffer().size(); i++) {
+            Cd.stroke(
+                    PApplet.map(i, 0, Cd.getAudioBuffer().size(), 0, 255)
+                    , 255
+                    , 255
+                );
+
+            // start points
+            float x = centerX + radius * cos(angle);
+            float y = centerY + radius * sin(angle);
+            float z = centerZ;
+
+            // end points, away from center
+            float x2 = x + cos(angle) * amplifier * Cd.getAudioBuffer().get(i);
+            float y2 = y + sin(angle) * amplifier * Cd.getAudioBuffer().get(i);
+            float z2 = z ;
+
+            // use this for double sided visualiser
+            float xDouble = x - (cos(angle) * amplifier * Cd.getAudioBuffer().get(i));
+            float yDouble = y - (sin(angle) * amplifier * Cd.getAudioBuffer().get(i));
+
+            Cd.line(xDouble, yDouble, z, x2, y2, z2);
+
+            angle += angleIcrement;
+        }
     }
 }
