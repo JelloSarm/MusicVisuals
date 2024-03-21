@@ -21,6 +21,7 @@ public class CalvinsVisual extends Visual {
 
     //secondary (moon)
     float secRotX = 40 * PI / 180;
+    float secRotY = 0 * PI / 180;
     float secRotZ = 15 * PI / 180;
 
     public void render() 
@@ -43,16 +44,25 @@ public class CalvinsVisual extends Visual {
             Cd.rotateY(mainRotY);
             Cd.rotateZ(mainRotZ);
             
-            mainRotY += 0.01 + Cd.getAmplitude() * 0.05f;
+            mainRotY -= 0.0001 + Cd.getAmplitude() * 0.02f;
             Cd.sphere(200);
-
+            Cd.popMatrix();
             // line
             
 
             // moon
             Cd.fill(255);
             Cd.stroke(180, 255, 255);
+            Cd.pushMatrix();
+            Cd.translate(width*7, height*4, -1000);
+            Cd.rotateX(mainRotX);
+            Cd.rotateY(secRotY);
+            Cd.rotateZ(mainRotZ);
+            
+            secRotY += (0.0001 + Cd.getAmplitude() * 0.02f);
+
             Cd.translate(width*7 - (Cd.getAmplitude() * 900f), 1 , -400);
+            Cd.rotateY(secRotY);
             Cd.sphere(90);
             Cd.popMatrix(); 
 
