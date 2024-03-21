@@ -1,30 +1,47 @@
 package C22319896;
 
+import example.MyVisual;
 import ie.tudublin.*;
 import processing.core.*;
 
 public class CalvinsVisual extends Visual {
 
-    public void render() {
-        // TODO Auto-generated method stub
+    MyVisual Cd;
+
+    public CalvinsVisual(MyVisual Cd)
+    {
+        this.Cd = Cd; 
+    }
     
-        background(0);
-        lights();
+    public void render() 
+    {
+        float rotate = 0;
+        
 
-        noStroke();
-        pushMatrix();
-        translate(130, height/2, 0);
-        rotateY(1.25f);
-        rotateX(-0.4f);
-        box(100);
-        popMatrix();
+        rotate += getAmplitude() / 8.0f;
+        Cd.background(0);
+        Cd.lights();
 
-        noFill();
-        stroke(255);
-        pushMatrix();
-        translate(500f, height*0.35f, -200f);
-        sphere(280);
-        popMatrix();
+        float gap = Cd.width / (float) Cd.getBands().length;
+        for(int i = 0 ; i < Cd.getBands().length ; i ++)
+        {
+            Cd.background(0);
+            Cd.noStroke();
+            Cd.pushMatrix();
+            Cd.translate(300, height/2, 0);
+            Cd.rotateY(180);
+            Cd.rotateX(rotate);
+            Cd.box(500);
+            Cd.popMatrix();
+
+            Cd.noFill();
+            Cd.stroke(255);
+            Cd.pushMatrix();
+            Cd.translate(width*7f, height*4f, -200f);
+            Cd.sphere(200);
+            Cd.popMatrix(); 
+            System.out.println("byeah");
+        }
     }
 
 }
