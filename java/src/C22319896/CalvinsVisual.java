@@ -3,7 +3,6 @@ package C22319896;
 import example.MyVisual;
 import ie.tudublin.*;
 import processing.core.*;
-import java.lang.Math;
 
 public class CalvinsVisual extends Visual {
 
@@ -72,11 +71,13 @@ public class CalvinsVisual extends Visual {
             Cd.stroke(180, 255, 255);
             Cd.pushMatrix();
             Cd.translate(width*7, height*4, -1000);
+
+            // moon rotation
             Cd.rotateX(mainRotX);
             Cd.rotateY(secRotY);
             Cd.rotateZ(mainRotZ);
             
-            secRotY += (0.0001 + Cd.getAmplitude() * 0.04f);
+            secRotY += Cd.getAmplitude() * 0.04f;
 
             Cd.translate(width*7 - (Cd.getAmplitude() * 900f), 1 , -400);
             Cd.rotateY(secRotY*10);
