@@ -36,8 +36,15 @@ public class JellosVisual extends Visual{
             {
                 if(x == 0)
                 {
-                    js.vertex(x * 20, y * 20, land[x][y] + random(90, 130));
-                    js.vertex(x * 20, (y+1) * 20, land[x][y + 1] + random(90,130));
+                    
+                    js.vertex((x+1) * 20, (y) * 20, land[x][y] + random(80, 150));
+                    js.vertex((x + 1) * 20, (y+1) * 20, land[x][y+1] + random(80, 150));
+                }
+                else if(x == cols - 1)
+                {
+                    
+                    js.vertex((x+1) * 20, (y) * 20, land[x][y] + random(80, 150));
+                    js.vertex((x + 1) * 20, (y+1) * 20, land[x][y+1] + random(80, 150));
                 }
                 js.vertex(x * scale, y * scale, 1);
                 js.vertex(x * scale, (y+1)*scale, 1);
