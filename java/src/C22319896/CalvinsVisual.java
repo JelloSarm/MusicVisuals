@@ -14,7 +14,8 @@ public class CalvinsVisual extends Visual {
         this.Cd = Cd; 
         cy = this.Cd.height /2;
     }
-    
+    float rotateBG = 0;
+
     //converts degrees to radians, first number is degrees
     //main planet
     float mainRotX = -40 * PI / 180;
@@ -33,11 +34,19 @@ public class CalvinsVisual extends Visual {
         Cd.colorMode(PApplet.HSB);
 
         // -- background --
-        Cd.pushMatrix();
-        Cd.translate(width*7, height*4, -1000);
-        Cd.noFill();
-        Cd.sphere(1650);
-        Cd.popMatrix();
+        float[] bands = Cd.getSmoothedBands();
+        for(int i = 0 ; i < bands.length ; i ++)
+        {
+            float h = bands[i];
+
+            Cd.stroke(180, 255,((i * (255 / bands.length) ) /2 ) );
+            Cd.pushMatrix();
+            Cd.translate(width*7, height*4, -1000);
+            Cd.rotateY(rotateBG += 0.00002f*i);
+            Cd.noFill();
+            Cd.sphere(1650 + Cd.getAmplitude()*h*3);
+            Cd.popMatrix();
+        }
 
         // -- planet -- 
         Cd.stroke(255);
@@ -51,40 +60,40 @@ public class CalvinsVisual extends Visual {
         Cd.rotateZ(mainRotZ);
         
         // rotation
-        mainRotY -= 0.000 + Cd.getAmplitude() * 0.12f;
+        mainRotY -= Cd.getAmplitude() * 0.12f;
 
         // create
         Cd.sphere(300);
         Cd.popMatrix();
 
         
-            // -- ring --
-            Cd.pushMatrix();
-            Cd.strokeWeight(2);
+        // -- ring --
+        Cd.pushMatrix();
+        Cd.strokeWeight(2);
     
-            drawRing(width*7, height*4,-1000,700,Cd.getAudioBuffer().size(),300);
+        drawRing(width*7, height*4,-1000,700,Cd.getAudioBuffer().size(),300);
 
-            Cd.popMatrix();
+        Cd.popMatrix();
 
-            // -- moon --
-            Cd.fill(255);
-            Cd.stroke(180, 255, 255);
-            Cd.strokeWeight(1);
-            Cd.pushMatrix();
-            Cd.translate(width*7, height*4, -1000);
+        // -- moon --
+        Cd.fill(255);
+        Cd.stroke(180, 255, 255);
+        Cd.strokeWeight(1);
+        Cd.pushMatrix();
+        Cd.translate(width*7, height*4, -1000);
 
-            // moon rotation
-            Cd.rotateX(mainRotX);
-            Cd.rotateY(secRotY);
-            Cd.rotateZ(mainRotZ);
+        // moon rotation
+        Cd.rotateX(mainRotX);
+        Cd.rotateY(secRotY);
+        Cd.rotateZ(mainRotZ);
             
-            // moon movement
-            secRotY += Cd.getAmplitude() * 0.24f;
+        // moon movement
+        secRotY += Cd.getAmplitude() * 0.24f;
 
-            Cd.translate(width*7 - (Cd.getAmplitude() * 900f), 1 , -400);
-            Cd.rotateY(secRotY*10);
-            Cd.sphere(90);
-            Cd.popMatrix(); 
+        Cd.translate(width*7 - (700f), 1 , -400);
+        Cd.rotateY(secRotY*10);
+        Cd.sphere(90);
+        Cd.popMatrix(); 
     
     }
 
