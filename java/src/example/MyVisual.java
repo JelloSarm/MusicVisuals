@@ -2,12 +2,14 @@ package example;
 
 
 import C22319896.CalvinsVisual;
+import C22531133.JellosVisual;
 import ie.tudublin.*;
 
 public class MyVisual extends Visual {
     WaveForm wf;
     AudioBandsVisual abv;
     CalvinsVisual Calvin;
+    JellosVisual Jello;
     int frame = 1;
     
 
@@ -33,6 +35,7 @@ public class MyVisual extends Visual {
         wf = new WaveForm(this);
         abv = new AudioBandsVisual(this);
         Calvin = new CalvinsVisual(this);
+        Jello = new JellosVisual(this);
         
     }
 
@@ -51,6 +54,9 @@ public class MyVisual extends Visual {
         }
         if (key == '3') {
             frame = 3;
+        }
+        if (key == '4') {
+            frame = 4;
         }
 
     }
@@ -81,6 +87,9 @@ public class MyVisual extends Visual {
         {
             Calvin.render();
         }
-        
+        else if(frame == 4)
+        {
+            Jello.draw();
+        }
     }
 }
