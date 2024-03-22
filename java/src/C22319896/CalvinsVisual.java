@@ -14,6 +14,7 @@ public class CalvinsVisual extends Visual {
         this.Cd = Cd; 
         cy = this.Cd.height /2;
     }
+
     float rotateBG = 0;
 
     //converts degrees to radians, first number is degrees
@@ -47,6 +48,12 @@ public class CalvinsVisual extends Visual {
             Cd.sphere(1650 + Cd.getAmplitude()*h*3);
             Cd.popMatrix();
         }
+
+        Cd.fill(255);
+        Cd.pushMatrix();
+        Cd.translate(mouseX*10, mouseY*100, -1000);
+        Cd.box(300+500*mouseX);
+        Cd.popMatrix();
 
         // -- planet -- 
         Cd.stroke(255);
@@ -90,24 +97,20 @@ public class CalvinsVisual extends Visual {
         // moon movement
         secRotY += Cd.getAmplitude() * 0.24f;
 
-        Cd.translate(width*7 - (700f), 1 , -400);
+        Cd.translate(width*7 - (1.43f * 900f), 1 , -400);
         Cd.rotateY(secRotY*10);
         Cd.sphere(90);
-        Cd.popMatrix(); 
+        Cd.popMatrix();
     
     }
 
     public void drawRing(float centerX, float centerY, float centerZ, float radius, int numPoints, float amplifier)
     {
-        float angleIcrement = 2*PI / Cd.getAudioBuffer().size();
+        float angleIncrement = 2*PI / Cd.getAudioBuffer().size();
         float angle = 0;
 
         for (int i = 0; i < Cd.getAudioBuffer().size(); i++) {
-            Cd.stroke(
-                    PApplet.map(i, 0, Cd.getAudioBuffer().size(), 0, 255)
-                    , 255
-                    , 255
-                );
+            Cd.stroke(PApplet.map(i, 0, Cd.getAudioBuffer().size(), 0, 255), 255, 255);
 
             // start points
             float x = centerX + radius * cos(angle);
@@ -125,7 +128,7 @@ public class CalvinsVisual extends Visual {
 
             Cd.line(xDouble, yDouble, z, x2, y2, z2);
 
-            angle += angleIcrement;
+            angle += angleIncrement;
         }
-    }
+    }  
 }
