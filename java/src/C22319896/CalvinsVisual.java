@@ -31,44 +31,45 @@ public class CalvinsVisual extends Visual {
         Cd.background(0);
         Cd.lights();
         Cd.colorMode(PApplet.HSB);
+
+        // -- background --
+        Cd.pushMatrix();
+        Cd.translate(width*7, height*4, -1000);
+        Cd.noFill();
+        Cd.sphere(1650);
+        Cd.popMatrix();
+
+        // -- planet -- 
+        Cd.stroke(255);
+        Cd.fill(0);
+        Cd.pushMatrix();
+        Cd.translate(width*7, height*4, -1000);
+
+        //planet orientation
+        Cd.rotateX(mainRotX);
+        Cd.rotateY(mainRotY);
+        Cd.rotateZ(mainRotZ);
         
-        for(int i = 0 ; i < Cd.getBands().length ; i ++)
-        {
-            
+        // rotation
+        mainRotY -= 0.000 + Cd.getAmplitude() * 0.12f;
 
-            // -- background stars --
+        // create
+        Cd.sphere(300);
+        Cd.popMatrix();
 
-            // -- planet -- 
-            Cd.stroke(255);
-            Cd.fill(0);
-            Cd.pushMatrix();
-            Cd.translate(width*7, height*4, -1000);
-
-            //planet orientation
-            Cd.rotateX(mainRotX);
-            Cd.rotateY(mainRotY);
-            Cd.rotateZ(mainRotZ);
-            
-            // rotation
-            mainRotY -= 0.000 + Cd.getAmplitude() * 0.02f;
-
-            // create
-            Cd.sphere(300);
-            Cd.popMatrix();
-
-
+        
             // -- ring --
             Cd.pushMatrix();
-            Cd.strokeWeight(3);
+            Cd.strokeWeight(2);
     
             drawRing(width*7, height*4,-1000,700,Cd.getAudioBuffer().size(),300);
 
-            Cd.strokeWeight(1);
             Cd.popMatrix();
 
             // -- moon --
             Cd.fill(255);
             Cd.stroke(180, 255, 255);
+            Cd.strokeWeight(1);
             Cd.pushMatrix();
             Cd.translate(width*7, height*4, -1000);
 
@@ -77,15 +78,14 @@ public class CalvinsVisual extends Visual {
             Cd.rotateY(secRotY);
             Cd.rotateZ(mainRotZ);
             
-            secRotY += Cd.getAmplitude() * 0.04f;
+            // moon movement
+            secRotY += Cd.getAmplitude() * 0.24f;
 
             Cd.translate(width*7 - (Cd.getAmplitude() * 900f), 1 , -400);
             Cd.rotateY(secRotY*10);
             Cd.sphere(90);
             Cd.popMatrix(); 
-
-            System.out.println(getAmplitude());
-        }
+    
     }
 
     public void drawRing(float centerX, float centerY, float centerZ, float radius, int numPoints, float amplifier)
