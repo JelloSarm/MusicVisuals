@@ -20,7 +20,7 @@ public class JellosVisual extends Visual{
         int w = js.width;
         int h = js.height;
 
-        movement -= 0.01f;
+        movement -= 0.2f;
 
         rows = (int) (200 + h / scale);
         cols = (int) (w / scale);
@@ -39,7 +39,6 @@ public class JellosVisual extends Visual{
             yoff += 0.2f;
         }
 
-
         js.background(0);
         js.stroke(255);
         js.noFill();
@@ -53,12 +52,12 @@ public class JellosVisual extends Visual{
             js.beginShape(TRIANGLE_STRIP);
             for(int x = 0; x < cols; x++)
             {
-                if(x == 0)
+                if(x < 5)
                 {
                     js.vertex((x+1) * 20, (y) * 20, land[x][y] + random(80, 150));
                     js.vertex((x + 1) * 20, (y+1) * 20, land[x][y+1] + random(80, 150));
                 }
-                else if(x == cols - 1)
+                else if(x > cols - 5)
                 {
                     js.vertex((x+1) * 20, (y) * 20, land[x][y] + random(80, 150));
                     js.vertex((x + 1) * 20, (y+1) * 20, land[x][y+1] + random(80, 150));
