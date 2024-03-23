@@ -3,6 +3,7 @@ package example;
 
 import C22319896.CalvinsVisual;
 import C22531133.JellosVisual;
+import C22516126.JasonsVisual;
 import ie.tudublin.*;
 
 public class MyVisual extends Visual {
@@ -10,6 +11,7 @@ public class MyVisual extends Visual {
     AudioBandsVisual abv;
     CalvinsVisual Calvin;
     JellosVisual Jello;
+    JasonsVisual Jason;
     int frame = 1;
     
 
@@ -36,6 +38,7 @@ public class MyVisual extends Visual {
         abv = new AudioBandsVisual(this);
         Calvin = new CalvinsVisual(this);
         Jello = new JellosVisual(this);
+        Jason = new JasonsVisual(this);
         
     }
 
@@ -57,6 +60,12 @@ public class MyVisual extends Visual {
         }
         if (key == '4') {
             frame = 4;
+        }
+        if (key == '5') {
+            frame = 5;
+        }
+        if (key == '6') {
+            frame = 6;
         }
 
     }
@@ -90,6 +99,14 @@ public class MyVisual extends Visual {
         else if(frame == 4)
         {
             Jello.draw();
+        }
+        else if (frame == 5)
+        {
+            //franz
+        }
+        else if (frame == 6)
+        {
+            Jason.render();
         }
     }
 }
