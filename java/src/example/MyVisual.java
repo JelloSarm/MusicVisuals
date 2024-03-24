@@ -127,8 +127,13 @@ public class MyVisual extends Visual {
         if (key == 'e' || key == 'E') { // E
             keyEpressed = false;
         }
-        if (key == 'r' || key == 'R') { // R: RESET MATRIX (restarts current scene)
-            resetMatrix();
+        if (key == 'r' || key == 'R') { // R: RESET (restarts all scenes)
+            Calvin = null;
+            Jello = null;
+            Jason = null;
+            Calvin = new CalvinsVisual(this);
+            Jello = new JellosVisual(this);
+            Jason = new JasonsVisual(this);
         }
     }
 
@@ -165,7 +170,7 @@ public class MyVisual extends Visual {
         {
             abv.render();   
         }
-        else if(frame == 3)
+        else if(frame == 3 )
         {
             Calvin.render(keyWpressed,keyApressed,keySpressed,keyDpressed,keyQpressed,keyEpressed);
         }
