@@ -6,7 +6,8 @@ import example.MyVisual;
 public class JasonsVisual extends Visual {
 
     MyVisual jg;
-    int moon = 1;
+    float moonsize = 300;
+    float reversecount = 0;
 
     //variable to ensure scaling through different screen sizes
     public JasonsVisual(MyVisual jg)
@@ -34,7 +35,8 @@ public class JasonsVisual extends Visual {
         String timer = String.format("%.2f", countdown / 1000);
 
         //planet
-        jg.stroke(150, 255, 100);
+        jg.stroke(150, 255, 255);
+        //jg.fill(150, 255, 100);
         jg.noFill();
         jg.pushMatrix();
         jg.translate(-jg.height, (jg.height /2), -jg.width);
@@ -43,19 +45,21 @@ public class JasonsVisual extends Visual {
         //jg.rotateY(millis() / (float)(4000));
         jg.rotateX(millis() / (float)(80000));
 
-        jg.sphere(2000);
+        jg.sphere(jg.width);
         jg.popMatrix();
 
         //planet bounce
         for(int i = 0; i < jg.getAudioBuffer().size(); i++) 
         {
             jg.noFill();
-            float hue = map(i, 0, jg.getAudioBuffer().size(), 0, 256);
+
+            //looping colours
+            int hue = 150 + (i%105);
             jg.stroke(hue, 255, 255);
             
             jg.pushMatrix();
             jg.translate(-jg.height, (jg.height /2), -jg.width);
-            jg.circle(0, 0, (jg.getAudioBuffer().get(i) * multiplier) + 4010);
+            jg.circle(0, 0, (jg.getAudioBuffer().get(i) * multiplier) + (jg.width * 2));
             jg.popMatrix();
 
         }
@@ -76,13 +80,17 @@ public class JasonsVisual extends Visual {
             jg.rotateY(millis() / (float)(4000));
             jg.rotateX(millis() / (float)(80000));
 
-            jg.sphere(300);
+            jg.sphere(jg.width * (float)0.13);
             jg.popMatrix();
+
+            reversecount = millis() + 3000;
         }
 
         //after moon detonates
-        if (countdown < 1 && moon == 1)
+        if (countdown < 1 && moonsize > 0)
         {
+            float unscaledMoonsize = reversecount - millis();
+            moonsize = unscaledMoonsize / 10;
             jg.fill(0, 0, 255);
             jg.text("Moon Detonation Immenent\n0.00", jg.width / 2, jg.height * (float)0.2);
 
@@ -96,8 +104,10 @@ public class JasonsVisual extends Visual {
             jg.rotateY(millis() / (float)(4000));
             jg.rotateX(millis() / (float)(80000));
 
-            jg.sphere(300);
+            jg.sphere(moonsize);
             jg.popMatrix();
+                
+            
         }
     }
 
