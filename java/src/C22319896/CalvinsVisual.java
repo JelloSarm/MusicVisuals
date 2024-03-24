@@ -34,6 +34,14 @@ public class CalvinsVisual extends Visual {
         Cd.lights();
         Cd.colorMode(PApplet.HSB);
 
+        // -- camera -- 
+        // All objects center around the point 0,0,0
+        Cd.camera(0.0f, 0.0f, 1600.0f, // Camera position
+        0.0f, 0.0f, 0.0f,             // Look-at position
+        0.0f, 1.0f, 0.0f);            // Up direction
+
+        Cd.printCamera();
+
         // -- background --
         float[] bands = Cd.getSmoothedBands();
         for(int i = 0 ; i < bands.length ; i ++)
@@ -42,24 +50,24 @@ public class CalvinsVisual extends Visual {
 
             Cd.stroke(180, 255,((i * (255 / bands.length) ) /2 ) );
             Cd.pushMatrix();
-            Cd.translate(width*7, height*4, -1000);
+            Cd.translate(0, 0, 0);
             Cd.rotateY(rotateBG += 0.00002f*i);
             Cd.noFill();
             Cd.sphere(1650 + Cd.getAmplitude()*h*3);
             Cd.popMatrix();
         }
 
-        Cd.fill(255);
-        Cd.pushMatrix();
-        Cd.translate(mouseX*10, mouseY*100, -1000);
-        Cd.box(300+500*mouseX);
-        Cd.popMatrix();
+        //Cd.fill(255);
+        //Cd.pushMatrix();
+        //Cd.translate(mouseX*10, mouseY*100, -1000);
+        //Cd.box(300+500*mouseX);
+        //Cd.popMatrix();
 
         // -- planet -- 
         Cd.stroke(255);
         Cd.fill(0);
         Cd.pushMatrix();
-        Cd.translate(width*7, height*4, -1000);
+        Cd.translate(0, 0, 0);
 
         //planet orientation
         Cd.rotateX(mainRotX);
@@ -78,7 +86,7 @@ public class CalvinsVisual extends Visual {
         Cd.pushMatrix();
         Cd.strokeWeight(2);
     
-        drawRing(width*7, height*4,-1000,700,Cd.getAudioBuffer().size(),300);
+        drawRing(0, 0, 0,700,Cd.getAudioBuffer().size(),300);
 
         Cd.popMatrix();
 
@@ -87,7 +95,7 @@ public class CalvinsVisual extends Visual {
         Cd.stroke(180, 255, 255);
         Cd.strokeWeight(1);
         Cd.pushMatrix();
-        Cd.translate(width*7, height*4, -1000);
+        Cd.translate(0, 0, 0);
 
         // moon rotation
         Cd.rotateX(mainRotX);
@@ -97,7 +105,7 @@ public class CalvinsVisual extends Visual {
         // moon movement
         secRotY += Cd.getAmplitude() * 0.24f;
 
-        Cd.translate(width*7 - (1.43f * 900f), 1 , -400);
+        Cd.translate(0 , 0 , 700f);
         Cd.rotateY(secRotY*10);
         Cd.sphere(90);
         Cd.popMatrix();
@@ -130,5 +138,5 @@ public class CalvinsVisual extends Visual {
 
             angle += angleIncrement;
         }
-    }  
+    }
 }
