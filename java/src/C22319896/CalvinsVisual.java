@@ -18,25 +18,29 @@ public class CalvinsVisual extends Visual {
     // camera XYZ
     float cameraX = 0;
     float cameraY = 0;
-    float cameraZ = 1600;
+    float cameraZ = 2000;
     double cameraRadius = Math.sqrt(cameraX * cameraX + cameraY * cameraY + cameraZ * cameraZ);
-    float rollLR = 0.1f;
-    float rollUD = 0.1f;
+
+    int yUpDirection = 1;
+    // rollLR/UD works with radians
+    float rollLR = (float) Math.toRadians(90);
+    float rollUD = (float) Math.toRadians(90);
 
     float rotateBG = 0;
 
-    //converts degrees to radians, first number is degrees
+    //converts degrees to radians
     //main planet
-    float mainRotX = -40 * PI / 180;
-    float mainRotY = 0 * PI / 180;
-    float mainRotZ = -15 * PI / 180;
+    float mainRotX = (float) Math.toRadians(-40);
+    float mainRotY = (float) Math.toRadians(0);
+    float mainRotZ = (float) Math.toRadians(-15);
 
     //secondary (moon)
-    float secRotX = 40 * PI / 180;
-    float secRotY = 0 * PI / 180;
-    float secRotZ = 15 * PI / 180;
+    float secRotX = (float) Math.toRadians(40);
+    float secRotY = (float) Math.toRadians(0);
+    float secRotZ = (float) Math.toRadians(15);
 
-    public void render(boolean keyWpressed, boolean keyApressed, boolean keySpressed, boolean keyDpressed, boolean keyQpressed, boolean keyEpressed)
+    public void render( boolean keyQpressed, boolean keyWpressed, boolean keyEpressed, 
+                        boolean keyApressed, boolean keySpressed, boolean keyDpressed)
     { 
         Cd.background(0);
         Cd.lights();
@@ -50,8 +54,9 @@ public class CalvinsVisual extends Visual {
         // -------------------------------------------------------------------------
         Cd.camera(cameraX, cameraY, cameraZ,    // camera position
         0.0f, 0.0f, 0.0f,                       // look at position
-        0.0f, 1.0f, 0.0f);                      // up direction
+        0.0f, yUpDirection, 0.0f);              // up direction
 
+        // checks keyboard input
         if (keyApressed || keyDpressed || keyWpressed || keySpressed || keyQpressed || keyEpressed) {
         
             if (keyApressed) {
@@ -88,7 +93,7 @@ public class CalvinsVisual extends Visual {
             Cd.translate(0, 0, 0);
             Cd.rotateY(rotateBG += 0.00002f*i);
             Cd.noFill();
-            Cd.sphere(1650 + Cd.getAmplitude()*h*3);
+            Cd.sphere(3000 + Cd.getAmplitude()*h*6);
             Cd.popMatrix();
         }
 
@@ -113,9 +118,10 @@ public class CalvinsVisual extends Visual {
         
         // -- ring --
         Cd.pushMatrix();
-        Cd.strokeWeight(2);
+        Cd.strokeWeight(3);
     
-        drawRing(0, 0, 0,700,Cd.getAudioBuffer().size(),300);
+        drawRing(0, 0, 0,700,Cd.getAudioBuffer().size(),500);
+        drawRing(0, 0, 0,1400,Cd.getAudioBuffer().size(),1000);
 
         Cd.popMatrix();
 
@@ -134,7 +140,7 @@ public class CalvinsVisual extends Visual {
         // moon movement
         secRotY += Cd.getAmplitude() * 0.24f;
 
-        Cd.translate(0 , 0 , 700f);
+        Cd.translate(0 , 0 , 1000f);
         Cd.rotateY(secRotY*10);
         Cd.sphere(90);
         Cd.popMatrix();
@@ -173,9 +179,12 @@ public class CalvinsVisual extends Visual {
         //spinning in 3d is hard
         //seems like the Z and Y axis have switched places somehow but it works now
         //probably to do with the camera being pushed into the Z axis
-        // also it just goes poof when u just press left or right
+        // also it just goes poof initially when camera is changed
         cameraX = (float) (cameraRadius * cos(rollLR) * sin(rollUD));
         cameraZ = (float) (cameraRadius * sin(rollLR) * sin(rollUD));
         cameraY = (float) (cameraRadius * cos(rollUD));
+
+        // camera up direction flips to give the illusion of rotation after 180 degrees
+        yUpDirection = (sin(rollUD) >= 0) ? 1 : -1;
     }
 }
