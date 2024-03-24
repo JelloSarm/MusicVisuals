@@ -19,6 +19,9 @@ public class CalvinsVisual extends Visual {
     float cameraX = 0;
     float cameraY = 0;
     float cameraZ = 1600;
+    double cameraRadius = Math.sqrt(cameraX * cameraX + cameraY * cameraY + cameraZ * cameraZ);
+    float rollLR = 0.1f;
+    float rollUD = 0.1f;
 
     float rotateBG = 0;
 
@@ -33,24 +36,46 @@ public class CalvinsVisual extends Visual {
     float secRotY = 0 * PI / 180;
     float secRotZ = 15 * PI / 180;
 
-    public void render(boolean keyWpressed,boolean keyApressed, boolean keySpressed, boolean keyDpressed) 
+    public void render(boolean keyWpressed, boolean keyApressed, boolean keySpressed, boolean keyDpressed, boolean keyQpressed, boolean keyEpressed)
     { 
         Cd.background(0);
         Cd.lights();
         Cd.colorMode(PApplet.HSB);
+        Cd.smooth();
 
         // -- camera -- 
         // All objects center around the point 0,0,0
         // -------------------------------------------------------------------------
         // !! CAMERA AFFECTS OTHER SCENES, COMMENT OUT THIS PORTION AND FIX LATER !!
         // -------------------------------------------------------------------------
-        Cd.camera(cameraX, cameraY, cameraZ, // Camera position
-        0.0f, 0.0f, 0.0f,             // Look-at position
-        0.0f, 1.0f, 0.0f);            // Up direction
+        Cd.camera(cameraX, cameraY, cameraZ,    // camera position
+        0.0f, 0.0f, 0.0f,                       // look at position
+        0.0f, 1.0f, 0.0f);                      // up direction
 
-        if (keyDpressed) {
-            System.out.println("wahoo");
+        if (keyApressed || keyDpressed || keyWpressed || keySpressed || keyQpressed || keyEpressed) {
+        
+            if (keyApressed) {
+                rollLR += 0.01f;
+            }
+            if (keyDpressed) {
+                rollLR -= 0.01f;
+            }
+            if (keyWpressed) {
+                rollUD += 0.01f;
+            }
+            if (keySpressed) {
+                rollUD -= 0.01f;
+            }
+            if (keyQpressed) {
+                cameraRadius -= 10;
+            }
+            if (keyEpressed) {
+                cameraRadius += 10;
+            }
+
+            roll(rollLR, rollUD); // apply rolling movement
         }
+        
 
         // -- background --
         float[] bands = Cd.getSmoothedBands();
@@ -66,12 +91,6 @@ public class CalvinsVisual extends Visual {
             Cd.sphere(1650 + Cd.getAmplitude()*h*3);
             Cd.popMatrix();
         }
-
-        //Cd.fill(255);
-        //Cd.pushMatrix();
-        //Cd.translate(mouseX*10, mouseY*100, -1000);
-        //Cd.box(300+500*mouseX);
-        //Cd.popMatrix();
 
         // -- planet -- 
         Cd.stroke(255);
@@ -148,5 +167,15 @@ public class CalvinsVisual extends Visual {
 
             angle += angleIncrement;
         }
+    }
+    
+    public void roll(float rollLR, float rollUD) {
+        //spinning in 3d is hard
+        //seems like the Z and Y axis have switched places somehow but it works now
+        //probably to do with the camera being pushed into the Z axis
+        // also it just goes poof when u just press left or right
+        cameraX = (float) (cameraRadius * cos(rollLR) * sin(rollUD));
+        cameraZ = (float) (cameraRadius * sin(rollLR) * sin(rollUD));
+        cameraY = (float) (cameraRadius * cos(rollUD));
     }
 }

@@ -54,6 +54,8 @@ public class MyVisual extends Visual {
     boolean keyApressed = false;
     boolean keySpressed = false;
     boolean keyDpressed = false;
+    boolean keyQpressed = false;
+    boolean keyEpressed = false;
 
     int milliseconds = 0;
     int seconds = 0;
@@ -97,6 +99,12 @@ public class MyVisual extends Visual {
         if (key == 'd' || key == 'D') { // D
             keyDpressed = true;
         }
+        if (key == 'q' || key == 'Q') { // Q
+            keyQpressed = true;
+        }
+        if (key == 'e' || key == 'E') { // E
+            keyEpressed = true;
+        }
     }
 
     // WASD handles key releases
@@ -112,6 +120,20 @@ public class MyVisual extends Visual {
         }
         if (key == 'd' || key == 'D') { // D
             keyDpressed = false;
+        }
+        if (key == 'q' || key == 'Q') { // Q
+            keyQpressed = false;
+        }
+        if (key == 'e' || key == 'E') { // E
+            keyEpressed = false;
+        }
+        if (key == 'r' || key == 'R') { // R: RESET (restarts all scenes)
+            Calvin = null;
+            Jello = null;
+            Jason = null;
+            Calvin = new CalvinsVisual(this);
+            Jello = new JellosVisual(this);
+            Jason = new JasonsVisual(this);
         }
     }
 
@@ -132,10 +154,10 @@ public class MyVisual extends Visual {
         // prints status of keyboard inputs every second
         if (millis() > milliseconds) {
             System.out.println("Keyboard input- (every second) - second: " + seconds +
-                                "\nW:" + keyWpressed + 
-                                "\nA:" + keyApressed + 
-                                "\nS:" + keySpressed + 
-                                "\nD:" + keyDpressed);
+                                "\nW:" + keyWpressed + "| Q:" + keyQpressed +
+                                "\nA:" + keyApressed + "| E:" + keyEpressed +
+                                "\nS:" + keySpressed + "|" +
+                                "\nD:" + keyDpressed + "|" );
             milliseconds += 1000;
             seconds += 1;
         }
@@ -148,9 +170,9 @@ public class MyVisual extends Visual {
         {
             abv.render();   
         }
-        else if(frame == 3)
+        else if(frame == 3 )
         {
-            Calvin.render(keyWpressed,keyApressed,keySpressed,keyDpressed);
+            Calvin.render(keyWpressed,keyApressed,keySpressed,keyDpressed,keyQpressed,keyEpressed);
         }
         else if(frame == 4)
         {
