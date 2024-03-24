@@ -20,21 +20,22 @@ public class CalvinsVisual extends Visual {
     float cameraY = 0;
     float cameraZ = 1600;
     double cameraRadius = Math.sqrt(cameraX * cameraX + cameraY * cameraY + cameraZ * cameraZ);
-    float rollLR = 0.1f;
-    float rollUD = 0.1f;
+    // rollLR/UD works with radians
+    float rollLR = (float) Math.toRadians(90);
+    float rollUD = (float) Math.toRadians(90);
 
     float rotateBG = 0;
 
-    //converts degrees to radians, first number is degrees
+    //converts degrees to radians
     //main planet
-    float mainRotX = -40 * PI / 180;
-    float mainRotY = 0 * PI / 180;
-    float mainRotZ = -15 * PI / 180;
+    float mainRotX = (float) Math.toRadians(-40);
+    float mainRotY = (float) Math.toRadians(0);
+    float mainRotZ = (float) Math.toRadians(-15);
 
     //secondary (moon)
-    float secRotX = 40 * PI / 180;
-    float secRotY = 0 * PI / 180;
-    float secRotZ = 15 * PI / 180;
+    float secRotX = (float) Math.toRadians(40);
+    float secRotY = (float) Math.toRadians(0);
+    float secRotZ = (float) Math.toRadians(15);
 
     public void render(boolean keyWpressed, boolean keyApressed, boolean keySpressed, boolean keyDpressed, boolean keyQpressed, boolean keyEpressed)
     { 
@@ -173,7 +174,7 @@ public class CalvinsVisual extends Visual {
         //spinning in 3d is hard
         //seems like the Z and Y axis have switched places somehow but it works now
         //probably to do with the camera being pushed into the Z axis
-        // also it just goes poof when u just press left or right
+        // also it just goes poof initially when camera is changed
         cameraX = (float) (cameraRadius * cos(rollLR) * sin(rollUD));
         cameraZ = (float) (cameraRadius * sin(rollLR) * sin(rollUD));
         cameraY = (float) (cameraRadius * cos(rollUD));
