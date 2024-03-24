@@ -62,13 +62,13 @@ public class JellosVisual extends Visual{
 
         js.background(0);
         js.stroke(0);
-        js.fill(169);
+        js.fill(198,255,255);
 
         // Rotate the object so that it is at an angle
         
         js.translate(w / 2 , h / 4);
         js.rotateX(PI/3);
-        js.translate(-w / 2, -h);
+        js.translate(-w / 2, -h * 1.14f);
         
         // For loop for creating the terrain
 
@@ -106,12 +106,24 @@ public class JellosVisual extends Visual{
         // Audio wave 
         for( int i = 0 ; i < js.getAudioBuffer().size(); i++)
         {
+            // Mapping for the audio buffer to go with the width of the screen
             float mapx = PApplet.map(i, 0, js.getAudioBuffer().size(), 0, w);
-            float mapy = PApplet.map(i, 0, js.getAudioBuffer().size(), 0, h);
+            float mapy = PApplet.map(i, 0, js.getAudioBuffer().size(), 0, h*2);
             js.stroke(255);
             js.noFill();
+            
+            // Back row WaveForm
+
             js.line(mapx, 0, 0, 
-                    mapx, 0, (450 * js.getAudioBuffer().get(i)));
+                    mapx, 0, (500 * js.getAudioBuffer().get(i)));
+
+            // Left side Waveform
+            js.line(0, mapy, 0, 
+                    0, mapy, (500 * js.getAudioBuffer().get(i)));
+
+            // Right side Waveform
+            js.line(w, mapy, 0, 
+                    w, mapy, (500 * js.getAudioBuffer().get(i)));
         }
         
     }
