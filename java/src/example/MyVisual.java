@@ -47,6 +47,9 @@ public class MyVisual extends Visual {
     }
 
     // key inputs
+    // to implement keyboard input into your scene you must
+    // add them as paramenters into your render()
+
     boolean keyWpressed = false;
     boolean keyApressed = false;
     boolean keySpressed = false;
@@ -81,40 +84,31 @@ public class MyVisual extends Visual {
         }
 
         // WASD key inputs
-        if (key == 'w' || key == 'W') // W
-        {
+        if (key == 'w' || key == 'W') { // W
             keyWpressed = true;
         }
-
-        if (key == 'a' || key == 'A') // A
-        {
+        if (key == 'a' || key == 'A') { // A
             keyApressed = true;
         }
-
-        if (key == 's' || key == 'S') // S
-        {
+        if (key == 's' || key == 'S') { // S
             keySpressed = true;
         }
-
-        if (key == 'd' || key == 'D') // D
-        {
+        if (key == 'd' || key == 'D') { // D
             keyDpressed = true;
         }
     }
 
+    // WASD handles key releases
     public void keyReleased() {
         if (key == 'w' || key == 'W') { // W
             keyWpressed = false;
         }
-    
-        if (key == 'a' || key == 'A')  { // A
+        if (key == 'a' || key == 'A') { // A
             keyApressed = false;
         }
-    
         if (key == 's' || key == 'S') { // S
             keySpressed = false;
         }
-    
         if (key == 'd' || key == 'D') { // D
             keyDpressed = false;
         }
