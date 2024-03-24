@@ -106,10 +106,12 @@ public class JellosVisual extends Visual{
         // Audio wave 
         for( int i = 0 ; i < js.getAudioBuffer().size(); i++)
         {
+            float mapx = PApplet.map(i, 0, js.getAudioBuffer().size(), 0, w);
+            float mapy = PApplet.map(i, 0, js.getAudioBuffer().size(), 0, h);
             js.stroke(255);
             js.noFill();
-            js.line(i, 0, 0, 
-                    i, 0, (450 * js.getAudioBuffer().get(i)));
+            js.line(mapx, 0, 0, 
+                    mapx, 0, (450 * js.getAudioBuffer().get(i)));
         }
         
     }
