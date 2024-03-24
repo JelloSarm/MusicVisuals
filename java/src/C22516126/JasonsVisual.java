@@ -13,6 +13,7 @@ public class JasonsVisual extends Visual {
         this.jg = jg;
     }
 
+
     public void render()
     {
 
@@ -27,7 +28,7 @@ public class JasonsVisual extends Visual {
         jg.stroke(150, 255, 100);
         jg.noFill();
         jg.pushMatrix();
-        jg.translate(-1000, (jg.height /2) + 200, -2000);
+        jg.translate(-1000, (1080 /2) + 200, -2000);
 
         //rotate the planet slowly
         //jg.rotateY(millis() / (float)(4000));
@@ -43,20 +44,20 @@ public class JasonsVisual extends Visual {
             float hue = map(i, 0, jg.getAudioBuffer().size(), 0, 256);
             jg.stroke(hue, 255, 255);
 
-            jg.circle(260, jg.height / 2 + 70, (jg.getAudioBuffer().get(i) * 100) + 1450);
+            jg.circle(260, 1080 / 2 + 70, (jg.getAudioBuffer().get(i) * 100) + 1450);
         }
         
         //before moon detonates
         if (countdown > 0)
         {
             jg.fill(0, 0, 255);
-            jg.text("Moon Detonation Immenent\n"+timer, jg.width / 2, jg.height - 2000 / 2);
+            jg.text("Moon Detonation Immenent\n"+timer, 1920 / 2, 1080 - 2000 / 2);
 
             //moon
             jg.stroke(200, 0, 255);
             jg.fill(200, 255, 255);
             jg.pushMatrix();
-            jg.translate(jg.width / 2, (jg.height /2) + 170, 0);
+            jg.translate(1920 / 2, (1080 /2) + 170, 0);
 
             //rotate the moon
             jg.rotateY(millis() / (float)(4000));
@@ -70,13 +71,13 @@ public class JasonsVisual extends Visual {
         if (countdown < 1 && moon == 1)
         {
             jg.fill(0, 0, 255);
-            jg.text("Moon Detonation Immenent\n"+"0.00", jg.width / 2, jg.height - 2000 / 2);
+            jg.text("Moon Detonation Immenent\n"+"0.00", 1920 / 2, 1080 - 2000 / 2);
 
             //moon
             jg.stroke(0, 255, 0);
             jg.fill(0, 255, 255);
             jg.pushMatrix();
-            jg.translate(jg.width / 2, (jg.height /2) + 170, 0);
+            jg.translate(1920 / 2, (1080 /2) + 170, 0);
 
             //rotate the moon
             jg.rotateY(millis() / (float)(4000));
@@ -84,6 +85,7 @@ public class JasonsVisual extends Visual {
 
             jg.sphere(300);
             jg.popMatrix();
+
         }
         
 
