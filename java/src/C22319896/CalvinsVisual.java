@@ -20,8 +20,8 @@ public class CalvinsVisual extends Visual {
     float cameraY = 0;
     float cameraZ = 1600;
     double cameraRadius = Math.sqrt(cameraX * cameraX + cameraY * cameraY + cameraZ * cameraZ);
-    float rollLR = 0;
-    float rollUD = 0;
+    float rollLR = 0.1f;
+    float rollUD = 0.1f;
 
     float rotateBG = 0;
 
@@ -36,11 +36,12 @@ public class CalvinsVisual extends Visual {
     float secRotY = 0 * PI / 180;
     float secRotZ = 15 * PI / 180;
 
-    public void render(boolean keyWpressed,boolean keyApressed, boolean keySpressed, boolean keyDpressed) 
+    public void render(boolean keyWpressed, boolean keyApressed, boolean keySpressed, boolean keyDpressed, boolean keyQpressed, boolean keyEpressed)
     { 
         Cd.background(0);
         Cd.lights();
         Cd.colorMode(PApplet.HSB);
+        Cd.smooth();
 
         // -- camera -- 
         // All objects center around the point 0,0,0
@@ -51,7 +52,7 @@ public class CalvinsVisual extends Visual {
         0.0f, 0.0f, 0.0f,                       // look at position
         0.0f, 1.0f, 0.0f);                      // up direction
 
-        if (keyApressed || keyDpressed || keyWpressed || keySpressed) {
+        if (keyApressed || keyDpressed || keyWpressed || keySpressed || keyQpressed || keyEpressed) {
         
             if (keyApressed) {
                 rollLR += 0.01f;
@@ -64,8 +65,14 @@ public class CalvinsVisual extends Visual {
             }
             if (keySpressed) {
                 rollUD -= 0.01f;
-            }//byea
-        
+            }
+            if (keyQpressed) {
+                cameraRadius -= 10;
+            }
+            if (keyEpressed) {
+                cameraRadius += 10;
+            }
+
             roll(rollLR, rollUD); // apply rolling movement
         }
         
@@ -166,8 +173,9 @@ public class CalvinsVisual extends Visual {
         //spinning in 3d is hard
         //seems like the Z and Y axis have switched places somehow but it works now
         //probably to do with the camera being pushed into the Z axis
+        // also it just goes poof when u just press left or right
         cameraX = (float) (cameraRadius * cos(rollLR) * sin(rollUD));
         cameraZ = (float) (cameraRadius * sin(rollLR) * sin(rollUD));
-        cameraY = (float) (cameraRadius * cos(rollUD)); //hol up
+        cameraY = (float) (cameraRadius * cos(rollUD));
     }
 }
