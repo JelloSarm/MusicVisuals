@@ -37,7 +37,8 @@ public class CalvinsVisual extends Visual {
     float secRotY = (float) Math.toRadians(0);
     float secRotZ = (float) Math.toRadians(15);
 
-    public void render(boolean keyWpressed, boolean keyApressed, boolean keySpressed, boolean keyDpressed, boolean keyQpressed, boolean keyEpressed)
+    public void render( boolean keyQpressed, boolean keyWpressed, boolean keyEpressed, 
+                        boolean keyApressed, boolean keySpressed, boolean keyDpressed)
     { 
         Cd.background(0);
         Cd.lights();
