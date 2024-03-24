@@ -56,6 +56,7 @@ public class MyVisual extends Visual {
     boolean keyDpressed = false;
 
     int milliseconds = 0;
+    int seconds = 0;
 
     public void keyPressed() {
         if(key == ' ')
@@ -130,12 +131,13 @@ public class MyVisual extends Visual {
 
         // prints status of keyboard inputs every second
         if (millis() > milliseconds) {
-            System.out.println("Keyboard input- (every second)" + 
+            System.out.println("Keyboard input- (every second) - second: " + seconds +
                                 "\nW:" + keyWpressed + 
                                 "\nA:" + keyApressed + 
                                 "\nS:" + keySpressed + 
                                 "\nD:" + keyDpressed);
             milliseconds += 1000;
+            seconds += 1;
         }
 
         if(frame == 1)
