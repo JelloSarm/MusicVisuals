@@ -1,6 +1,7 @@
 package C22531133;
 
 import ie.tudublin.*;
+import processing.core.PApplet;
 import example.MyVisual;
 
 public class JellosVisual extends Visual{
@@ -20,6 +21,8 @@ public class JellosVisual extends Visual{
     float movement = 0;
 
     public void draw() {
+        
+        
         // Width and height variables
         int w = js.width;
         int h = js.height;
@@ -61,19 +64,22 @@ public class JellosVisual extends Visual{
         js.stroke(0);
         js.fill(169);
 
-        // Rotate the object so that its angled to the camera
+        // Rotate the object so that it is at an angle
+        
         js.translate(w / 2 , h / 4);
         js.rotateX(PI/3);
         js.translate(-w / 2, -h);
         
         // For loop for creating the terrain
+
         for(int y = 0; y < rows-1;y++)
         {
             // Start the use of Triangle_Strip when using vertex's
             js.beginShape(TRIANGLE_STRIP);
             for(int x = 0; x < cols; x++)
             {
-                /* Walls idea
+                /* 
+                Walls idea
                 if(x < 5)
                 {
                     //js.vertex((x+1) * 20, (y) * 20, land[x][y] + 100);
@@ -96,6 +102,15 @@ public class JellosVisual extends Visual{
             // End of using Triangle_Strip
             js.endShape();
         }
+
+        // Audio wave 
+        for( int i = 0 ; i < js.getAudioBuffer().size(); i++)
+        {
+            js.stroke(255);
+            js.noFill();
+            js.line(i, 0, i, 0, 0, js.getAudioBuffer());
+        }
+
         
     }
 }
