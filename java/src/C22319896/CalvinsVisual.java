@@ -20,6 +20,8 @@ public class CalvinsVisual extends Visual {
     float cameraY = 0;
     float cameraZ = 1600;
     double cameraRadius = Math.sqrt(cameraX * cameraX + cameraY * cameraY + cameraZ * cameraZ);
+
+    int yUpDirection = 1;
     // rollLR/UD works with radians
     float rollLR = (float) Math.toRadians(90);
     float rollUD = (float) Math.toRadians(90);
@@ -52,7 +54,7 @@ public class CalvinsVisual extends Visual {
         // -------------------------------------------------------------------------
         Cd.camera(cameraX, cameraY, cameraZ,    // camera position
         0.0f, 0.0f, 0.0f,                       // look at position
-        0.0f, 1.0f, 0.0f);                      // up direction
+        0.0f, yUpDirection, 0.0f);                      // up direction
 
         if (keyApressed || keyDpressed || keyWpressed || keySpressed || keyQpressed || keyEpressed) {
         
@@ -179,5 +181,7 @@ public class CalvinsVisual extends Visual {
         cameraX = (float) (cameraRadius * cos(rollLR) * sin(rollUD));
         cameraZ = (float) (cameraRadius * sin(rollLR) * sin(rollUD));
         cameraY = (float) (cameraRadius * cos(rollUD));
+
+        yUpDirection = (sin(rollUD) >= 0) ? 1 : -1;
     }
 }
