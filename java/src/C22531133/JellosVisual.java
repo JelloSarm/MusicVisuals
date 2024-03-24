@@ -108,9 +108,8 @@ public class JellosVisual extends Visual{
         {
             js.stroke(255);
             js.noFill();
-            js.line(i, 0, i, 0, 0, js.getAudioBuffer());
+            js.line(0, 0, 0, i, 0, (300 * js.getAudioBuffer().get(i)));
         }
-
         
     }
 }
