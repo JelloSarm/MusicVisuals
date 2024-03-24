@@ -18,7 +18,7 @@ public class CalvinsVisual extends Visual {
     // camera XYZ
     float cameraX = 0;
     float cameraY = 0;
-    float cameraZ = 1600;
+    float cameraZ = 2000;
     double cameraRadius = Math.sqrt(cameraX * cameraX + cameraY * cameraY + cameraZ * cameraZ);
 
     int yUpDirection = 1;
@@ -54,8 +54,9 @@ public class CalvinsVisual extends Visual {
         // -------------------------------------------------------------------------
         Cd.camera(cameraX, cameraY, cameraZ,    // camera position
         0.0f, 0.0f, 0.0f,                       // look at position
-        0.0f, yUpDirection, 0.0f);                      // up direction
+        0.0f, yUpDirection, 0.0f);              // up direction
 
+        // checks keyboard input
         if (keyApressed || keyDpressed || keyWpressed || keySpressed || keyQpressed || keyEpressed) {
         
             if (keyApressed) {
@@ -92,7 +93,7 @@ public class CalvinsVisual extends Visual {
             Cd.translate(0, 0, 0);
             Cd.rotateY(rotateBG += 0.00002f*i);
             Cd.noFill();
-            Cd.sphere(1650 + Cd.getAmplitude()*h*3);
+            Cd.sphere(3000 + Cd.getAmplitude()*h*6);
             Cd.popMatrix();
         }
 
@@ -117,9 +118,10 @@ public class CalvinsVisual extends Visual {
         
         // -- ring --
         Cd.pushMatrix();
-        Cd.strokeWeight(2);
+        Cd.strokeWeight(3);
     
-        drawRing(0, 0, 0,700,Cd.getAudioBuffer().size(),300);
+        drawRing(0, 0, 0,700,Cd.getAudioBuffer().size(),500);
+        drawRing(0, 0, 0,1400,Cd.getAudioBuffer().size(),1000);
 
         Cd.popMatrix();
 
@@ -138,7 +140,7 @@ public class CalvinsVisual extends Visual {
         // moon movement
         secRotY += Cd.getAmplitude() * 0.24f;
 
-        Cd.translate(0 , 0 , 700f);
+        Cd.translate(0 , 0 , 1000f);
         Cd.rotateY(secRotY*10);
         Cd.sphere(90);
         Cd.popMatrix();
@@ -182,6 +184,7 @@ public class CalvinsVisual extends Visual {
         cameraZ = (float) (cameraRadius * sin(rollLR) * sin(rollUD));
         cameraY = (float) (cameraRadius * cos(rollUD));
 
+        // camera up direction flips to give the illusion of rotation after 180 degrees
         yUpDirection = (sin(rollUD) >= 0) ? 1 : -1;
     }
 }
