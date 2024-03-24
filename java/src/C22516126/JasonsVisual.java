@@ -16,7 +16,7 @@ public class JasonsVisual extends Visual {
 
     public void render()
     {
-
+        jg.resetMatrix();
 
         jg.textAlign(CENTER, CENTER);
         jg.textSize(48); 

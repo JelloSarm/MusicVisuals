@@ -1,6 +1,10 @@
 package example;
 
 
+import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardDownRightHandler;
+
+import com.jogamp.newt.event.KeyAdapter;
+
 import C22319896.CalvinsVisual;
 import C22531133.JellosVisual;
 import C22516126.JasonsVisual;
@@ -16,7 +20,7 @@ public class MyVisual extends Visual {
     
 
     public void settings() {
-        //size(1024, 500,P3D);
+        size(1024, 500,P3D);
 
         // Use this to make fullscreen
         //fullScreen();
@@ -41,6 +45,14 @@ public class MyVisual extends Visual {
         Jason = new JasonsVisual(this);
         
     }
+
+    // key inputs
+    boolean keyWpressed = false;
+    boolean keyApressed = false;
+    boolean keySpressed = false;
+    boolean keyDpressed = false;
+
+    int milliseconds = 0;
 
     public void keyPressed() {
         if(key == ' ')
@@ -68,6 +80,44 @@ public class MyVisual extends Visual {
             frame = 6;
         }
 
+        // WASD key inputs
+        if (key == 'w' || key == 'W') // W
+        {
+            keyWpressed = true;
+        }
+
+        if (key == 'a' || key == 'A') // A
+        {
+            keyApressed = true;
+        }
+
+        if (key == 's' || key == 'S') // S
+        {
+            keySpressed = true;
+        }
+
+        if (key == 'd' || key == 'D') // D
+        {
+            keyDpressed = true;
+        }
+    }
+
+    public void keyReleased() {
+        if (key == 'w' || key == 'W') { // W
+            keyWpressed = false;
+        }
+    
+        if (key == 'a' || key == 'A')  { // A
+            keyApressed = false;
+        }
+    
+        if (key == 's' || key == 'S') { // S
+            keySpressed = false;
+        }
+    
+        if (key == 'd' || key == 'D') { // D
+            keyDpressed = false;
+        }
     }
 
     public void draw() {
@@ -84,6 +134,16 @@ public class MyVisual extends Visual {
         // Call this is you want to get the average amplitude
         calculateAverageAmplitude();
 
+        // prints status of keyboard inputs every second
+        if (millis() > milliseconds) {
+            System.out.println("Keyboard input- (every second)" + 
+                                "\nW:" + keyWpressed + 
+                                "\nA:" + keyApressed + 
+                                "\nS:" + keySpressed + 
+                                "\nD:" + keyDpressed);
+            milliseconds += 1000;
+        }
+
         if(frame == 1)
         {
             wf.render();   
@@ -94,7 +154,7 @@ public class MyVisual extends Visual {
         }
         else if(frame == 3)
         {
-            Calvin.render();
+            Calvin.render(keyWpressed,keyApressed,keySpressed,keyDpressed);
         }
         else if(frame == 4)
         {

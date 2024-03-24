@@ -15,6 +15,11 @@ public class CalvinsVisual extends Visual {
         cy = this.Cd.height /2;
     }
 
+    // camera XYZ
+    float cameraX = 0;
+    float cameraY = 0;
+    float cameraZ = 1600;
+
     float rotateBG = 0;
 
     //converts degrees to radians, first number is degrees
@@ -28,7 +33,7 @@ public class CalvinsVisual extends Visual {
     float secRotY = 0 * PI / 180;
     float secRotZ = 15 * PI / 180;
 
-    public void render() 
+    public void render(boolean keyWpressed,boolean keyApressed, boolean keySpressed, boolean keyDpressed) 
     { 
         Cd.background(0);
         Cd.lights();
@@ -36,11 +41,16 @@ public class CalvinsVisual extends Visual {
 
         // -- camera -- 
         // All objects center around the point 0,0,0
-        Cd.camera(0.0f, 0.0f, 1600.0f, // Camera position
+        // -------------------------------------------------------------------------
+        // !! CAMERA AFFECTS OTHER SCENES, COMMENT OUT THIS PORTION AND FIX LATER !!
+        // -------------------------------------------------------------------------
+        Cd.camera(cameraX, cameraY, cameraZ, // Camera position
         0.0f, 0.0f, 0.0f,             // Look-at position
         0.0f, 1.0f, 0.0f);            // Up direction
 
-        Cd.printCamera();
+        if (keyDpressed) {
+            System.out.println("wahoo");
+        }
 
         // -- background --
         float[] bands = Cd.getSmoothedBands();
