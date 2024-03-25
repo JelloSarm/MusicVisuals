@@ -29,7 +29,7 @@ public class JellosVisual extends Visual{
 
         //Code used for the parameteres for the camera
         float fov = PI / (float)3.0;
-        float z = (h / 2.0f) / js.tan(fov / 2.0f);
+        float z = (h / 2.0f) / tan(fov / 2.0f);
         
         // Camera Function
         js.camera(w / 2.0f, h/ 2.0f, z,
