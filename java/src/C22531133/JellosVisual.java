@@ -109,7 +109,7 @@ public class JellosVisual extends Visual{
             // Mapping for the audio buffer to go with the width of the screen
             float mapx = PApplet.map(i, 0, js.getAudioBuffer().size(), 0, w);
             float mapy = PApplet.map(i, 0, js.getAudioBuffer().size(), 0, h*2);
-            js.stroke(255);
+            js.stroke(198,255,255);
             js.noFill();
             
             // Back row WaveForm
