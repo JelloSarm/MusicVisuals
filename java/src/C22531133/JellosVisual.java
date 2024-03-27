@@ -57,7 +57,7 @@ public class JellosVisual extends Visual{
                 int chance = (int) random(1, 50);
                 if(chance == 1)
                 {
-                    land[x][y] = map(noise(xoff, yoff),0 ,1 ,0, 60) + (js.getSmoothedAmplitude() * 30);
+                    land[x][y] = map(noise(xoff, yoff),0 ,1 ,0, 60) + (js.getSmoothedAmplitude() * 50);
                 }
                 else
                 {
