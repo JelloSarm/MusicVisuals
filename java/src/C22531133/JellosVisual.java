@@ -37,7 +37,7 @@ public class JellosVisual extends Visual{
         0, 0, 1, 0);
 
         // Deciding how fast the it should move
-        movement -= 0.01f;
+        movement -= 0.02f;
 
         // Adding more to row so it goes off screen
         rows = (int) (50 + h / scale);
@@ -54,7 +54,15 @@ public class JellosVisual extends Visual{
             float xoff = 0;
             for(int x = 0; x < cols; x++)
             {
-                land[x][y] = map(noise(xoff, yoff),0 ,1 ,0, 60);
+                int chance = (int) random(1, 50);
+                if(chance == 1)
+                {
+                    land[x][y] = map(noise(xoff, yoff),0 ,1 ,0, 60) + (js.getSmoothedAmplitude() * 30);
+                }
+                else
+                {
+                    land[x][y] = map(noise(xoff, yoff),0 ,1 ,0, 60);
+                }
                 xoff += 0.2f;
             }
             yoff += 0.2f;
