@@ -20,6 +20,7 @@ public class JellosVisual extends Visual{
     float[][] land;
     float movement = 0;
 
+
     public void draw() {
         
         
@@ -54,21 +55,20 @@ public class JellosVisual extends Visual{
             float xoff = 0;
             for(int x = 0; x < cols; x++)
             {
-                int chance = (int) random(1, 50);
-                if(chance == 1)
+                if(getSmoothedAmplitude() > 200)
                 {
-                    land[x][y] = map(noise(xoff, yoff),0 ,1 ,0, 60) + (js.getSmoothedAmplitude() * 50);
+                    land[x][y] = map(noise(xoff, yoff) + (js.getSmoothedAmplitude() * 2),0 ,1 ,0, 60); // (js.getSmoothedAmplitude() * 50)
                 }
                 else
                 {
-                    land[x][y] = map(noise(xoff, yoff),0 ,1 ,0, 60);
+                    land[x][y] = map(noise(xoff, yoff) - (js.getSmoothedAmplitude() * 2),0 ,1 ,0, 60);
                 }
                 xoff += 0.2f;
             }
             yoff += 0.2f;
         }
 
-        js.background(0);
+        js.background(140 , 240, 200);
         js.stroke(0);
         js.fill(198,255,255);
 
@@ -122,16 +122,16 @@ public class JellosVisual extends Visual{
             
             // Back row WaveForm
 
-            js.line(mapx, 0, 0, 
-                    mapx, 0, (500 * js.getAudioBuffer().get(i)));
+            js.line(mapx, 0, -50, 
+                    mapx, 0, (600 * js.getAudioBuffer().get(i)));
 
             // Left side Waveform
-            js.line(0, mapy, 0, 
-                    0, mapy, (500 * js.getAudioBuffer().get(i)));
+            js.line(0, mapy, -50, 
+                    0, mapy, (600 * js.getAudioBuffer().get(i)));
 
             // Right side Waveform
-            js.line(w, mapy, 0, 
-                    w, mapy, (500 * js.getAudioBuffer().get(i)));
+            js.line(w, mapy, -50, 
+                    w, mapy, (600 * js.getAudioBuffer().get(i)));
         }
         
     }
