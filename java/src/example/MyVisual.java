@@ -5,6 +5,7 @@ import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardDownRightHandler;
 
 import com.jogamp.newt.event.KeyAdapter;
 
+import C22522443.FranzsVisual;
 import C22319896.CalvinsVisual;
 import C22531133.JellosVisual;
 import C22516126.JasonsVisual;
@@ -13,6 +14,7 @@ import ie.tudublin.*;
 public class MyVisual extends Visual {
     WaveForm wf;
     AudioBandsVisual abv;
+    FranzsVisual Franz;
     CalvinsVisual Calvin;
     JellosVisual Jello;
     JasonsVisual Jason;
@@ -43,6 +45,7 @@ public class MyVisual extends Visual {
         Calvin = new CalvinsVisual(this);
         Jello = new JellosVisual(this);
         Jason = new JasonsVisual(this);
+        Franz = new FranzsVisual(this);
         
     }
 
@@ -181,7 +184,7 @@ public class MyVisual extends Visual {
         }
         else if (frame == 5)
         {
-            //franz
+            Franz.render();
         }
         else if (frame == 6)
         {
