@@ -22,7 +22,8 @@ public class MyVisual extends Visual {
     int frame = 1;
     PShape hand;
     PShape rocket;
-
+    PShape guy;
+    PShape star;
 
     public void settings() {
         size(1024, 500,P3D);
@@ -53,8 +54,32 @@ public class MyVisual extends Visual {
 
      //15963_Cyborg_Hand_v1
         hand = loadShape("LOD 2.obj");
+        guy = loadShape("3d-model.obj");
+
+
         // Rocket ship file
         rocket = loadShape("ship1.obj");
+        // First create the shape
+        star = createShape();
+        star.beginShape();
+        // You can set fill and stroke
+        star.fill(102);
+        star.stroke(255);
+        star.strokeWeight(2);
+        // Here, we are hardcoding a series of vertices
+        star.vertex(0, -50);
+        star.vertex(14, -20);
+        star.vertex(47, -15);
+        star.vertex(23, 7);
+        star.vertex(29, 40);
+        star.vertex(0, 25);
+        star.vertex(-29, 40);
+        star.vertex(-23, 7);
+        star.vertex(-47, -15);
+        star.vertex(-14, -20);
+        star.endShape(CLOSE);
+
+        
     }
 
     // key inputs
@@ -192,7 +217,7 @@ public class MyVisual extends Visual {
         }
         else if (frame == 5)
         {
-            Franz.render(hand);
+            Franz.render(hand,guy,star);
             
         }
         else if (frame == 6)
