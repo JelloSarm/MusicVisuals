@@ -1,3 +1,12 @@
+/*
+todo list
+-correct timer
+-ship flying away
+X make UI look drippy 
+-ship flying away scene?
+-stars in background?
+*/
+
 package C22516126;
 
 import ie.tudublin.*;
@@ -7,11 +16,10 @@ public class JasonsVisual extends Visual
 {
 
     MyVisual jg;
+
+    //global variables
     float reversecount = 0;
     float moonimplodesize = 300;
-    
-
-    //variable to ensure scaling through different screen sizes
     public JasonsVisual(MyVisual jg)
     {
         this.jg = jg;
@@ -39,18 +47,21 @@ public class JasonsVisual extends Visual
         float fov = PI / (float)3.0; // A field of view of 60 degrees
         float cameraZ = (jg.height / 2.0f) / tan(fov / 2.0f);
 
+
         //default camera position
         jg.camera(jg.width / 2.0f, jg.height / 2.0f, cameraZ,
-        jg.width / 2.0f, jg.height / 2.0f,
-        0, 0, 1, 0);
+                  jg.width / 2.0f, jg.height / 2.0f, 0,
+                  0, 1, 0);
 
+        //create UI
+        moonDetUI(multiplier);
         
         //text settings
-        //jg.textAlign(CENTER, CENTER);
-        jg.textSize(48); 
+        jg.textAlign(CENTER, CENTER);
+        jg.textSize(jg.height * (float)0.045 ); 
 
         //detonation timer
-        float countdown = (10000 - millis());
+        float countdown = (10000 - millis()); //CHANGE LATER
         String timer = String.format("%.2f", countdown / 1000);
 
         //planet
@@ -106,27 +117,28 @@ public class JasonsVisual extends Visual
 
 
 
-    
+    //FUNCTIONS
+
     //state of the moon before detonation
     void moon1(float moonX, float moonY, float moonsize, String timer) {
      
-            jg.fill(0, 0, 255);
-            jg.text("Moon Detonation Immenent\n"+"00:0"+timer, jg.width * (float) 0.05, jg.height * (float) 0.1);
+        jg.fill(0, 0, 255);
+        jg.text("Moon Detonation Immenent\n00:0"+timer, jg.width / 2, jg.height * (float) 0.07);
 
-            //moon
-            jg.stroke(200, 0, 255);
-            jg.fill(200, 255, 255);
-            jg.pushMatrix();
-            jg.translate(moonX, moonY, 0);
+        //moon
+        jg.stroke(200, 0, 255);
+        jg.fill(200, 255, 255);
+        jg.pushMatrix();
+        jg.translate(moonX, moonY, 0);
 
-            //rotate the moon
-            jg.rotateY(millis() / (float)(4000));
-            jg.rotateX(millis() / (float)(80000));
+        //rotate the moon
+        jg.rotateY(millis() / (float)(4000));
+        jg.rotateX(millis() / (float)(80000));
 
-            jg.sphere(moonsize);
-            jg.popMatrix();
+        jg.sphere(moonsize);
+        jg.popMatrix();
 
-            reversecount = millis() + 3000;
+        reversecount = millis() + 3000;
     }
 
     //state of the moon during detonation
@@ -134,8 +146,8 @@ public class JasonsVisual extends Visual
     {
         float unscaledMoonsize = reversecount - millis();
         moonimplodesize = unscaledMoonsize / 10;
-        jg.fill(0, 200, 255);
-        jg.text("Moon Detonation Immenent\n0.00", jg.width * (float) 0.05, jg.height * (float) 0.1);
+        jg.fill(0, 255, 255);
+        jg.text("Moon Detonation Immenent\n00:00.00", jg.width / 2, jg.height * (float) 0.07);
 
         //moon
         jg.stroke(0, 255, 0);
@@ -167,6 +179,9 @@ public class JasonsVisual extends Visual
 
     void moon3(float moonX, float moonY, float moonsize, String timer, float multiplier)
     {   
+        jg.fill(0, 255, 255);
+        jg.text("Moon Detonation Immenent\n00:00.00", jg.width / 2, jg.height * (float) 0.07);
+
         jg.fill(0, 0, 0);
         jg.circle(moonX, moonY, moonsize * 2);
         for(int i = 0; i < jg.getAudioBuffer().size(); i++) 
@@ -177,6 +192,29 @@ public class JasonsVisual extends Visual
             int hue = (i%105);
             jg.stroke(hue, 255, 255);
             jg.circle(moonX, moonY, (jg.getAudioBuffer().get(i) * multiplier) + (moonsize* 2));
+        }
+
+    }
+
+    void moonDetUI(float multiplier)
+    {
+        //UI
+        jg.stroke(255, 255, 255);
+        jg.strokeWeight(2);
+        jg.fill(150, 0, 20);
+        jg.quad(jg.width * (float)0.3, 0, jg.width * (float)0.35, jg.height * (float) 0.25, jg.width * (float)0.65, jg.height * (float) 0.25, jg.width * (float)0.7, 0);
+        jg.strokeWeight(1);
+
+        //waveform
+        float wfstart = jg.width * (float)0.4;
+        float wfend = jg.width * (float)0.6;
+
+        for(int i = 0 ; i < jg.getAudioBuffer().size() ; i ++)
+        {
+            float hue = map(i, 0, jg.getAudioBuffer().size() -1, 170, 250);
+            float wflength = map(i, 0, jg.getAudioBuffer().size() -1, wfstart, wfend);
+            jg.stroke(hue, 255, 255);
+            jg.line(wflength, jg.height * (float)0.2, wflength, (jg.height * (float)0.2) + (multiplier / 2) * jg.getAudioBuffer().get(i));
         }
 
     }
