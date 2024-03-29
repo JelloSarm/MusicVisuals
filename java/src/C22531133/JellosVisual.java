@@ -21,9 +21,10 @@ public class JellosVisual extends Visual{
     // Array to hold the z values for the terrain
     float[][] land;
     float movement = 0;
+    float offx = 0, offy = 0;
 
 
-    public void render(PShape rocket) {
+    public void render(PShape rocket, boolean keyLeftpressed, boolean keyRightpressed) {
         
         // Width and height variables
         int w = js.width;
@@ -135,16 +136,21 @@ public class JellosVisual extends Visual{
                     w, mapy, (600 * js.getAudioBuffer().get(i)));
         }
 
-        float shipx, shipy;
-
-        shipx = w/4;
-        shipy = h/1.07f;
         js.pushMatrix();
         
-        js.scale(2);
+        float shipx = w/4, shipy = h/1.07f;
+        
+        if(keyLeftpressed) {
+            offx -= 1f;
+        }
+        if(keyRightpressed) {
+            offx += 1f;
+        }
+
         rocket.resetMatrix();
         rocket.rotateX(radians(270));
-        rocket.translate(shipx, shipy,30);
+        rocket.translate(shipx + offx, shipy + offy, 30);
+        js.scale(2);
         js.shape(rocket);
         js.popMatrix();
     }
