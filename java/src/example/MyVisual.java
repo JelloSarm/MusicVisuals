@@ -21,6 +21,7 @@ public class MyVisual extends Visual {
     JasonsVisual Jason;
     int frame = 1;
     PShape hand;
+    PShape rocket;
 
 
     public void settings() {
@@ -52,6 +53,8 @@ public class MyVisual extends Visual {
 
      //15963_Cyborg_Hand_v1
         hand = loadShape("LOD 2.obj");
+        // Rocket ship file
+        rocket = loadShape("ship1.obj");
     }
 
     // key inputs
@@ -185,7 +188,7 @@ public class MyVisual extends Visual {
         }
         else if(frame == 4)
         {
-            Jello.draw();
+            Jello.render(rocket);
         }
         else if (frame == 5)
         {

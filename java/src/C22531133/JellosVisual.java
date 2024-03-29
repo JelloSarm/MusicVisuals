@@ -22,7 +22,7 @@ public class JellosVisual extends Visual{
     float movement = 0;
 
 
-    public void draw() {
+    public void render(PShape rocket) {
         
         // Width and height variables
         int w = js.width;
@@ -134,5 +134,15 @@ public class JellosVisual extends Visual{
                     w, mapy, (600 * js.getAudioBuffer().get(i)));
         }
         
+        js.translate(width/2, (height/2)+200,300);
+        
+        js.scale(10);
+        rocket.resetMatrix();
+        rocket.rotateY(90); 
+        js.pushMatrix();
+        js.translate(0, 0);
+         
+        js.shape(rocket,0,0);
+        js.popMatrix();
     }
 }
