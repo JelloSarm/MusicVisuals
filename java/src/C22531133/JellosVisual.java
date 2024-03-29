@@ -141,10 +141,17 @@ public class JellosVisual extends Visual{
         float shipx = w/4, shipy = h/1.07f;
         
         if(keyLeftpressed) {
-            offx -= 1f;
+            if(offx > -w/20)
+            {
+                offx -= 1f;
+            }
         }
         if(keyRightpressed) {
-            offx += 1f;
+            if(offx < w/20)
+            {
+                offx += 1f;
+            }
+            
         }
 
         rocket.resetMatrix();
