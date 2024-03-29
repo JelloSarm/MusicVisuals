@@ -138,7 +138,7 @@ public class JellosVisual extends Visual{
         float shipx, shipy;
 
         shipx = w/4;
-        shipy = h/1.1f;
+        shipy = h/1.07f;
         js.pushMatrix();
         
         js.scale(2);
