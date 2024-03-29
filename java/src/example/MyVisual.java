@@ -184,7 +184,8 @@ public class MyVisual extends Visual {
         else if(frame == 3 )
         {
             Calvin.render(  keyQpressed,keyWpressed,keyEpressed,
-                            keyApressed,keySpressed,keyDpressed);
+                            keyApressed,keySpressed,keyDpressed,
+                            rocket);
         }
         else if(frame == 4)
         {

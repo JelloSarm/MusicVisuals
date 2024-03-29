@@ -34,13 +34,17 @@ public class CalvinsVisual extends Visual {
     float mainRotY = (float) Math.toRadians(0);
     float mainRotZ = (float) Math.toRadians(-15);
 
-    //secondary (moon)
+    //secondary (moon/ship)
     float secRotX = (float) Math.toRadians(40);
     float secRotY = (float) Math.toRadians(0);
     float secRotZ = (float) Math.toRadians(15);
 
+    //offset for ship
+    float offset = 0f;
+
     public void render( boolean keyQpressed, boolean keyWpressed, boolean keyEpressed, 
-                        boolean keyApressed, boolean keySpressed, boolean keyDpressed)
+                        boolean keyApressed, boolean keySpressed, boolean keyDpressed,
+                        PShape rocket)
     { 
         Cd.background(0);
         Cd.lights();
@@ -88,7 +92,7 @@ public class CalvinsVisual extends Visual {
         {
             float h = bands[i];
 
-            Cd.stroke(180, 255,((i * (255 / bands.length) ) /2 ) );
+            Cd.stroke(180, 255,((i * (255 / bands.length) ) /2 ) ); // outlines dim
             Cd.pushMatrix();
             Cd.translate(0, 0, 0);
             Cd.rotateY(rotateBG += 0.00002f*i);
@@ -122,6 +126,24 @@ public class CalvinsVisual extends Visual {
     
         drawRing(0, 0, 0,700,Cd.getAudioBuffer().size(),500);
         drawRing(0, 0, 0,1400,Cd.getAudioBuffer().size(),1000);
+
+        Cd.popMatrix();
+
+        // -- ship --
+        Cd.pushMatrix();
+        rocket.resetMatrix();
+        Cd.translate(0, 0, 0);
+
+        offset += 0.01f;
+
+        Cd.rotateX(-mainRotX - offset);
+        Cd.rotateY(-secRotY);
+        Cd.rotateZ(mainRotZ + offset);
+
+        Cd.translate(0 , 0 , 400f);
+        Cd.rotateY( (float) Math.toRadians(90f) );
+
+        Cd.shape(rocket);
 
         Cd.popMatrix();
 
