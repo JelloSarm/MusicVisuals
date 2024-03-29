@@ -2,6 +2,7 @@ package C22531133;
 
 import ie.tudublin.*;
 import processing.core.PApplet;
+import processing.core.PShape;
 import example.MyVisual;
 
 public class JellosVisual extends Visual{
@@ -23,7 +24,6 @@ public class JellosVisual extends Visual{
 
     public void draw() {
         
-        
         // Width and height variables
         int w = js.width;
         int h = js.height;
@@ -38,7 +38,7 @@ public class JellosVisual extends Visual{
         0, 0, 1, 0);
 
         // Deciding how fast the it should move
-        movement -= 0.02f;
+        movement -= 0.02f + js.getSmoothedAmplitude()/2;
 
         // Adding more to row so it goes off screen
         rows = (int) (50 + h / scale);
