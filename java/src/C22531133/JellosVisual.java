@@ -4,6 +4,7 @@ import ie.tudublin.*;
 import processing.core.PApplet;
 import processing.core.PShape;
 import example.MyVisual;
+import java.lang.Math;
 
 public class JellosVisual extends Visual{
     MyVisual js;
@@ -76,7 +77,7 @@ public class JellosVisual extends Visual{
         
         js.translate(w / 2 , h / 4);
         js.rotateX(PI/3);
-        js.translate(-w / 2, -h * 1.14f);
+        js.translate(-w / 2, -h * 1.15f);
         
         // For loop for creating the terrain
 
@@ -133,16 +134,18 @@ public class JellosVisual extends Visual{
             js.line(w, mapy, -50, 
                     w, mapy, (600 * js.getAudioBuffer().get(i)));
         }
-        
-        js.translate(width/2, (height/2)+200,300);
-        
-        js.scale(10);
-        rocket.resetMatrix();
-        rocket.rotateY(90); 
+
+        float shipx, shipy;
+
+        shipx = w/4;
+        shipy = h/1.1f;
         js.pushMatrix();
-        js.translate(0, 0);
-         
-        js.shape(rocket,0,0);
+        
+        js.scale(2);
+        rocket.resetMatrix();
+        rocket.rotateX(radians(270));
+        rocket.translate(shipx, shipy,30);
+        js.shape(rocket);
         js.popMatrix();
     }
 }
