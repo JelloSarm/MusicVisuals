@@ -37,12 +37,32 @@ public class JasonsVisual extends Visual
         jg.scale(4);
         jg.shape(ship, 0, 0, 200, 200);
         jg.popMatrix();*/
-
+    
         //moon placement + size
         //jg.width / 2, (jg.height * (float)0.65)
         float moonX = jg.width*(float)0.4;
         float moonY = jg.height * (float)0.65;
         float moonsize = jg.width * (float)0.17;
+
+        //ship placement
+        //float shipX = moonX-moonsize * (float)1 + -50;
+        //float shipY = moonY;
+
+        float shipX = 0;
+        float shipY = 0;
+        shipY = moonY - moonsize*sin(45) - moonsize * 0.15f;
+        shipX = moonX - moonsize*cos(45) - moonsize * 0.15f;
+        shipY = shipY - millis() / 70;
+        shipX = shipX - millis() / 70;
+
+        rocket.resetMatrix();
+        jg.pushMatrix();
+        jg.translate(shipX, shipY);
+        jg.rotateY(PI*(float)0.6);
+        jg.rotateX(PI * (float)1.7);
+        jg.scale(3);
+        jg.shape(rocket);
+        jg.popMatrix();
 
         //planet placement
         //(-jg.height, (jg.height /2), -jg.width);

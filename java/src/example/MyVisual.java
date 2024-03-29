@@ -97,6 +97,8 @@ public class MyVisual extends Visual {
         }
         if (key == '6') {
             frame = 6;
+            Jason = null;
+            Jason = new JasonsVisual(this);
         }
 
         // WASD key inputs
