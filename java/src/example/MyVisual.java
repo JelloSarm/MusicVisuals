@@ -197,7 +197,7 @@ public class MyVisual extends Visual {
         }
         else if (frame == 6)
         {
-            Jason.render();
+            Jason.render(rocket);
         }
     }
 }

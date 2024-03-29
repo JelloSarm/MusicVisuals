@@ -10,10 +10,12 @@ X make UI look drippy
 package C22516126;
 
 import ie.tudublin.*;
+import processing.core.PShape;
 import example.MyVisual;
 
 public class JasonsVisual extends Visual
 {
+    //PShape ship;
 
     MyVisual jg;
 
@@ -22,11 +24,20 @@ public class JasonsVisual extends Visual
     float moonimplodesize = 300;
     public JasonsVisual(MyVisual jg)
     {
+        //ship = jg.loadShape("ship1.obj");
         this.jg = jg;
     }
 
-    public void render()
+    public void render(PShape rocket)
     { 
+        /*
+        jg.pushMatrix();
+        jg.translate(jg.width/2, jg.height/2);
+        jg.rotateX(90);
+        jg.scale(4);
+        jg.shape(ship, 0, 0, 200, 200);
+        jg.popMatrix();*/
+
         //moon placement + size
         //jg.width / 2, (jg.height * (float)0.65)
         float moonX = jg.width*(float)0.4;
@@ -100,13 +111,14 @@ public class JasonsVisual extends Visual
         }
 
         //implosion begins
-        if (countdown < 1 && moonimplodesize > 0)
+        else if (countdown <= 1 && moonimplodesize > 0)
         {
             moon2(moonX, moonY, moonsize, timer, multiplier);
         }
 
         //placeholder for implosion
-        else if (countdown < 1 && moonimplodesize < 0)
+        //else if (countdown <= 1 && moonimplodesize <= 0)
+        else
         {
             moon3(moonX, moonY, moonsize, timer, multiplier);
         }
