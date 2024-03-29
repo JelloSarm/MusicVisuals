@@ -10,10 +10,12 @@ X make UI look drippy
 package C22516126;
 
 import ie.tudublin.*;
+import processing.core.PShape;
 import example.MyVisual;
 
 public class JasonsVisual extends Visual
 {
+    //PShape ship;
 
     MyVisual jg;
 
@@ -22,16 +24,45 @@ public class JasonsVisual extends Visual
     float moonimplodesize = 300;
     public JasonsVisual(MyVisual jg)
     {
+        //ship = jg.loadShape("ship1.obj");
         this.jg = jg;
     }
 
-    public void render()
+    public void render(PShape rocket)
     { 
+        /*
+        jg.pushMatrix();
+        jg.translate(jg.width/2, jg.height/2);
+        jg.rotateX(90);
+        jg.scale(4);
+        jg.shape(ship, 0, 0, 200, 200);
+        jg.popMatrix();*/
+    
         //moon placement + size
         //jg.width / 2, (jg.height * (float)0.65)
         float moonX = jg.width*(float)0.4;
         float moonY = jg.height * (float)0.65;
         float moonsize = jg.width * (float)0.17;
+
+        //ship placement
+        //float shipX = moonX-moonsize * (float)1 + -50;
+        //float shipY = moonY;
+
+        float shipX = 0;
+        float shipY = 0;
+        shipY = moonY - moonsize*sin(45) - moonsize * 0.15f;
+        shipX = moonX - moonsize*cos(45) - moonsize * 0.15f;
+        shipY = shipY - millis() / 70;
+        shipX = shipX - millis() / 70;
+
+        rocket.resetMatrix();
+        jg.pushMatrix();
+        jg.translate(shipX, shipY);
+        jg.rotateY(PI*(float)0.6);
+        jg.rotateX(PI * (float)1.7);
+        jg.scale(3);
+        jg.shape(rocket);
+        jg.popMatrix();
 
         //planet placement
         //(-jg.height, (jg.height /2), -jg.width);
@@ -100,13 +131,14 @@ public class JasonsVisual extends Visual
         }
 
         //implosion begins
-        if (countdown < 1 && moonimplodesize > 0)
+        else if (countdown <= 1 && moonimplodesize > 0)
         {
             moon2(moonX, moonY, moonsize, timer, multiplier);
         }
 
         //placeholder for implosion
-        else if (countdown < 1 && moonimplodesize < 0)
+        //else if (countdown <= 1 && moonimplodesize <= 0)
+        else
         {
             moon3(moonX, moonY, moonsize, timer, multiplier);
         }

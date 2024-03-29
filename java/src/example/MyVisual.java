@@ -92,6 +92,8 @@ public class MyVisual extends Visual {
     boolean keyDpressed = false;
     boolean keyQpressed = false;
     boolean keyEpressed = false;
+    boolean keyLeftpressed = false;
+    boolean keyRightpressed = false;
 
     int milliseconds = 0;
     int seconds = 0;
@@ -120,6 +122,8 @@ public class MyVisual extends Visual {
         }
         if (key == '6') {
             frame = 6;
+            Jason = null;
+            Jason = new JasonsVisual(this);
         }
 
         // WASD key inputs
@@ -140,6 +144,13 @@ public class MyVisual extends Visual {
         }
         if (key == 'e' || key == 'E') { // E
             keyEpressed = true;
+        }
+
+        if ( keyCode == LEFT) {
+            keyLeftpressed = true;
+        }
+        if ( keyCode == RIGHT) {
+            keyRightpressed = true;
         }
     }
 
@@ -171,6 +182,13 @@ public class MyVisual extends Visual {
             Jello = new JellosVisual(this);
             Jason = new JasonsVisual(this);
         }
+
+        if (keyCode == LEFT) {
+            keyLeftpressed = false;
+        }
+        if (keyCode == RIGHT) {
+            keyRightpressed = false;
+        }
     }
 
     public void draw() {
@@ -192,8 +210,8 @@ public class MyVisual extends Visual {
             System.out.println("Keyboard input- (every second) - second: " + seconds +
                                 "\nW:" + keyWpressed + "| Q:" + keyQpressed +
                                 "\nA:" + keyApressed + "| E:" + keyEpressed +
-                                "\nS:" + keySpressed + "|" +
-                                "\nD:" + keyDpressed + "|" );
+                                "\nS:" + keySpressed + "| <:" + keyLeftpressed +
+                                "\nD:" + keyDpressed + "| >:" + keyRightpressed);
             milliseconds += 1000;
             seconds += 1;
         }
@@ -209,11 +227,12 @@ public class MyVisual extends Visual {
         else if(frame == 3 )
         {
             Calvin.render(  keyQpressed,keyWpressed,keyEpressed,
-                            keyApressed,keySpressed,keyDpressed);
+                            keyApressed,keySpressed,keyDpressed,
+                            rocket);
         }
         else if(frame == 4)
         {
-            Jello.render(rocket);
+            Jello.render(rocket, keyLeftpressed, keyRightpressed);
         }
         else if (frame == 5)
         {
@@ -222,7 +241,7 @@ public class MyVisual extends Visual {
         }
         else if (frame == 6)
         {
-            Jason.render();
+            Jason.render(rocket);
         }
     }
 }
