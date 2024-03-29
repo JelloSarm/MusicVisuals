@@ -14,8 +14,8 @@ public class FranzsVisual extends Visual{
     float w;
     float h;
     float move = 0;
-    
-
+    float movex = 0;
+    int movey = 0;
 
     public FranzsVisual(MyVisual Fs)
     {
@@ -24,48 +24,30 @@ public class FranzsVisual extends Visual{
         w = Fs.width;
         halfHeight = this.h /2;
         halfWidth = this.w / 2;
-
-       
     }  
 
    
 
-    public void render(PShape hand)
+    public void render(PShape hand, PShape guy,PShape star)
     {
-
+        Fs.colorMode(PApplet.HSB);
         //cameraSetup();
 
-        Fs.stroke(255);
-        Fs.line(25,halfHeight-20,halfWidth-50,halfHeight-20);
-        Fs.line(halfWidth-50,halfHeight-20,halfWidth+75,25);
-        Fs.line(25,halfHeight+20,halfWidth-50,halfHeight+20);
-        Fs.line(halfWidth-50,halfHeight+20,halfWidth+75,h-25);
-        Fs.line(25,25,25,halfHeight-20);
-        Fs.line(25,halfHeight+20,25,h-25);
-        Fs.line(25,25,halfWidth+75,25);
-        Fs.line(25,h-25,halfWidth+75,h-25);
-        Fs.line(halfWidth-15,halfHeight,halfWidth+115,25);
-        Fs.line(halfWidth-15,halfHeight,halfWidth+115,h-25);
-        Fs.line(halfWidth+115,25,w-25,25);
-        Fs.line(halfWidth+115,h-25,w-25,h-25);
-        Fs.line(w-25,25,w-25,h-25);
 
         frame();
         templeInner();
+        drawHand(hand);
 
-
-        Fs.translate(width/2, (height/2)+200,300);
+        drawStar(star);
         
-        Fs.scale(10);
-        hand.resetMatrix();
-        hand.rotateY(90); 
-        Fs.pushMatrix();
-        Fs.translate(0,move);
-         
-        Fs.shape(hand,0,0);
-        Fs.popMatrix();
 
-        move = move + (float)0.01;
+        Fs.translate(-30, -50, 0); 
+        Fs.rotateY(1);
+        Fs.noFill();
+        Fs.box(4);
+
+        
+        
     }
 
     private void templeInner()
@@ -73,7 +55,7 @@ public class FranzsVisual extends Visual{
         //Fs.size(400, 400, P3D);
         //Fs.noStroke();
         //Fs.lights();
-        Fs.stroke(255);
+        
         Fs.noFill();
         Fs.translate((halfWidth/2)+500,halfHeight+(halfHeight/2)-650, 200);
         //Fs.pushMatrix();
@@ -93,6 +75,22 @@ public class FranzsVisual extends Visual{
         Fs.quad(25,halfHeight-20,halfWidth-15,halfHeight-20,halfWidth-15,halfHeight+20,25,halfHeight+20);
         Fs.quad(halfWidth-50,halfHeight-20,halfWidth+75,25,halfWidth+115,25,halfWidth-15,halfHeight);
         Fs.quad(halfWidth-50,halfHeight+20,halfWidth+75,h-25,halfWidth+115,h-25,halfWidth-15,halfHeight);
+
+        
+        Fs.stroke(255);
+        Fs.line(25,halfHeight-20,halfWidth-50,halfHeight-20);
+        Fs.line(halfWidth-50,halfHeight-20,halfWidth+75,25);
+        Fs.line(25,halfHeight+20,halfWidth-50,halfHeight+20);
+        Fs.line(halfWidth-50,halfHeight+20,halfWidth+75,h-25);
+        Fs.line(25,25,25,halfHeight-20);
+        Fs.line(25,halfHeight+20,25,h-25);
+        Fs.line(25,25,halfWidth+75,25);
+        Fs.line(25,h-25,halfWidth+75,h-25);
+        Fs.line(halfWidth-15,halfHeight,halfWidth+115,25);
+        Fs.line(halfWidth-15,halfHeight,halfWidth+115,h-25);
+        Fs.line(halfWidth+115,25,w-25,25);
+        Fs.line(halfWidth+115,h-25,w-25,h-25);
+        Fs.line(w-25,25,w-25,h-25);
         
     }
 
@@ -106,5 +104,32 @@ public class FranzsVisual extends Visual{
         Fs.camera(w / 2.0f, h/ 2.0f, z,
         w / 2.0f, h / 2.0f,
         0, 0, 1, 0);
+    }
+
+
+    private void drawHand(PShape hand)
+    {
+        Fs.lights();
+        Fs.translate(width/2+590, (height/2)+1250,+200);
+        
+        Fs.scale(20);
+        hand.resetMatrix();
+        hand.rotateY(225); 
+        hand.rotateX(180); 
+       //hand.rotateZ();
+        Fs.pushMatrix();
+        Fs.translate(movex,move,move);
+         
+        Fs.shape(hand,0,0);
+        Fs.popMatrix();
+
+        move -= (float)0.002;
+        movex -= (float)0.0009;
+    }
+
+
+    private void drawStar(PShape star)
+    {
+        Fs.shape(star);
     }
 }
