@@ -15,6 +15,7 @@ Student Number : C22319896
 Name : Franz Shih
 
 Student Number: C22522443
+
 ## Instructions
 - Fork this repository and use it a starter project for your assignment
 - Create a new package named your student number and put all your code in this package.
@@ -25,6 +26,8 @@ Student Number: C22522443
 # Description of the assignment
 
 This assignment takes inspiration from the game "Risk of Rain 2"
+The song chosen for the visualiser is also from the game.
+The visuals will include elements of outer space, space travel and an alien world.
 
 
 # Instructions
