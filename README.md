@@ -24,11 +24,19 @@ Student Number: C22522443
 
 # Description of the assignment
 
+This assignment takes inspiration from the game "Risk of Rain 2"
+
+
 # Instructions
 
 # How it works
 
 # What I am most proud of in the assignment
+
+Calvin: I am proud of my implementation of the features which use sin and cos.
+My ring function uses sin, cos and the audio buffer to evenly space out each point around the sphere.
+The camera movement also uses sin and cos to rotate around the center sphere.
+Figuring out circular movement in 3D space was *very* tricky but alas i persevered.
 
 # Markdown Tutorial
 
