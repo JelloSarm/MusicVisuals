@@ -13,6 +13,9 @@ public class FranzsVisual extends Visual{
     float rotation = (float) Math.toRadians(0);
     float w;
     float h;
+    float move = 0;
+    
+
 
     public FranzsVisual(MyVisual Fs)
     {
@@ -21,12 +24,17 @@ public class FranzsVisual extends Visual{
         w = Fs.width;
         halfHeight = this.h /2;
         halfWidth = this.w / 2;
-        
-        
-    }
 
-    public void render()
+       
+    }  
+
+   
+
+    public void render(PShape hand)
     {
+
+        //cameraSetup();
+
         Fs.stroke(255);
         Fs.line(25,halfHeight-20,halfWidth-50,halfHeight-20);
         Fs.line(halfWidth-50,halfHeight-20,halfWidth+75,25);
@@ -44,7 +52,20 @@ public class FranzsVisual extends Visual{
 
         frame();
         templeInner();
+
+
+        Fs.translate(width/2, (height/2)+200,300);
         
+        Fs.scale(10);
+        hand.resetMatrix();
+        hand.rotateY(90); 
+        Fs.pushMatrix();
+        Fs.translate(0,move);
+         
+        Fs.shape(hand,0,0);
+        Fs.popMatrix();
+
+        move = move + (float)0.01;
     }
 
     private void templeInner()
@@ -55,10 +76,10 @@ public class FranzsVisual extends Visual{
         Fs.stroke(255);
         Fs.noFill();
         Fs.translate((halfWidth/2)+500,halfHeight+(halfHeight/2)-650, 200);
-       // Fs.pushMatrix();
+        //Fs.pushMatrix();
         //Fs.rotateY(millis() / (float)(9000));
         Fs.sphere(1300);
-       // Fs.popMatrix();
+        //Fs.popMatrix();
     }
 
     private void frame()
@@ -72,5 +93,18 @@ public class FranzsVisual extends Visual{
         Fs.quad(25,halfHeight-20,halfWidth-15,halfHeight-20,halfWidth-15,halfHeight+20,25,halfHeight+20);
         Fs.quad(halfWidth-50,halfHeight-20,halfWidth+75,25,halfWidth+115,25,halfWidth-15,halfHeight);
         Fs.quad(halfWidth-50,halfHeight+20,halfWidth+75,h-25,halfWidth+115,h-25,halfWidth-15,halfHeight);
+        
+    }
+
+    private void cameraSetup()
+    {
+        //Code from Jellos camera so mine doesnt change
+        float fov = PI / (float)3.0;
+        float z = (h / 2.0f) / tan(fov / 2.0f);
+        
+        // Camera Function
+        Fs.camera(w / 2.0f, h/ 2.0f, z,
+        w / 2.0f, h / 2.0f,
+        0, 0, 1, 0);
     }
 }

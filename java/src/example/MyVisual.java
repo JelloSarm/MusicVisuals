@@ -10,6 +10,7 @@ import C22319896.CalvinsVisual;
 import C22531133.JellosVisual;
 import C22516126.JasonsVisual;
 import ie.tudublin.*;
+import processing.core.PShape;
 
 public class MyVisual extends Visual {
     WaveForm wf;
@@ -19,7 +20,8 @@ public class MyVisual extends Visual {
     JellosVisual Jello;
     JasonsVisual Jason;
     int frame = 1;
-    
+    PShape hand;
+
 
     public void settings() {
         size(1024, 500,P3D);
@@ -29,6 +31,7 @@ public class MyVisual extends Visual {
 
         // Use this to make fullscreen and use P3D for 3D graphics
         fullScreen(P3D, SPAN);
+        
     }
 
     public void setup() {
@@ -46,7 +49,9 @@ public class MyVisual extends Visual {
         Jello = new JellosVisual(this);
         Jason = new JasonsVisual(this);
         Franz = new FranzsVisual(this);
-        
+
+     //15963_Cyborg_Hand_v1
+        hand = loadShape("LOD 2.obj");
     }
 
     // key inputs
@@ -184,7 +189,8 @@ public class MyVisual extends Visual {
         }
         else if (frame == 5)
         {
-            Franz.render();
+            Franz.render(hand);
+            
         }
         else if (frame == 6)
         {
