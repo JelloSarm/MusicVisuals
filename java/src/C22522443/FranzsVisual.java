@@ -35,18 +35,29 @@ public class FranzsVisual extends Visual{
 
 
         frame();
-        templeInner();
-        drawHand(hand);
+        //templeInner();
+        //drawHand(hand);
 
-        drawStar(star);
-        
+        //drawStar(star);
+        Fs.lights();
+        Fs.translate(300,500,0);
+        Fs.rotateX(5);
+       // Fs.rotateY(90);
+        for(int i = 0 ; i < Fs.getAudioBuffer().size() ; i ++)
+        {
+            Fs.stroke(
+                PApplet.map(i, 0, Fs.getAudioBuffer().size(), 0, 255)
+                , 255
+                , 255
+            );
 
-        Fs.translate(-30, -50, 0); 
-        Fs.rotateY(1);
-        Fs.noFill();
-        Fs.box(4);
+            Fs.pushMatrix();
+            Fs.scale(500);
+            //Fs.translate(0,Fs.getAudioBuffer().get(i),0);
+            Fs.shape(hand,0,0);
+            Fs.popMatrix();
 
-        
+        }
         
     }
 
@@ -110,26 +121,38 @@ public class FranzsVisual extends Visual{
     private void drawHand(PShape hand)
     {
         Fs.lights();
-        Fs.translate(width/2+590, (height/2)+1250,+200);
+        Fs.translate(0,0,0);
         
-        Fs.scale(20);
+       
+        //Fs.scale(0,0,0);
         hand.resetMatrix();
         hand.rotateY(225); 
         hand.rotateX(180); 
-       //hand.rotateZ();
+        //hand.rotateZ();
         Fs.pushMatrix();
-        Fs.translate(movex,move,move);
+        Fs.scale(900+move,500,500);
+        //Fs.translate(movex,move,move);
          
         Fs.shape(hand,0,0);
         Fs.popMatrix();
 
-        move -= (float)0.002;
+        move += (float)5;
         movex -= (float)0.0009;
     }
 
 
     private void drawStar(PShape star)
     {
-        Fs.shape(star);
+        float num;
+
+        num = (float)0.01;
+
+        star.resetMatrix();
+        star.scale(2);
+
+        Fs.pushMatrix();
+        star.rotateX(30);
+        Fs.shape(star,halfHeight,halfWidth);
+        Fs.popMatrix();
     }
 }
