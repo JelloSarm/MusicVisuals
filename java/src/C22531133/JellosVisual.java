@@ -22,6 +22,8 @@ public class JellosVisual extends Visual{
     float[][] land;
     float movement = 0;
     float offx = 0, offy = 0;
+    float tiltY = 0;
+    int lock = 0;
 
 
     public void render(PShape rocket, boolean keyLeftpressed, boolean keyRightpressed) {
@@ -138,27 +140,68 @@ public class JellosVisual extends Visual{
 
         js.pushMatrix();
         
-        float shipx = w/4, shipy = h/1.07f;
+        float shipx = w/4, shipy = h/1.08f;
         
         if(keyLeftpressed) {
             if(offx > -w/20)
             {
                 offx -= 1f;
+                tiltY -= 1f;
+                lock = 1;
             }
         }
         if(keyRightpressed) {
             if(offx < w/20)
             {
                 offx += 1f;
+                tiltY += 1f;
+                lock = 1;
             }
             
         }
 
         rocket.resetMatrix();
         rocket.rotateX(radians(270));
+        tiltY = tilt(tiltY, lock, rocket);
         rocket.translate(shipx + offx, shipy + offy, 30);
         js.scale(2);
         js.shape(rocket);
         js.popMatrix();
+        lock = 0;
+    }
+
+
+    //This function allows the ship to tilt when you move and return to its original orientation when you stop moving
+    private float tilt(float tiltY, int lock, PShape rocket)
+    {
+        
+        rocket.rotateY(radians(5*tiltY));
+
+        if(lock == 0)
+        {
+            if(tiltY > 0)
+            {
+                tiltY -= 1;
+            }
+            
+            if(tiltY < 0)
+            {
+                tiltY += 1;
+            }
+        }
+
+        if(tiltY > 9)
+        {
+            tiltY = 9;
+        }
+        
+        if(tiltY < -9)
+        {
+            tiltY = -9;
+        }
+
+        return tiltY;
     }
 }
+
+

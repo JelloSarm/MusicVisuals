@@ -60,7 +60,7 @@ public class JasonsVisual extends Visual
         jg.translate(shipX, shipY);
         jg.rotateY(PI*(float)0.6);
         jg.rotateX(PI * (float)1.7);
-        jg.scale(3);
+        jg.scale(1);
         jg.shape(rocket);
         jg.popMatrix();
 
