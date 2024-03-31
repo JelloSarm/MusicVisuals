@@ -146,7 +146,13 @@ public class JellosVisual extends Visual{
             if(offx > -w/20)
             {
                 offx -= 1f;
-                tiltY -= 1f;
+                if(tiltY < -6)
+                {
+                    tiltY -= 0.2f;
+                }
+                else{
+                    tiltY -= 0.5f;
+                }
                 lock = 1;
             }
         }
@@ -154,7 +160,15 @@ public class JellosVisual extends Visual{
             if(offx < w/20)
             {
                 offx += 1f;
-                tiltY += 1f;
+
+                //Make the tilting smoother
+                if(tiltY > 6)
+                {
+                    tiltY += 0.2f;
+                }
+                else{
+                    tiltY += 0.5;
+                }
                 lock = 1;
             }
             
@@ -181,15 +195,16 @@ public class JellosVisual extends Visual{
         {
             if(tiltY > 0)
             {
-                tiltY -= 1;
+                tiltY -= 0.5f;
             }
             
             if(tiltY < 0)
             {
-                tiltY += 1;
+                tiltY += 0.5f;
             }
         }
 
+        //Stops the ship from tilting too much
         if(tiltY > 9)
         {
             tiltY = 9;
