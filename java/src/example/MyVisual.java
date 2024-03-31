@@ -53,7 +53,7 @@ public class MyVisual extends Visual {
         Franz = new FranzsVisual(this);
 
      //15963_Cyborg_Hand_v1
-        hand = loadShape("rocketShip2.obj");
+        hand = loadShape("spaceGuy3.obj");
         //guy = loadShape("3d-model.obj");
 
 
