@@ -52,7 +52,8 @@ public class FranzsVisual extends Visual{
             );
 
             Fs.pushMatrix();
-            Fs.scale(50);
+            Fs.scale(8);
+            hand.rotateX(radians(120));
             //Fs.translate(0,Fs.getAudioBuffer().get(i),0);
             Fs.shape(hand,0,0);
             Fs.popMatrix();
@@ -127,10 +128,10 @@ public class FranzsVisual extends Visual{
         //Fs.scale(0,0,0);
         hand.resetMatrix();
         hand.rotateY(225); 
-        hand.rotateX(180); 
+        //hand.rotateX(180); 
         //hand.rotateZ();
         Fs.pushMatrix();
-        Fs.scale(900+move,500,500);
+        Fs.scale(90);
         //Fs.translate(movex,move,move);
          
         Fs.shape(hand,0,0);
@@ -148,7 +149,7 @@ public class FranzsVisual extends Visual{
         num = (float)0.01;
 
         star.resetMatrix();
-        star.scale(2);
+        star.scale(-10);
 
         Fs.pushMatrix();
         star.rotateX(30);
