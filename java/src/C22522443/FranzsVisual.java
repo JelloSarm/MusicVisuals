@@ -52,7 +52,7 @@ public class FranzsVisual extends Visual{
             );
 
             Fs.pushMatrix();
-            Fs.scale(500);
+            Fs.scale(50);
             //Fs.translate(0,Fs.getAudioBuffer().get(i),0);
             Fs.shape(hand,0,0);
             Fs.popMatrix();
