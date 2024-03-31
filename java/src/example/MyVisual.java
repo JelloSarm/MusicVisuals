@@ -54,7 +54,7 @@ public class MyVisual extends Visual {
 
      //15963_Cyborg_Hand_v1
         hand = loadShape("rocketShip2.obj");
-        guy = loadShape("3d-model.obj");
+        //guy = loadShape("3d-model.obj");
 
 
         // Rocket ship file
