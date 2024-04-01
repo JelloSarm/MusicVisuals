@@ -24,6 +24,8 @@ public class JellosVisual extends Visual {
     float tiltY = 0;
     float tiltX = 0;
     int lock = 0;
+    int noOfBugs = 0;
+    int score = 0;
 
     public void render(PShape rocket, boolean keyLeftpressed, boolean keyRightpressed, boolean keyUppressed,
             boolean keyDownpressed) {
@@ -196,10 +198,12 @@ public class JellosVisual extends Visual {
         js.shape(rocket);
         js.popMatrix();
         lock = 0;
+
+
     }
 
     // This function allows the ship to tilt when you move and return to its
-    // original orientation when you stop moving
+    // original orientation when you stop moving but on the y axis
     private float tiltyf(float tiltY, int lock, PShape rocket) {
 
         rocket.rotateY(radians(5 * tiltY));
@@ -226,6 +230,8 @@ public class JellosVisual extends Visual {
         return tiltY;
     }
 
+    // This function allows the ship to tilt when you move and return to its 
+    // original orientation when you stop moving but on the X axis
     private float tiltxf(float tiltX, int lock, PShape rocket) {
 
         rocket.rotateX(radians(-tiltX));
@@ -250,5 +256,16 @@ public class JellosVisual extends Visual {
         }
 
         return tiltX;
+    }
+
+    public void spawnBug(int noOfBugs, int w, int h, int score) {
+        if(score < 10)
+        {
+            if(noOfBugs < 2)
+            {
+                
+                noOfBugs++;
+            }
+        }
     }
 }
