@@ -199,7 +199,6 @@ public class JellosVisual extends Visual {
         js.popMatrix();
         lock = 0;
 
-
     }
 
     // This function allows the ship to tilt when you move and return to its
@@ -230,7 +229,7 @@ public class JellosVisual extends Visual {
         return tiltY;
     }
 
-    // This function allows the ship to tilt when you move and return to its 
+    // This function allows the ship to tilt when you move and return to its
     // original orientation when you stop moving but on the X axis
     private float tiltxf(float tiltX, int lock, PShape rocket) {
 
@@ -258,14 +257,19 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
-    public void spawnBug(int noOfBugs, int w, int h, int score) {
-        if(score < 10)
-        {
-            if(noOfBugs < 2)
-            {
-                
+    public void spawnBug(PShape guy, int w, int h) {
+        js.pushMatrix();
+        if (score < 10) {
+            if (noOfBugs < 2) {
+                guy.resetMatrix();
+                guy.rotateX(radians(270));
+                guy.translate(10, 10, 30);
+                js.scale(2);
+                js.shape(guy);
+                System.out.println("Dude has spawned");
                 noOfBugs++;
             }
         }
+        js.popMatrix();
     }
 }

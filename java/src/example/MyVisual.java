@@ -54,7 +54,7 @@ public class MyVisual extends Visual {
 
      //15963_Cyborg_Hand_v1
         hand = loadShape("spaceGuy3.obj");
-        //guy = loadShape("3d-model.obj");
+        guy = loadShape("3d-model.obj");
 
 
         // Rocket ship file
@@ -248,6 +248,8 @@ public class MyVisual extends Visual {
         else if(frame == 4)
         {
             Jello.render(rocket, keyLeftpressed, keyRightpressed, keyUppressed, keyDownpressed);
+            Jello.spawnBug(guy, width, height);
+            
         }
         else if (frame == 5)
         {
