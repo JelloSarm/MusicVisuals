@@ -263,11 +263,10 @@ public class JellosVisual extends Visual {
             if (noOfBugs < 2) {
                 guy.resetMatrix();
                 guy.rotateX(radians(270));
-                guy.translate(10, 10, 30);
+                guy.translate(10, 10, 50);
                 js.scale(2);
                 js.shape(guy);
                 System.out.println("Dude has spawned");
-                noOfBugs++;
             }
         }
         js.popMatrix();
