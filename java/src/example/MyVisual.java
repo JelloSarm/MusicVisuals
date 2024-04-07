@@ -40,7 +40,7 @@ public class MyVisual extends Visual {
         startMinim();
 
         // Call loadAudio to load an audio file to process
-        loadAudio("Meatball Parade (128kbps).mp3");
+        loadAudio("Chris Christodoulou - The Face of the Deep  ROR2_ Survivors of the Void (2022).mp3");
 
         // Call this instead to read audio from the microphone
         // startListening();
