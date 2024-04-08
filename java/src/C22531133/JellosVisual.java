@@ -4,7 +4,6 @@ import ie.tudublin.*;
 import processing.core.PApplet;
 import processing.core.PShape;
 import example.MyVisual;
-import java.lang.Math;
 
 public class JellosVisual extends Visual {
     MyVisual js;
@@ -257,18 +256,30 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
+    public class bug
+    {
+        
+    }
     public void spawnBug(PShape guy, int w, int h) {
         js.pushMatrix();
         if (score < 10) {
             if (noOfBugs < 2) {
-                guy.resetMatrix();
-                guy.rotateX(radians(270));
-                guy.translate(10, 10, 50);
-                js.scale(2);
-                js.shape(guy);
+                spawnNewBug(guy, w, h);
                 System.out.println("Dude has spawned");
+                noOfBugs++;
             }
         }
+        js.popMatrix();
+    }
+
+    public void spawnNewBug(PShape guy, int w, int h)
+    {
+        js.pushMatrix();
+        guy.resetMatrix();
+        guy.rotateX(radians(270));
+        guy.translate(10, 10, 50);
+        js.scale(2);
+        js.shape(guy);
         js.popMatrix();
     }
 }
