@@ -42,6 +42,7 @@ public class FranzsVisual extends Visual{
         Fs.lights();
         Fs.translate(300,500,0);
         Fs.rotateX(5);
+        Fs.shape(hand,0,0);
        // Fs.rotateY(90);
         for(int i = 0 ; i < Fs.getAudioBuffer().size() ; i ++)
         {
@@ -51,12 +52,12 @@ public class FranzsVisual extends Visual{
                 , 255
             );
 
-            Fs.pushMatrix();
-            Fs.scale(8);
-            hand.rotateX(radians(120));
+           // Fs.pushMatrix();
+           // Fs.scale(7);
+            //hand.rotateX(radians(120));
             //Fs.translate(0,Fs.getAudioBuffer().get(i),0);
-            Fs.shape(hand,0,0);
-            Fs.popMatrix();
+            //Fs.shape(hand,0,0);
+            //Fs.popMatrix();
 
         }
         
