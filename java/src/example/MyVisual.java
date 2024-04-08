@@ -5,7 +5,7 @@ import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardDownRightHandler;
 
 import com.jogamp.newt.event.KeyAdapter;
 
-import C22522443.FranzsVisual;
+import C22522443.FranzsVisual1;
 import C22319896.CalvinsVisual;
 import C22531133.JellosVisual;
 import C22516126.JasonsVisual;
@@ -15,15 +15,16 @@ import processing.core.PShape;
 public class MyVisual extends Visual {
     WaveForm wf;
     AudioBandsVisual abv;
-    FranzsVisual Franz;
+    FranzsVisual1 Franz;
     CalvinsVisual Calvin;
     JellosVisual Jello;
     JasonsVisual Jason;
     int frame = 1;
     PShape hand;
     PShape rocket;
+    PShape rocket2;
     PShape guy;
-    PShape star;
+    PShape temple;
 
     public void settings() {
         size(1024, 500,P3D);
@@ -50,33 +51,16 @@ public class MyVisual extends Visual {
         Calvin = new CalvinsVisual(this);
         Jello = new JellosVisual(this);
         Jason = new JasonsVisual(this);
-        Franz = new FranzsVisual(this);
+        Franz = new FranzsVisual1(this);
 
-     //15963_Cyborg_Hand_v1
-        hand = loadShape("spaceGuy3.obj");
+     
+        temple = loadShape("Temple.obj");
 
 
         // Rocket ship file
         rocket = loadShape("rocketShip2.obj");
+        rocket2 = loadShape("rocketShip2.obj");
         // First create the shape
-        star = createShape();
-        star.beginShape();
-        // You can set fill and stroke
-        star.fill(102);
-        star.stroke(255);
-        star.strokeWeight(2);
-        // Here, we are hardcoding a series of vertices
-        star.vertex(0, -50);
-        star.vertex(14, -20);
-        star.vertex(47, -15);
-        star.vertex(23, 7);
-        star.vertex(29, 40);
-        star.vertex(0, 25);
-        star.vertex(-29, 40);
-        star.vertex(-23, 7);
-        star.vertex(-47, -15);
-        star.vertex(-14, -20);
-        star.endShape(CLOSE);
 
         
     }
@@ -252,7 +236,7 @@ public class MyVisual extends Visual {
         }
         else if (frame == 5)
         {
-            Franz.render(hand,guy,star);
+            Franz.render(rocket2,temple);
             
         }
         else if (frame == 6)

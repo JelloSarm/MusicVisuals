@@ -6,7 +6,7 @@ import example.MyVisual;
 import ie.tudublin.*;
 import processing.core.*;
 
-public class FranzsVisual extends Visual{
+public class FranzsVisual1 extends Visual{
     MyVisual Fs;
     float halfHeight;
     float halfWidth;
@@ -16,8 +16,14 @@ public class FranzsVisual extends Visual{
     float move = 0;
     float movex = 0;
     int movey = 0;
+    float[][] land;
+    int rows;
+    int cols;
+    int scale = 20;
+    float movement = 0;
+    
 
-    public FranzsVisual(MyVisual Fs)
+    public FranzsVisual1(MyVisual Fs)
     {
         this.Fs = Fs; 
         h = Fs.height;
@@ -28,37 +34,95 @@ public class FranzsVisual extends Visual{
 
    
 
-    public void render(PShape hand, PShape guy,PShape star)
+    public void render(PShape rocket2,PShape temple)
     {
+        Fs.background(140, 240, 200);
+        Fs.stroke(0);
+        Fs.fill(198, 255, 255);
+
+        rows = (int) (50 + h / scale);
+        cols = (int) (w / scale);
+
+        land = new float[(int)(w / 20)][(int)(50 + h / 20)];
         Fs.colorMode(PApplet.HSB);
-        //cameraSetup();
+   
+        
 
+        movement -= 0.02f;
+        
+        // Y coordinate offset to move the previous Z value on the terrain
+        // so that it is a smoother surface
+        float yoff = movement;
+        for (int y = 0; y < rows - 1; y++) {
+            // X coordinate offset to make the previous Z value more smooth
+            float xoff = 0;
+            for (int x = 0; x < cols; x++) {
+                if (getSmoothedAmplitude() > 200) {
+                    land[x][y] = map(noise(xoff, yoff), 0, 1, 0, 60); // (js.getSmoothedAmplitude()
+                                                                                                        // * 50)
+                } else {
+                    land[x][y] = map(noise(xoff, yoff) , 0, 1, 0, 60);
+                }
+                xoff += 0.2f;
+            }
+            yoff += 0.2f;
+        }
 
-        frame();
-        //templeInner();
-        //drawHand(hand);
+        Fs.pushMatrix();
+        Fs.translate(w / 2, h/2+90);
+        Fs.rotateY(radians(-90));
+        Fs.rotateX((PI / 2));
+        Fs.rotateZ(radians(10));
+        Fs.translate(-w / 2, -h * 1.15f);
+        
 
-        //drawStar(star);
+        for (int y = 0; y < rows - 1; y++) {
+            // Start the use of Triangle_Strip when using vertex's
+            Fs.beginShape(TRIANGLE_STRIP);
+            for (int x = 0; x < cols; x++) {
+                /*
+                 * Walls idea
+                 * if(x < 5)
+                 * {
+                 * //js.vertex((x+1) * 20, (y) * 20, land[x][y] + 100);
+                 * //js.vertex((x + 1) * 20, (y+1) * 20, land[x][y+1] + 100);
+                 * land[x][y] = land[x][y] + 25;
+                 * land[x][y+1] = land[x][y] + 25;
+                 * }
+                 * else if(x > cols - 7)
+                 * {
+                 * //js.vertex((x+1) * 20, (y) * 20, land[x][y] + 100);
+                 * //js.vertex((x + 1) * 20, (y+1) * 20, land[x][y+1] + 100);
+                 * land[x][y] = land[x][y] + 25;
+                 * land[x][y+1] = land[x][y] + 25;
+                 * }
+                 */
+
+                Fs.vertex(x * scale, y * scale, land[x][y]);
+                Fs.vertex(x * scale, (y + 1) * scale, land[x][y + 1]);
+            }
+            // End of using Triangle_Strip
+            Fs.endShape();
+        }
+        Fs.popMatrix();
         Fs.lights();
-        Fs.translate(300,500,0);
-        Fs.rotateX(5);
-       // Fs.rotateY(90);
-        
-            Fs.stroke(
-                PApplet.map(1, 0, Fs.getAudioBuffer().size(), 0, 255)
-                , 255
-                , 255
-            );
+        Fs.pushMatrix();
+        Fs.scale(4);
+        Fs.rotateY(radians(10));
+        Fs.rotateX(radians(-10));
+        Fs.translate(210,115,130);
+        Fs.shape(temple,0,0);
+        Fs.popMatrix();
 
-            Fs.pushMatrix();
-            Fs.scale(getSmoothedAmplitude()*8+8);
-            //hand.rotateX(radians(120));
-            //Fs.translate(getSmoothedAmplitude() *50,Fs.getSmoothedAmplitude() *50,getSmoothedAmplitude() *50);
-            Fs.shape(hand,0,0);
-            Fs.popMatrix();
+       // Fs.translate(250,120,0);
+        Fs.scale(1);
+        Fs.rotateY(radians(-90));
+        Fs.pushMatrix();
+        Fs.translate(0,0,movex);
+        Fs.shape(rocket2,-200,320);
+        Fs.popMatrix();
 
-        
-        
+        movex -= 1;
     }
 
     private void templeInner()
