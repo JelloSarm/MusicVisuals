@@ -44,6 +44,9 @@ public class CalvinsVisual extends Visual {
 
     int ring1Amp = 2500;
     int ring2Amp = 5000;
+    int ring1radius = 700;
+    int ring2radius = 1400;
+    
     float lerpFactor = 0.05f;
 
     float smoothedAudioBuffer[];
@@ -112,8 +115,8 @@ public class CalvinsVisual extends Visual {
         Cd.pushMatrix();
         Cd.strokeWeight(3);
     
-        drawRing(0, 0, 0,700,lerpedAudioBuffer.length,ring1Amp);
-        drawRing(0, 0, 0,1400,lerpedAudioBuffer.length,ring2Amp);
+        drawRing(0, 0, 0,ring1radius,lerpedAudioBuffer.length,ring1Amp);
+        drawRing(0, 0, 0,ring2radius,lerpedAudioBuffer.length,ring2Amp);
 
         Cd.popMatrix();
 
@@ -224,13 +227,12 @@ public class CalvinsVisual extends Visual {
         yUpDirection = (sin(rollUD) >= 0) ? 1 : -1;
     }
 
-
     public void lerpedAudioBuffer() {
-        // Ensure smoothedAudioBuffer and getAudioBuffer() have the same length
-        if (smoothedAudioBuffer == null || smoothedAudioBuffer.length != Cd.getAudioBuffer().size()) {
+
+        if (smoothedAudioBuffer == null) {
             smoothedAudioBuffer = new float[Cd.getAudioBuffer().size()];
             // Initialize lerpedAudioBuffer array if not initialized
-            if (lerpedAudioBuffer == null || lerpedAudioBuffer.length != Cd.getAudioBuffer().size()) {
+            if (lerpedAudioBuffer == null) {
                 lerpedAudioBuffer = new float[Cd.getAudioBuffer().size()];
             }
         }
