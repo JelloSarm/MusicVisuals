@@ -53,9 +53,6 @@ public class CalvinsVisual extends Visual {
 
         // -- camera -- 
         // All objects center around the point 0,0,0
-        // -------------------------------------------------------------------------
-        // !! CAMERA AFFECTS OTHER SCENES, COMMENT OUT THIS PORTION AND FIX LATER !!
-        // -------------------------------------------------------------------------
         Cd.camera(cameraX, cameraY, cameraZ,    // camera position
         0.0f, 0.0f, 0.0f,                       // look at position
         0.0f, yUpDirection, 0.0f);              // up direction
@@ -102,8 +99,8 @@ public class CalvinsVisual extends Visual {
         }
 
         // -- planet -- 
-        Cd.stroke(255);
-        Cd.fill(0);
+        Cd.stroke(0);
+        Cd.fill(198, 255, 255);   
         Cd.pushMatrix();
         Cd.translate(0, 0, 0);
 
@@ -148,8 +145,8 @@ public class CalvinsVisual extends Visual {
         Cd.popMatrix();
 
         // -- moon --
-        Cd.fill(255);
-        Cd.stroke(180, 255, 255);
+        Cd.fill(0,0,125);
+        Cd.stroke(0, 0, 255);
         Cd.strokeWeight(1);
         Cd.pushMatrix();
         Cd.translate(0, 0, 0);
