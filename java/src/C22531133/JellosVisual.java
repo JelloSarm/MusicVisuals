@@ -58,11 +58,8 @@ public class JellosVisual extends Visual {
             // X coordinate offset to make the previous Z value more smooth
             float xoff = 0;
             for (int x = 0; x < cols; x++) {
-                if (y % 23 == 0 && x % 2 == 0) {
-                    land[x][y] = map(noise(xoff, yoff) + (js.getSmoothedAmplitude() * 2), 0, 1, 0, 80);
-                } else {
-                    land[x][y] = map(noise(xoff, yoff) - (js.getSmoothedAmplitude() * 2), 0, 1, 0, 60);
-                }
+                land[x][y] = map(noise(xoff, yoff) + (js.getSmoothedAmplitude() * 2), 0, 1, 0, 80);
+                land[x][y] = map(noise(xoff, yoff) - (js.getSmoothedAmplitude() * 2), 0, 1, 0, 60);
                 xoff += 0.2f;
             }
             yoff += 0.2f;
