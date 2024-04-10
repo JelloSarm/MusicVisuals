@@ -23,11 +23,13 @@ public class FranzsVisual1 extends Visual{
     float movement = 0;
     
 
+    
+
     public FranzsVisual1(MyVisual Fs)
     {
         this.Fs = Fs; 
-        h = 970;
-        w = 1080;
+        h = 864;
+        w = 1536;
         halfHeight = this.h /2;
         halfWidth = this.w / 2;
     }  
@@ -37,6 +39,7 @@ public class FranzsVisual1 extends Visual{
     public void render(PShape rocket2,PShape temple)
     {   
         float countdown = (10000 - millis());
+        cameraSetup();
 
         if (countdown > 0)
         {

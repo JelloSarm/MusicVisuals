@@ -28,7 +28,7 @@ public class JellosVisual extends Visual {
 
     public void render(PShape rocket, boolean keyLeftpressed, boolean keyRightpressed, boolean keyUppressed,
             boolean keyDownpressed) {
-
+                
         // Width and height variables
         int w = js.width;
         int h = js.height;
