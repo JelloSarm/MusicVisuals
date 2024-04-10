@@ -104,6 +104,8 @@ public class MyVisual extends Visual {
         }
         if (key == '5') {
             frame = 5;
+            Franz = null;
+            Franz = new FranzsVisual1(this);
         }
         if (key == '6') {
             frame = 6;
@@ -169,6 +171,8 @@ public class MyVisual extends Visual {
             Calvin = null;
             Jello = null;
             Jason = null;
+            Franz = null;
+            Franz = new FranzsVisual1(this);
             Calvin = new CalvinsVisual(this);
             Jello = new JellosVisual(this);
             Jason = new JasonsVisual(this);
