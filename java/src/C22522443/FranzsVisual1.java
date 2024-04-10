@@ -26,8 +26,8 @@ public class FranzsVisual1 extends Visual{
     public FranzsVisual1(MyVisual Fs)
     {
         this.Fs = Fs; 
-        h = Fs.height;
-        w = Fs.width;
+        h = 970;
+        w = 1080;
         halfHeight = this.h /2;
         halfWidth = this.w / 2;
     }  
@@ -112,6 +112,7 @@ public class FranzsVisual1 extends Visual{
                 Fs.endShape();
             }
             Fs.popMatrix();
+            
             Fs.lights();
             Fs.pushMatrix();
             Fs.scale(4);
