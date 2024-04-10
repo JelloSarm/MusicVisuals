@@ -80,6 +80,7 @@ public class MyVisual extends Visual {
     boolean keyRightpressed = false;
     boolean keyUppressed = false;
     boolean keyDownpressed = false;
+    boolean keyXpressed = false;
 
     int milliseconds = 0;
     int seconds = 0;
@@ -146,6 +147,10 @@ public class MyVisual extends Visual {
         if (keyCode == DOWN) {
             keyDownpressed = true;
         }
+        if (key == 'x' || key == 'X')
+        {
+            keyXpressed = true;
+        }
     }
 
     // WASD handles key releases
@@ -191,6 +196,10 @@ public class MyVisual extends Visual {
         if (keyCode == DOWN) {
             keyDownpressed = false;
         }
+        if (key == 'x' || key == 'X')
+        {
+            keyXpressed = false;
+        }
     }
 
     public void draw() {
@@ -214,7 +223,8 @@ public class MyVisual extends Visual {
                                 "\nA:" + keyApressed + "| E:" + keyEpressed +
                                 "\nS:" + keySpressed + "| <:" + keyLeftpressed +
                                 "\nD:" + keyDpressed + "| >:" + keyRightpressed +
-                                "\n^:" + keyUppressed+ "| V:" + keyDownpressed);
+                                "\n^:" + keyUppressed+ "| V:" + keyDownpressed +
+                                "\nX:" + keyXpressed + "|");
             milliseconds += 1000;
             seconds += 1;
         }
@@ -235,7 +245,7 @@ public class MyVisual extends Visual {
         }
         else if(frame == 4)
         {
-            Jello.render(rocket, keyLeftpressed, keyRightpressed, keyUppressed, keyDownpressed);
+            Jello.render(rocket, keyLeftpressed, keyRightpressed, keyUppressed, keyDownpressed, keyXpressed);
             Jello.spawnBug(rocket, width, height);
             
         }

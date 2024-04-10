@@ -27,7 +27,7 @@ public class JellosVisual extends Visual {
     int score = 0;
 
     public void render(PShape rocket, boolean keyLeftpressed, boolean keyRightpressed, boolean keyUppressed,
-            boolean keyDownpressed) {
+            boolean keyDownpressed, boolean keyXpressed) {
 
         // Width and height variables
         int w = js.width;
@@ -50,7 +50,6 @@ public class JellosVisual extends Visual {
         cols = (int) (w / scale);
 
         land = new float[cols][rows];
-        int diff = 0;
         // Y coordinate offset to move the previous Z value on the terrain
         // so that it is a smoother surface
         float yoff = movement;
@@ -252,7 +251,9 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
-    public class bug {
+
+    public class bug 
+    {
 
     }
 
