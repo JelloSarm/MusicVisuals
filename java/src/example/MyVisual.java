@@ -25,6 +25,8 @@ public class MyVisual extends Visual {
     PShape rocket2;
     PShape guy;
     PShape temple;
+    PShape door;
+    PShape arm;
 
     public void settings() {
         size(1024, 500,P3D);
@@ -41,7 +43,11 @@ public class MyVisual extends Visual {
         startMinim();
 
         // Call loadAudio to load an audio file to process
+       // loadAudio("heroplanet.mp3");
         loadAudio("Chris Christodoulou - The Face of the Deep  ROR2_ Survivors of the Void (2022).mp3");
+       // loadAudio("Meatball Parade (128kbps).mp3");
+        //loadAudio("Genesis Retake Light (128kbps).mp3");
+
 
         // Call this instead to read audio from the microphone
         // startListening();
@@ -53,8 +59,9 @@ public class MyVisual extends Visual {
         Jason = new JasonsVisual(this);
         Franz = new FranzsVisual1(this);
 
-     
+        door = loadShape("Door.obj");
         temple = loadShape("Temple.obj");
+        arm = loadShape("arm.obj");
 
 
         // Rocket ship file
@@ -240,7 +247,7 @@ public class MyVisual extends Visual {
         }
         else if (frame == 5)
         {
-            Franz.render(rocket2,temple);
+            Franz.render(rocket2,temple,door,arm);
             
         }
         else if (frame == 6)

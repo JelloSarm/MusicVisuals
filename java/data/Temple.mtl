@@ -1,13 +1,13 @@
 # Exported from 3D Builder
 
-newmtl Material_0_0
+newmtl Material_0_0_0
 Kd 0.925490 0.109804 0.141176
 
-newmtl Material_1_0
+newmtl Material_1_0_0
 Kd 0.345098 0.345098 0.345098
 
-newmtl Material_2_0
+newmtl Material_2_0_0
 Kd 0.701961 0.639216 0.639216
 
-newmtl Material_3_0
+newmtl Material_3_0_0
 Kd 1.000000 0.000000 0.000000

@@ -36,13 +36,18 @@ public class FranzsVisual1 extends Visual{
 
    
 
-    public void render(PShape rocket2,PShape temple)
+    public void render(PShape rocket2,PShape temple,PShape door,PShape arm)
     {   
-        float countdown = (10000 - millis());
-        cameraSetup();
+        //countdown for changing the scenes
+        float countdown = (20000 - millis());
 
-        if (countdown > 0)
+        //cameraSetup();
+
+        //First scene
+        if (countdown > 15000)
         {
+
+            //Code from Jello for the terrain
             Fs.background(140, 240, 200);
             Fs.stroke(0);
             Fs.fill(198, 255, 255);
@@ -53,8 +58,6 @@ public class FranzsVisual1 extends Visual{
             land = new float[(int)(w / 20)][(int)(50 + h / 20)];
             Fs.colorMode(PApplet.HSB);
    
-        
-
             movement -= 0.02f;
         
             // Y coordinate offset to move the previous Z value on the terrain
@@ -84,30 +87,132 @@ public class FranzsVisual1 extends Visual{
             Fs.rotateZ(radians(10));
             Fs.translate(-w / 2, -h * 1.15f);
             
+            for (int y = 0; y < rows - 1; y++) 
+            {
+                // Start the use of Triangle_Strip when using vertex's
+                Fs.beginShape(TRIANGLE_STRIP);
+                for (int x = 0; x < cols; x++) {
+                    Fs.vertex(x * scale, y * scale, land[x][y]);
+                    Fs.vertex(x * scale, (y + 1) * scale, land[x][y + 1]);
+                }
+                // End of using Triangle_Strip
+                Fs.endShape();
+            }
+            Fs.popMatrix();
+            
+            //Rendering the temple and rocket
+            Fs.lights();
+
+            Fs.pushMatrix();
+            Fs.scale(4);
+            Fs.rotateY(radians(10));
+            Fs.rotateX(radians(-10));
+            Fs.translate(210,115,130);
+            Fs.shape(temple,0,0);
+            Fs.popMatrix();
+
+            Fs.scale(1);
+            Fs.rotateY(radians(-90));
+            Fs.pushMatrix();
+
+            //Moving the rocket
+            Fs.translate(0,0,movex);
+            Fs.shape(rocket2,-200,320);
+            Fs.popMatrix();
+
+            movex -= 1.3f;
+            
+            //Rotating the waveform
+            Fs.rotateY(radians(90));
+            Fs.rotateX(radians(90));
+            Fs.translate(0,-200,-480);
+
+            //Code from Jello for getting the waveform
+            for (int i = 0; i < Fs.getAudioBuffer().size(); i++) 
+            {
+                // Mapping for the audio buffer to go with the width of the screen
+                float mapx = PApplet.map(i, 0, Fs.getAudioBuffer().size(), 0, w);
+                float mapy = PApplet.map(i, 0, Fs.getAudioBuffer().size(), 0, h * 2);
+                Fs.stroke(198, 255, 255);
+                Fs.noFill();
+
+                // Back row WaveForm
+
+                Fs.line(mapx, 0, -50,
+                        mapx, 0, (600 * Fs.getAudioBuffer().get(i)));
+
+                // Left side Waveform
+                Fs.line(0, mapy, -50,
+                        0, mapy, (600 * Fs.getAudioBuffer().get(i)));
+
+                // Right side Waveform
+                Fs.line(w, mapy, -50,
+                        w, mapy, (600 * Fs.getAudioBuffer().get(i)));
+            }
+
+        //Second scene
+        } else if (countdown <= 15000 && countdown > 8000)
+
+        {   
+            Fs.background(0);
+            Fs.lights();
+
+            Fs.pushMatrix();
+            Fs.scale(8);
+            Fs.translate(-80,115,130);
+            Fs.shape(arm,0,0);
+            Fs.popMatrix();
+           
+        //Third scene, destroying the forcefield
+        } else if (countdown > 0)
+        {   
+
+            //Same code as scene 1
+            Fs.background(140, 240, 200);
+            Fs.stroke(0);
+            Fs.fill(198, 255, 255);
+
+            rows = (int) (50 + h / scale);
+            cols = (int) (w / scale);
+
+            land = new float[(int)(w / 20)][(int)(50 + h / 20)];
+            Fs.colorMode(PApplet.HSB);
+
+
+            movement -= 0.02f;
+        
+            // Y coordinate offset to move the previous Z value on the terrain
+            // so that it is a smoother surface
+            float yoff = movement;
+            for (int y = 0; y < rows - 1; y++) {
+                // X coordinate offset to make the previous Z value more smooth
+                float xoff = 0;
+                for (int x = 0; x < cols; x++) {
+                    if (getSmoothedAmplitude() > 200) 
+                    {
+                        land[x][y] = map(noise(xoff, yoff), 0, 1, 0, 60); 
+                    } else 
+                    {
+                        land[x][y] = map(noise(xoff, yoff) , 0, 1, 0, 60);
+                    }
+                    xoff += 0.2f;
+                }
+                yoff += 0.2f;
+            }
+
+            Fs.pushMatrix();
+            Fs.translate(w / 2, h/2+90);
+            Fs.rotateY(radians(-90));
+            Fs.rotateX((PI / 2));
+            Fs.rotateZ(radians(10));
+            Fs.translate(-w / 2, -h * 1.15f);
+            
 
             for (int y = 0; y < rows - 1; y++) 
             {
                 // Start the use of Triangle_Strip when using vertex's
                 Fs.beginShape(TRIANGLE_STRIP);
                 for (int x = 0; x < cols; x++) {
-                    /*
-                    * Walls idea
-                    * if(x < 5)
-                    * {
-                    * //js.vertex((x+1) * 20, (y) * 20, land[x][y] + 100);
-                    * //js.vertex((x + 1) * 20, (y+1) * 20, land[x][y+1] + 100);
-                    * land[x][y] = land[x][y] + 25;
-                    * land[x][y+1] = land[x][y] + 25;
-                    * }
-                    * else if(x > cols - 7)
-                    * {
-                    * //js.vertex((x+1) * 20, (y) * 20, land[x][y] + 100);
-                    * //js.vertex((x + 1) * 20, (y+1) * 20, land[x][y+1] + 100);
-                    * land[x][y] = land[x][y] + 25;
-                    * land[x][y+1] = land[x][y] + 25;
-                    * }
-                    */
-
                     Fs.vertex(x * scale, y * scale, land[x][y]);
                     Fs.vertex(x * scale, (y + 1) * scale, land[x][y + 1]);
                 }
@@ -117,6 +222,7 @@ public class FranzsVisual1 extends Visual{
             Fs.popMatrix();
             
             Fs.lights();
+
             Fs.pushMatrix();
             Fs.scale(4);
             Fs.rotateY(radians(10));
@@ -125,7 +231,7 @@ public class FranzsVisual1 extends Visual{
             Fs.shape(temple,0,0);
             Fs.popMatrix();
 
-        // Fs.translate(250,120,0);
+       
             Fs.scale(1);
             Fs.rotateY(radians(-90));
             Fs.pushMatrix();
@@ -158,11 +264,15 @@ public class FranzsVisual1 extends Visual{
 
                 // Right side Waveform
                 Fs.line(w, mapy, -50,
-                        w, mapy, (600 * Fs.getAudioBuffer().get(i)));
-            }
-        } else if (countdown <= 1)
+                        w, mapy, (600 * Fs.getAudioBuffer().get(i)));  
+        }
+        } else 
         {
             Fs.background(0);
+            Fs.lights();
+            Fs.scale(16);
+            Fs.rotateX(radians(-90));
+            Fs.shape(door,60,0);
         }
     }
 
