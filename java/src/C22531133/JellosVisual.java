@@ -26,9 +26,14 @@ public class JellosVisual extends Visual {
     int noOfBugs = 0;
     int score = 0;
 
+    float lerpFactor = 0.05f;
+    float smoothedAudioBuffer[];
+
+    float lerpedAudioBuffer[];
+
     public void render(PShape rocket, boolean keyLeftpressed, boolean keyRightpressed, boolean keyUppressed,
             boolean keyDownpressed, boolean keyXpressed) {
-
+        lerpedAudioBuffer();
         // Width and height variables
         int w = js.width;
         int h = js.height;
@@ -108,23 +113,23 @@ public class JellosVisual extends Visual {
         // Audio wave
         for (int i = 0; i < js.getAudioBuffer().size(); i++) {
             // Mapping for the audio buffer to go with the width of the screen
-            float mapx = PApplet.map(i, 0, js.getAudioBuffer().size(), 0, w);
-            float mapy = PApplet.map(i, 0, js.getAudioBuffer().size(), 0, h * 2);
+            float mapx = PApplet.map(i, 0, lerpedAudioBuffer.length, 0, w);
+            float mapy = PApplet.map(i, 0, lerpedAudioBuffer.length, 0, h * 2);
             js.stroke(198, 255, 255);
             js.noFill();
 
             // Back row WaveForm
 
             js.line(mapx, 0, -50,
-                    mapx, 0, (600 * js.getAudioBuffer().get(i)));
+                    mapx, 0, (6000 * lerpedAudioBuffer[i]));
 
             // Left side Waveform
             js.line(0, mapy, -50,
-                    0, mapy, (600 * js.getAudioBuffer().get(i)));
+                    0, mapy, (6000 * lerpedAudioBuffer[i]));
 
             // Right side Waveform
             js.line(w, mapy, -50,
-                    w, mapy, (600 * js.getAudioBuffer().get(i)));
+                    w, mapy, (6000 * lerpedAudioBuffer[i]));
         }
 
         js.pushMatrix();
@@ -251,9 +256,7 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
-
-    public class bug 
-    {
+    public class bug {
 
     }
 
@@ -277,5 +280,23 @@ public class JellosVisual extends Visual {
         js.scale(2);
         js.shape(guy);
         js.popMatrix();
+    }
+
+    public void lerpedAudioBuffer() {
+
+        if (smoothedAudioBuffer == null) {
+            smoothedAudioBuffer = new float[js.getAudioBuffer().size()];
+            // Initialize lerpedAudioBuffer array if not initialized
+            if (lerpedAudioBuffer == null) {
+                lerpedAudioBuffer = new float[js.getAudioBuffer().size()];
+            }
+        }
+
+        // Update smoothedAudioBuffer with new values
+        for (int i = 0; i < js.getAudioBuffer().size(); i++) {
+            smoothedAudioBuffer[i] = lerp(smoothedAudioBuffer[i], js.getAudioBuffer().get(i), lerpFactor);
+            // Update lerpedAudioBuffer with smoothed values
+            lerpedAudioBuffer[i] = smoothedAudioBuffer[i];
+        }
     }
 }
