@@ -20,13 +20,7 @@ public class MyVisual extends Visual {
     JellosVisual Jello;
     JasonsVisual Jason;
     int frame = 1;
-    PShape hand;
-    PShape rocket;
-    PShape rocket2;
-    PShape guy;
-    PShape temple;
-    PShape door;
-    PShape arm;
+    PShape hand, rocket, rocket2, guy, temple, door, arm;
 
     public void settings() {
         size(1024, 500,P3D);
