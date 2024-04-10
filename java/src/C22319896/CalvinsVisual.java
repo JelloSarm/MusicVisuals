@@ -42,6 +42,15 @@ public class CalvinsVisual extends Visual {
     //offset for ship
     float offset = 0f;
 
+    int ring1Amp = 2500;
+    int ring2Amp = 5000;
+    float lerpFactor = 0.05f;
+
+    float smoothedAudioBuffer[];
+
+    // Lerped audio buffer
+    float lerpedAudioBuffer[];
+
     public void render( boolean keyQpressed, boolean keyWpressed, boolean keyEpressed, 
                         boolean keyApressed, boolean keySpressed, boolean keyDpressed,
                         PShape rocket)
@@ -50,6 +59,7 @@ public class CalvinsVisual extends Visual {
         Cd.lights();
         Cd.colorMode(PApplet.HSB);
         Cd.smooth();
+        lerpedAudioBuffer();
 
         // -- camera -- 
         // All objects center around the point 0,0,0
@@ -102,8 +112,8 @@ public class CalvinsVisual extends Visual {
         Cd.pushMatrix();
         Cd.strokeWeight(3);
     
-        drawRing(0, 0, 0,700,Cd.getAudioBuffer().size(),500);
-        drawRing(0, 0, 0,1400,Cd.getAudioBuffer().size(),1000);
+        drawRing(0, 0, 0,700,lerpedAudioBuffer.length,ring1Amp);
+        drawRing(0, 0, 0,1400,lerpedAudioBuffer.length,ring2Amp);
 
         Cd.popMatrix();
 
@@ -175,11 +185,11 @@ public class CalvinsVisual extends Visual {
 
     public void drawRing(float centerX, float centerY, float centerZ, float radius, int numPoints, float amplifier)
     {
-        float angleIncrement = 2*PI / Cd.getAudioBuffer().size();
+        float angleIncrement = 2*PI / lerpedAudioBuffer.length;
         float angle = 0;
 
-        for (int i = 0; i < Cd.getAudioBuffer().size(); i++) {
-            Cd.stroke(PApplet.map(i, 0, Cd.getAudioBuffer().size(), 0, 255), 255, 255);
+        for (int i = 0; i < lerpedAudioBuffer.length; i++) {
+            Cd.stroke(PApplet.map(i, 0, lerpedAudioBuffer.length, 0, 255), 255, 255);
 
             // start points
             float x = centerX + radius * cos(angle);
@@ -187,13 +197,13 @@ public class CalvinsVisual extends Visual {
             float z = centerZ;
 
             // end points, away from center
-            float x2 = x + cos(angle) * amplifier * Cd.getAudioBuffer().get(i);
-            float y2 = y + sin(angle) * amplifier * Cd.getAudioBuffer().get(i);
+            float x2 = x + cos(angle) * amplifier * lerpedAudioBuffer[i];
+            float y2 = y + sin(angle) * amplifier * lerpedAudioBuffer[i];
             float z2 = z ;
 
             // use this for double sided visualiser
-            float xDouble = x - (cos(angle) * amplifier * Cd.getAudioBuffer().get(i));
-            float yDouble = y - (sin(angle) * amplifier * Cd.getAudioBuffer().get(i));
+            float xDouble = x - (cos(angle) * amplifier * lerpedAudioBuffer[i]);
+            float yDouble = y - (sin(angle) * amplifier * lerpedAudioBuffer[i]);
 
             Cd.line(xDouble, yDouble, z, x2, y2, z2);
 
@@ -212,5 +222,24 @@ public class CalvinsVisual extends Visual {
 
         // camera up direction flips to give the illusion of rotation after 180 degrees
         yUpDirection = (sin(rollUD) >= 0) ? 1 : -1;
+    }
+
+
+    public void lerpedAudioBuffer() {
+        // Ensure smoothedAudioBuffer and getAudioBuffer() have the same length
+        if (smoothedAudioBuffer == null || smoothedAudioBuffer.length != Cd.getAudioBuffer().size()) {
+            smoothedAudioBuffer = new float[Cd.getAudioBuffer().size()];
+            // Initialize lerpedAudioBuffer array if not initialized
+            if (lerpedAudioBuffer == null || lerpedAudioBuffer.length != Cd.getAudioBuffer().size()) {
+                lerpedAudioBuffer = new float[Cd.getAudioBuffer().size()];
+            }
+        }
+
+        // Update smoothedAudioBuffer with new values
+        for (int i = 0; i < Cd.getAudioBuffer().size(); i++) {
+            smoothedAudioBuffer[i] = lerp(smoothedAudioBuffer[i], Cd.getAudioBuffer().get(i), lerpFactor);
+            // Update lerpedAudioBuffer with smoothed values
+            lerpedAudioBuffer[i] = smoothedAudioBuffer[i];
+        }
     }
 }
