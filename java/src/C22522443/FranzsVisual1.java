@@ -175,10 +175,11 @@ public class FranzsVisual1 extends Visual{
             Fs.lights();
 
             Fs.pushMatrix();
-            Fs.scale(8);
-            Fs.rotateY(radians(90));
-            Fs.rotateX(radians(10));
-            Fs.translate(0,0,0);
+            Fs.scale(43);
+            Fs.rotateY(radians(70));
+            Fs.rotateX(radians(-4));
+            Fs.rotateZ(radians(60));
+            Fs.translate(4,1,-18);
             Fs.shape(arm,0,0);
             Fs.popMatrix();
            
