@@ -1,7 +1,7 @@
 /*
 todo list
 -correct timer
--ship flying away
+X ship flying away
 X make UI look drippy 
 -ship flying away scene?
 -stars in background?
@@ -11,6 +11,7 @@ package C22516126;
 
 import ie.tudublin.*;
 import processing.core.PShape;
+import processing.core.PVector;
 import example.MyVisual;
 
 public class JasonsVisual extends Visual
@@ -45,22 +46,20 @@ public class JasonsVisual extends Visual
         float moonsize = jg.width * (float)0.17;
 
         //ship placement
-        //float shipX = moonX-moonsize * (float)1 + -50;
-        //float shipY = moonY;
-
         float shipX = 0;
         float shipY = 0;
         shipY = moonY - moonsize*sin(45) - moonsize * 0.15f;
         shipX = moonX - moonsize*cos(45) - moonsize * 0.15f;
-        shipY = shipY - millis() / 70;
-        shipX = shipX - millis() / 70;
+        shipY = shipY - millis() / 50;
+        shipX = shipX - millis() / 50;
 
+        //make ship
         rocket.resetMatrix();
         jg.pushMatrix();
         jg.translate(shipX, shipY);
         jg.rotateY(PI*(float)0.6);
         jg.rotateX(PI * (float)1.7);
-        jg.scale(1);
+        jg.scale(2);
         jg.shape(rocket);
         jg.popMatrix();
 
@@ -167,6 +166,7 @@ public class JasonsVisual extends Visual
         jg.rotateY(millis() / (float)(4000));
         jg.rotateX(millis() / (float)(80000));
 
+        //jg.sphere(moonsize);
         jg.sphere(moonsize);
         jg.popMatrix();
 
@@ -191,7 +191,7 @@ public class JasonsVisual extends Visual
         jg.rotateY(millis() / (float)(4000));
         jg.rotateX(millis() / (float)(80000));
 
-        jg.sphere(moonimplodesize);
+        distortedPlanet(moonimplodesize, multiplier);
         jg.popMatrix();
 
 
@@ -211,6 +211,7 @@ public class JasonsVisual extends Visual
 
     void moon3(float moonX, float moonY, float moonsize, String timer, float multiplier)
     {   
+        
         jg.fill(0, 255, 255);
         jg.text("Moon Detonation Immenent\n00:00.00", jg.width / 2, jg.height * (float) 0.07);
 
@@ -248,7 +249,60 @@ public class JasonsVisual extends Visual
             jg.stroke(hue, 255, 255);
             jg.line(wflength, jg.height * (float)0.2, wflength, (jg.height * (float)0.2) + (multiplier / 2) * jg.getAudioBuffer().get(i));
         }
+        
 
+    }
+
+    //create a sphere which distorts to the music
+    //will make more efficient l8r
+    void distortedPlanet(float moonsize, float multiplier)
+    {
+        float radius = moonsize;
+        int sDetail = 15;
+        
+        PVector[][] moon;
+        moon = new PVector[sDetail+1][sDetail+1];
+        for (int i = 0; i <= sDetail; i ++)
+        {
+            float lat = map(i, 0, sDetail, -HALF_PI, HALF_PI);
+
+            for (int j = 0; j <= sDetail; j ++)
+            {
+                float lon = map(j, 0, sDetail, -PI, PI);
+
+                //convert lon and lat values into xyz values
+                float x = radius * sin(lon) * cos(lat);
+                float y = radius * sin(lon) * sin(lat);
+                float z = radius * cos(lon);
+
+                //jg.stroke(0, 0, 255);
+                //jg.point(x, y, z);
+                
+                for(int k = 0; k < jg.getAudioBuffer().size(); k++) 
+                {
+                    moon[i][j] = new PVector(x, y, z);
+                    PVector v = PVector. random3D();
+                    v.mult(jg.getAudioBuffer().get(k) * multiplier / 5);
+                    moon[i][j].add(v);
+                }
+            }
+        }
+
+        //mesh
+        for (int i = 0; i < sDetail; i ++)
+        {
+            jg.beginShape(TRIANGLE_STRIP);
+            for (int j = 0; j < sDetail; j ++)
+            {
+                PVector v1 = moon[i][j];
+                jg.stroke(0, 0, 255);
+                //jg.strokeWeight(2);
+                jg.vertex(v1.x, v1.y, v1.z);
+                PVector v2 = moon[i+1][j+1];
+                jg.vertex(v2.x, v2.y, v2.z);
+            }
+            jg.endShape();
+        }
     }
 
 }
