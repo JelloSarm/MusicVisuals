@@ -146,9 +146,9 @@ public class CalvinsVisual extends Visual {
         Cd.popMatrix();
 
         // -- planet -- 
+        Cd.pushMatrix();
         Cd.stroke(0);
         Cd.fill(198, 255, 255);   
-        Cd.pushMatrix();
         Cd.translate(0, 0, 0);
 
         //planet orientation
@@ -159,10 +159,8 @@ public class CalvinsVisual extends Visual {
         // rotation
         mainRotY -= Cd.getAmplitude() * 0.12f;
 
-        // create planet
         Cd.sphere(300);
         Cd.popMatrix();
-
 
         // create planet atmosphere
         Cd.pushMatrix();
