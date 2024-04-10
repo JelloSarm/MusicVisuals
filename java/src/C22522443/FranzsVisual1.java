@@ -41,7 +41,7 @@ public class FranzsVisual1 extends Visual{
         //countdown for changing the scenes
         float countdown = (20000 - millis());
 
-        //cameraSetup();
+        cameraSetup();
 
         //First scene
         if (countdown > 15000)
