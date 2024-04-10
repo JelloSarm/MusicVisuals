@@ -97,25 +97,6 @@ public class CalvinsVisual extends Visual {
             Cd.sphere(3000 + Cd.getAmplitude()*h*6);
             Cd.popMatrix();
         }
-
-        // -- planet -- 
-        Cd.stroke(0);
-        Cd.fill(198, 255, 255);   
-        Cd.pushMatrix();
-        Cd.translate(0, 0, 0);
-
-        //planet orientation
-        Cd.rotateX(mainRotX);
-        Cd.rotateY(mainRotY);
-        Cd.rotateZ(mainRotZ);
-        
-        // rotation
-        mainRotY -= Cd.getAmplitude() * 0.12f;
-
-        // create
-        Cd.sphere(300);
-        Cd.popMatrix();
-
         
         // -- ring --
         Cd.pushMatrix();
@@ -162,6 +143,34 @@ public class CalvinsVisual extends Visual {
         Cd.translate(0 , 0 , 1000f);
         Cd.rotateY(secRotY*10);
         Cd.sphere(90);
+        Cd.popMatrix();
+
+        // -- planet -- 
+        Cd.stroke(0);
+        Cd.fill(198, 255, 255);   
+        Cd.pushMatrix();
+        Cd.translate(0, 0, 0);
+
+        //planet orientation
+        Cd.rotateX(mainRotX);
+        Cd.rotateY(mainRotY);
+        Cd.rotateZ(mainRotZ);
+        
+        // rotation
+        mainRotY -= Cd.getAmplitude() * 0.12f;
+
+        // create planet
+        Cd.sphere(300);
+        Cd.popMatrix();
+
+
+        // create planet atmosphere
+        Cd.pushMatrix();
+        Cd.fill(140, 240, 200, 20);
+        Cd.stroke(140,240,200,0);
+        for (int i = 0; i < 12; i++) {
+            Cd.sphere(300 + (i * 10));
+        }
         Cd.popMatrix();
     
     }
