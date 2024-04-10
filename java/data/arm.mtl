@@ -1,17 +1,19 @@
 # Exported from 3D Builder
 
-newmtl Mat_0
-Kd 1.000000 1.000000 1.000000
-map_Kd 1880.png
+newmtl Material_1_0_0_0
+Kd 0.345098 0.345098 0.345098
 
-newmtl Material_0
-Kd 0.447059 0.447059 0.447059
-
-newmtl Material_1
+newmtl Material_4_0_0_0
 Kd 1.000000 0.498039 0.152941
 
-newmtl Material_2
-Kd 0.000000 0.000000 0.000000
+newmtl Material_11_0_0_0
+Kd 0.501961 0.427451 0.360784
 
-newmtl Material_3
-Kd 0.349020 0.349020 0.349020
+newmtl Material_12_0_0_0
+Kd 0.207843 0.207843 0.207843
+
+newmtl Material_8_0_0_0
+Kd 0.443137 0.443137 0.443137
+
+newmtl Material_9_0_0_0
+Kd 0.000000 0.000000 0.000000
