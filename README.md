@@ -41,6 +41,10 @@ My ring function uses sin, cos and the audio buffer to evenly space out each poi
 The camera movement also uses sin and cos to rotate around the center sphere.
 Figuring out circular movement in 3D space was *very* tricky but alas i persevered.
 
+Jello: I am most proud of my creation of terrain, implementing features that use noise and mapping.
+My terrain function moves based on both Audio and x offset movement
+Secondly I am most proud of my little space invader type movement giving more depth into the scene.
+
 # Markdown Tutorial
 
 This is *emphasis*

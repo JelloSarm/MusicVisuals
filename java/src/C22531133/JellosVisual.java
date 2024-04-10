@@ -28,7 +28,7 @@ public class JellosVisual extends Visual {
 
     public void render(PShape rocket, boolean keyLeftpressed, boolean keyRightpressed, boolean keyUppressed,
             boolean keyDownpressed) {
-                
+
         // Width and height variables
         int w = js.width;
         int h = js.height;
@@ -50,7 +50,7 @@ public class JellosVisual extends Visual {
         cols = (int) (w / scale);
 
         land = new float[cols][rows];
-
+        int diff = 0;
         // Y coordinate offset to move the previous Z value on the terrain
         // so that it is a smoother surface
         float yoff = movement;
@@ -58,9 +58,8 @@ public class JellosVisual extends Visual {
             // X coordinate offset to make the previous Z value more smooth
             float xoff = 0;
             for (int x = 0; x < cols; x++) {
-                if (getSmoothedAmplitude() > 200) {
-                    land[x][y] = map(noise(xoff, yoff) + (js.getSmoothedAmplitude() * 2), 0, 1, 0, 60); // (js.getSmoothedAmplitude()
-                                                                                                        // * 50)
+                if (y % 23 == 0 && x % 2 == 0) {
+                    land[x][y] = map(noise(xoff, yoff) + (js.getSmoothedAmplitude() * 2), 0, 1, 0, 80);
                 } else {
                     land[x][y] = map(noise(xoff, yoff) - (js.getSmoothedAmplitude() * 2), 0, 1, 0, 60);
                 }
@@ -256,10 +255,10 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
-    public class bug
-    {
-        
+    public class bug {
+
     }
+
     public void spawnBug(PShape guy, int w, int h) {
         js.pushMatrix();
         if (score < 10) {
@@ -272,8 +271,7 @@ public class JellosVisual extends Visual {
         js.popMatrix();
     }
 
-    public void spawnNewBug(PShape guy, int w, int h)
-    {
+    public void spawnNewBug(PShape guy, int w, int h) {
         js.pushMatrix();
         guy.resetMatrix();
         guy.rotateX(radians(270));
