@@ -126,7 +126,7 @@ public class JasonsVisual extends Visual
         //before moon detonates
         if (countdown > 0)
         {
-            moon1(moonX, moonY, moonsize, timer);
+            moon1(moonX, moonY, moonsize, timer, multiplier);
         }
 
         //implosion begins
@@ -151,7 +151,7 @@ public class JasonsVisual extends Visual
     //FUNCTIONS
 
     //state of the moon before detonation
-    void moon1(float moonX, float moonY, float moonsize, String timer) {
+    void moon1(float moonX, float moonY, float moonsize, String timer, float multiplier) {
      
         jg.fill(0, 0, 255);
         jg.text("Moon Detonation Immenent\n00:0"+timer, jg.width / 2, jg.height * (float) 0.07);
@@ -167,7 +167,7 @@ public class JasonsVisual extends Visual
         jg.rotateX(millis() / (float)(80000));
 
         //jg.sphere(moonsize);
-        jg.sphere(moonsize);
+        distortedPlanet(moonsize, multiplier);
         jg.popMatrix();
 
         reversecount = millis() + 3000;
@@ -192,6 +192,7 @@ public class JasonsVisual extends Visual
         jg.rotateX(millis() / (float)(80000));
 
         distortedPlanet(moonimplodesize, multiplier);
+        //jg.sphere(moonimplodesize);
         jg.popMatrix();
 
 
@@ -258,8 +259,19 @@ public class JasonsVisual extends Visual
     void distortedPlanet(float moonsize, float multiplier)
     {
         float radius = moonsize;
-        int sDetail = 15;
+        //lower detail if frames are low
+        int sDetail = 20;
         
+        //initialize distort variable
+        float distort = 0;
+        
+        for(int k = 0; k < jg.getAudioBuffer().size(); k++) 
+        {
+            //v.mult(jg.getAudioBuffer().get(k) * multiplier / 5);
+            distort = jg.getAudioBuffer().get(k) * multiplier / 3;
+
+        }
+
         PVector[][] moon;
         moon = new PVector[sDetail+1][sDetail+1];
         for (int i = 0; i <= sDetail; i ++)
@@ -275,16 +287,11 @@ public class JasonsVisual extends Visual
                 float y = radius * sin(lon) * sin(lat);
                 float z = radius * cos(lon);
 
-                //jg.stroke(0, 0, 255);
-                //jg.point(x, y, z);
                 
-                for(int k = 0; k < jg.getAudioBuffer().size(); k++) 
-                {
-                    moon[i][j] = new PVector(x, y, z);
-                    PVector v = PVector. random3D();
-                    v.mult(jg.getAudioBuffer().get(k) * multiplier / 5);
-                    moon[i][j].add(v);
-                }
+                moon[i][j] = new PVector(x, y, z);
+                PVector v = PVector. random3D();
+                v.mult(distort);
+                moon[i][j].add(v);
             }
         }
 
