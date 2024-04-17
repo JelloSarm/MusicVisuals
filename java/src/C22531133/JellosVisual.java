@@ -262,23 +262,6 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
-    public void spawnBug(int w, int h, float x, float y) {
-        js.stroke(0);
-
-        //js.fill(150, 0, 0);
-        
-    }
-
-    public void spawnNewBug(PShape guy, int w, int h) {
-        js.pushMatrix();
-        guy.resetMatrix();
-        guy.rotateX(radians(270));
-        guy.translate(10, 10, 50);
-        js.scale(2);
-        js.shape(guy);
-        js.popMatrix();
-    }
-
     public void bullet (float startx, float offx, float h, float offy)
     {
         System.out.println("help");
