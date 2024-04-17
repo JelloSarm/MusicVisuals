@@ -135,6 +135,7 @@ public class JellosVisual extends Visual {
         js.pushMatrix();
 
         float shipx = w / 4, shipy = h / 1.08f;
+        float bulx = w/2;
 
         if (keyLeftpressed) {
             if (offx > -w / 20) {
@@ -198,6 +199,11 @@ public class JellosVisual extends Visual {
         js.popMatrix();
         lock = 0;
 
+        spawnBug(w, h, 0, 0);
+        if(keyXpressed)
+        {
+            bullet(bulx, offx, h, offy);
+        }
     }
 
     // This function allows the ship to tilt when you move and return to its
@@ -256,20 +262,11 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
-    public class bug {
+    public void spawnBug(int w, int h, float x, float y) {
+        js.stroke(0);
 
-    }
-
-    public void spawnBug(PShape guy, int w, int h) {
-        js.pushMatrix();
-        if (score < 10) {
-            if (noOfBugs < 2) {
-                spawnNewBug(guy, w, h);
-                System.out.println("Dude has spawned");
-                noOfBugs++;
-            }
-        }
-        js.popMatrix();
+        //js.fill(150, 0, 0);
+        
     }
 
     public void spawnNewBug(PShape guy, int w, int h) {
@@ -280,6 +277,13 @@ public class JellosVisual extends Visual {
         js.scale(2);
         js.shape(guy);
         js.popMatrix();
+    }
+
+    public void bullet (float startx, float offx, float h, float offy)
+    {
+        System.out.println("help");
+        js.stroke(255, 255, 255);
+        js.line(startx+(offx * 2), (h+950)+(offy * 2), 60, startx+(offx * 2), 0, 60);
     }
 
     public void lerpedAudioBuffer() {

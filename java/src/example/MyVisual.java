@@ -246,7 +246,6 @@ public class MyVisual extends Visual {
         else if(frame == 4)
         {
             Jello.render(rocket, keyLeftpressed, keyRightpressed, keyUppressed, keyDownpressed, keyXpressed);
-            Jello.spawnBug(rocket, width, height);
             
         }
         else if (frame == 5)
