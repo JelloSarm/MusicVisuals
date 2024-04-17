@@ -57,8 +57,6 @@ public class FranzsVisual extends Visual{
             Fs.shape(hand,0,0);
             Fs.popMatrix();
 
-        
-        
     }
 
     private void templeInner()
