@@ -57,7 +57,7 @@ public class MyVisual extends Visual {
         temple = loadShape("Temple.obj");
         arm = loadShape("arm.obj");
 
-
+        
         // Rocket ship file
         rocket = loadShape("rocketShip2.obj");
         rocket2 = loadShape("rocketShip2.obj");
