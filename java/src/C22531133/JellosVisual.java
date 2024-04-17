@@ -199,7 +199,6 @@ public class JellosVisual extends Visual {
         js.popMatrix();
         lock = 0;
 
-        spawnBug(w, h, 0, 0);
         if(keyXpressed)
         {
             bullet(bulx, offx, h, offy);
@@ -264,7 +263,6 @@ public class JellosVisual extends Visual {
 
     public void bullet (float startx, float offx, float h, float offy)
     {
-        System.out.println("help");
         js.stroke(255, 255, 255);
         js.line(startx+(offx * 2), (h+950)+(offy * 2), 60, startx+(offx * 2), 0, 60);
     }
