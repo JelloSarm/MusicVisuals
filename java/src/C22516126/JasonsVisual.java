@@ -250,7 +250,6 @@ public class JasonsVisual extends Visual
             jg.stroke(hue, 255, 255);
             jg.line(wflength, jg.height * (float)0.2, wflength, (jg.height * (float)0.2) + (multiplier / 2) * jg.getAudioBuffer().get(i));
         }
-        
 
     }
 

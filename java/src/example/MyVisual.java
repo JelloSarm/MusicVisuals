@@ -151,6 +151,35 @@ public class MyVisual extends Visual {
         {
             keyXpressed = true;
         }
+
+        //skip keys
+        //jello part
+        if (key == 'j' || key == 'J')
+        {
+            getAudioPlayer().cue(98000);
+            getAudioPlayer().play();
+            frame = 4;
+        }
+
+        //franz part
+        if (key == 'k' || key == 'K')
+        {
+            getAudioPlayer().cue(165000);
+            getAudioPlayer().play();
+            frame = 5;
+            Franz = null;
+            Franz = new FranzsVisual1(this);
+        }
+
+        //jason part
+        if (key == 'l' || key == 'L')
+        {
+            getAudioPlayer().cue(233000);
+            getAudioPlayer().play();
+            frame = 6;
+            Jason = null;
+            Jason = new JasonsVisual(this);
+        }
     }
 
     // WASD handles key releases
