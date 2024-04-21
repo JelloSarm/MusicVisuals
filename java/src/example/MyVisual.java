@@ -38,9 +38,10 @@ public class MyVisual extends Visual {
 
         // Call loadAudio to load an audio file to process
        // loadAudio("heroplanet.mp3");
-        loadAudio("Chris Christodoulou - The Face of the Deep  ROR2_ Survivors of the Void (2022).mp3");
+        //loadAudio("Chris Christodoulou - The Face of the Deep  ROR2_ Survivors of the Void (2022).mp3");
        // loadAudio("Meatball Parade (128kbps).mp3");
         //loadAudio("Genesis Retake Light (128kbps).mp3");
+        loadAudio("music.mp3");
 
 
         // Call this instead to read audio from the microphone

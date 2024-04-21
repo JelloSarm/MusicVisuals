@@ -23,6 +23,12 @@ public class JasonsVisual extends Visual
     //global variables
     float reversecount = 0;
     float moonimplodesize = 300;
+
+    //lerped audio buffer
+    float smoothedAudioBuffer[];
+    float lerpedAudioBuffer[];
+    float lerpFactor = 0.05f;
+
     public JasonsVisual(MyVisual jg)
     {
         //ship = jg.loadShape("ship1.obj");
@@ -31,6 +37,7 @@ public class JasonsVisual extends Visual
 
     public void render(PShape rocket)
     { 
+        lerpedAudioBuffer();
         /*
         jg.pushMatrix();
         jg.translate(jg.width/2, jg.height/2);
@@ -91,8 +98,7 @@ public class JasonsVisual extends Visual
         jg.textSize(jg.height * (float)0.045 ); 
 
         //detonation timer
-        float countdown = (10000 - millis()); //CHANGE LATER
-        String timer = String.format("%.2f", countdown / 1000);
+        float countdown = (17000 - millis());
 
         //planet
         jg.stroke(150, 255, 255);
@@ -126,20 +132,20 @@ public class JasonsVisual extends Visual
         //before moon detonates
         if (countdown > 0)
         {
-            moon1(moonX, moonY, moonsize, timer, multiplier);
+            moon1(moonX, moonY, moonsize, countdown, multiplier);
         }
 
         //implosion begins
         else if (countdown <= 1 && moonimplodesize > 0)
         {
-            moon2(moonX, moonY, moonsize, timer, multiplier);
+            moon2(moonX, moonY, moonsize, countdown, multiplier);
         }
 
         //placeholder for implosion
         //else if (countdown <= 1 && moonimplodesize <= 0)
         else
         {
-            moon3(moonX, moonY, moonsize, timer, multiplier);
+            moon3(moonX, moonY, moonsize, countdown, multiplier);
         }
      
 
@@ -151,10 +157,21 @@ public class JasonsVisual extends Visual
     //FUNCTIONS
 
     //state of the moon before detonation
-    void moon1(float moonX, float moonY, float moonsize, String timer, float multiplier) {
+    private void moon1(float moonX, float moonY, float moonsize, float countdown, float multiplier) {
      
         jg.fill(0, 0, 255);
-        jg.text("Moon Detonation Immenent\n00:0"+timer, jg.width / 2, jg.height * (float) 0.07);
+        String timer = String.format("%.2f", countdown / 1000);
+
+        //formatting
+        if (countdown > 10000)
+        {
+            jg.text("Moon Detonation Immenent\n00:"+timer, jg.width / 2, jg.height * (float) 0.07);
+        }
+        else
+        {
+            jg.text("Moon Detonation Immenent\n00:0"+timer, jg.width / 2, jg.height * (float) 0.07);
+        }
+        
 
         //moon
         jg.stroke(200, 0, 255);
@@ -174,7 +191,7 @@ public class JasonsVisual extends Visual
     }
 
     //state of the moon during detonation
-    void moon2(float moonX, float moonY, float moonsize, String timer, float multiplier)
+    private void moon2(float moonX, float moonY, float moonsize, float countdown, float multiplier)
     {
         float unscaledMoonsize = reversecount - millis();
         moonimplodesize = unscaledMoonsize / 10;
@@ -191,7 +208,7 @@ public class JasonsVisual extends Visual
         jg.rotateY(millis() / (float)(4000));
         jg.rotateX(millis() / (float)(80000));
 
-        distortedPlanet(moonimplodesize, multiplier);
+        distortedPlanet(moonimplodesize, multiplier * 1.5f);
         //jg.sphere(moonimplodesize);
         jg.popMatrix();
 
@@ -210,7 +227,7 @@ public class JasonsVisual extends Visual
         
     }
 
-    void moon3(float moonX, float moonY, float moonsize, String timer, float multiplier)
+    private void moon3(float moonX, float moonY, float moonsize, float countdown, float multiplier)
     {   
         
         jg.fill(0, 255, 255);
@@ -230,7 +247,7 @@ public class JasonsVisual extends Visual
 
     }
 
-    void moonDetUI(float multiplier)
+    private void moonDetUI(float multiplier)
     {
         //UI
         jg.stroke(255, 255, 255);
@@ -249,25 +266,29 @@ public class JasonsVisual extends Visual
             float wflength = map(i, 0, jg.getAudioBuffer().size() -1, wfstart, wfend);
             jg.stroke(hue, 255, 255);
             jg.line(wflength, jg.height * (float)0.2, wflength, (jg.height * (float)0.2) + (multiplier / 2) * jg.getAudioBuffer().get(i));
+
+            //uncomment for lerped buffer version
+            //jg.line(wflength, jg.height * (float)0.2, wflength, (jg.height * (float)0.2) + (multiplier * 4) * lerpedAudioBuffer[i]);
         }
 
     }
 
     //create a sphere which distorts to the music
     //will make more efficient l8r
-    void distortedPlanet(float moonsize, float multiplier)
+    private void distortedPlanet(float moonsize, float multiplier)
     {
         float radius = moonsize;
         //lower detail if frames are low
         int sDetail = 20;
         
         //initialize distort variable
-        float distort = 0;
+        float[] distort;
+        distort = new float[lerpedAudioBuffer.length];
         
-        for(int k = 0; k < jg.getAudioBuffer().size(); k++) 
+        for(int k = 0; k < lerpedAudioBuffer.length; k++) 
         {
             //v.mult(jg.getAudioBuffer().get(k) * multiplier / 5);
-            distort = jg.getAudioBuffer().get(k) * multiplier / 3;
+            distort[k] = lerpedAudioBuffer[k] * multiplier * 3;
 
         }
 
@@ -289,7 +310,7 @@ public class JasonsVisual extends Visual
                 
                 moon[i][j] = new PVector(x, y, z);
                 PVector v = PVector. random3D();
-                v.mult(distort);
+                v.mult(distort[j]);
                 moon[i][j].add(v);
             }
         }
@@ -308,6 +329,24 @@ public class JasonsVisual extends Visual
                 jg.vertex(v2.x, v2.y, v2.z);
             }
             jg.endShape();
+        }
+    }
+
+    private void lerpedAudioBuffer() {
+
+        if (smoothedAudioBuffer == null) {
+            smoothedAudioBuffer = new float[jg.getAudioBuffer().size()];
+            // Initialize lerpedAudioBuffer array if not initialized
+            if (lerpedAudioBuffer == null) {
+                lerpedAudioBuffer = new float[jg.getAudioBuffer().size()];
+            }
+        }
+
+        // Update smoothedAudioBuffer with new values
+        for (int i = 0; i < jg.getAudioBuffer().size(); i++) {
+            smoothedAudioBuffer[i] = lerp(smoothedAudioBuffer[i], jg.getAudioBuffer().get(i), lerpFactor);
+            // Update lerpedAudioBuffer with smoothed values
+            lerpedAudioBuffer[i] = smoothedAudioBuffer[i];
         }
     }
 
