@@ -4,6 +4,7 @@ import ie.tudublin.*;
 import processing.core.PApplet;
 import processing.core.PShape;
 import example.MyVisual;
+import java.awt.*;
 
 public class JellosVisual extends Visual {
     MyVisual js;
@@ -135,7 +136,7 @@ public class JellosVisual extends Visual {
         js.pushMatrix();
 
         float shipx = w / 4, shipy = h / 1.08f;
-        float bulx = w/2;
+        float bulx = w / 2;
 
         if (keyLeftpressed) {
             if (offx > -w / 20) {
@@ -199,8 +200,7 @@ public class JellosVisual extends Visual {
         js.popMatrix();
         lock = 0;
 
-        if(keyXpressed)
-        {
+        if (keyXpressed) {
             bullet(bulx, offx, h, offy);
         }
     }
@@ -261,10 +261,11 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
-    public void bullet (float startx, float offx, float h, float offy)
-    {
+    public void bullet(float startx, float offx, float h, float offy) {
         js.stroke(255, 255, 255);
-        js.line(startx+(offx * 2), (h+950)+(offy * 2), 60, startx+(offx * 2), 0, 60);
+        js.strokeWeight(5);
+        js.line(startx + (offx * 2), (h + 950) + (offy * 2), 60, startx + (offx * 2), 0, 60);
+        js.strokeWeight(1);
     }
 
     public void lerpedAudioBuffer() {
