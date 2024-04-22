@@ -4,7 +4,7 @@ todo list
 X ship flying away
 X make UI look drippy 
 -ship flying away scene?
--stars in background?
+X stars in background?
 */
 
 package C22516126;
@@ -29,29 +29,72 @@ public class JasonsVisual extends Visual
     float lerpedAudioBuffer[];
     float lerpFactor = 0.05f;
 
+    //store star coordinates
+    float[] row;
+    float[] col;
+
     public JasonsVisual(MyVisual jg)
     {
+        jg.background(0, 0, 0);
+
+        //camera settings
+        float fov = PI / (float)3.0; // A field of view of 60 degrees
+        float cameraZ = (jg.height / 2.0f) / tan(fov / 2.0f);
+
+        //dafault camera position
+        jg.camera(jg.width / 2.0f, jg.height / 2.0f, cameraZ,
+                  jg.width / 2.0f, jg.height / 2.0f, 0,
+                  0, 1, 0);
+
         //ship = jg.loadShape("ship1.obj");
         this.jg = jg;
-    }
+
+        //text settings
+        jg.textAlign(CENTER, CENTER);
+        jg.textSize(jg.height * (float)0.045 ); 
+
+        //generate random star coordinates
+        row = new float[300];
+        col = new float[300];
+
+        //assign random positions to stars
+        for(int i = 0; i < 300; i++)
+        {
+            row[i] = jg.random(jg.width);
+            col[i] = jg.random(jg.height);
+
+            //reassign position if it spawns within planet or UI
+            while ( ((row[i] > (0.3f * jg.width) && col[i] < (0.28f * jg.height)) ||
+            (row[i] > (0.5f * jg.width) && col[i] < (0.47f * jg.height)) ||
+            (row[i] > (0.58f * jg.width) && col[i] < (0.63f * jg.height)) ||
+            (row[i] > (0.69f * jg.width) && col[i] < (0.75f * jg.height)) ||
+            (row[i] > (0.84f * jg.width) && col[i] < (0.88f * jg.height)))
+            )
+            {
+                row[i] = jg.random(jg.width);
+                col[i] = jg.random(jg.height);
+            }   
+        }
+        
+    }//setup end
 
     public void render(PShape rocket)
     { 
         lerpedAudioBuffer();
-        /*
-        jg.pushMatrix();
-        jg.translate(jg.width/2, jg.height/2);
-        jg.rotateX(90);
-        jg.scale(4);
-        jg.shape(ship, 0, 0, 200, 200);
-        jg.popMatrix();*/
-    
+
+        //detonation timer
+        float countdown = (17000 - millis());
+
+        //multipliers for scaling
+        float multiplier = jg.height * (float)0.2;
+        float planetmultiplier = jg.height * (float)0.6;
+        
         //moon placement + size
         //jg.width / 2, (jg.height * (float)0.65)
         float moonX = jg.width*(float)0.4;
         float moonY = jg.height * (float)0.65;
         float moonsize = jg.width * (float)0.17;
-
+    
         //ship placement
         float shipX = 0;
         float shipY = 0;
@@ -60,7 +103,45 @@ public class JasonsVisual extends Visual
         shipY = shipY - millis() / 50;
         shipX = shipX - millis() / 50;
 
-        //make ship
+        //planet placement
+        //(-jg.height, (jg.height /2), -jg.width);
+        float planetX = jg.height*4;
+        float planetY = -jg.height * 2;
+        float planetZ = -jg.width;
+        float planetsize = jg.width* 2;
+
+
+        //objects
+        moonDetUI(multiplier);  //create UI
+        stars();    //make randomly positioned stars in the background
+        fly(rocket, shipX, shipY);  //make moving ship
+        makePlanet(planetX, planetY, planetZ, planetsize);  //make planet
+        planetbounce(planetX, planetY, planetZ, planetsize, planetmultiplier); //planet bounce
+        
+        //moon states
+        //before moon detonates
+        if (countdown > 0)
+        {
+            moon1(moonX, moonY, moonsize, countdown, multiplier);
+        }
+        //implosion begins
+        else if (countdown <= 1 && moonimplodesize > 0)
+        {
+            moon2(moonX, moonY, moonsize, countdown, multiplier);
+        }
+        //implosion
+        else
+        {
+            moon3(moonX, moonY, moonsize, countdown, multiplier);
+        }
+
+    }//render() end
+
+
+    //FUNCTIONS
+    //state of the moon before detonation
+    private void fly(PShape rocket, float shipX, float shipY)
+    {
         rocket.resetMatrix();
         jg.pushMatrix();
         jg.translate(shipX, shipY);
@@ -69,52 +150,22 @@ public class JasonsVisual extends Visual
         jg.scale(2);
         jg.shape(rocket);
         jg.popMatrix();
+    }
 
-        //planet placement
-        //(-jg.height, (jg.height /2), -jg.width);
-        float planetX = jg.height*4;
-        float planetY = -jg.height * 2;
-        float planetZ = -jg.width;
-        float planetsize = jg.width* 2;
-
-        float multiplier = jg.height * (float)0.2;
-        float planetmultiplier = jg.height * (float)0.6;
-
-        //camera settings
-        float fov = PI / (float)3.0; // A field of view of 60 degrees
-        float cameraZ = (jg.height / 2.0f) / tan(fov / 2.0f);
-
-
-        //default camera position
-        jg.camera(jg.width / 2.0f, jg.height / 2.0f, cameraZ,
-                  jg.width / 2.0f, jg.height / 2.0f, 0,
-                  0, 1, 0);
-
-        //create UI
-        moonDetUI(multiplier);
-        
-        //text settings
-        jg.textAlign(CENTER, CENTER);
-        jg.textSize(jg.height * (float)0.045 ); 
-
-        //detonation timer
-        float countdown = (17000 - millis());
-
-        //planet
-        jg.stroke(150, 255, 255);
-        jg.fill(150, 255, 50);
-        //jg.noFill();
+    private void makePlanet(float planetX, float planetY, float planetZ,float planetsize)
+    {
         jg.pushMatrix();
         jg.translate(planetX, planetY, planetZ);
-
-        //rotate the planet slowly
-        //jg.rotateY(millis() / (float)(4000));
-        jg.rotateX(millis() / (float)(80000));
-
+        jg.rotateX(millis() / (float)(80000)); //rotate the planet slowly
+        jg.stroke(150, 255, 255);
+        jg.fill(150, 255, 50, 255);
         jg.sphere(planetsize);
         jg.popMatrix();
 
-        //planet bounce
+    }
+
+    private void planetbounce(float planetX, float planetY, float planetZ,float planetsize, float planetmultiplier)
+    {
         for(int i = 0; i < jg.getAudioBuffer().size(); i++) 
         {
             jg.noFill();
@@ -129,35 +180,20 @@ public class JasonsVisual extends Visual
             jg.popMatrix();
         }
         
-        //before moon detonates
-        if (countdown > 0)
-        {
-            moon1(moonX, moonY, moonsize, countdown, multiplier);
-        }
-
-        //implosion begins
-        else if (countdown <= 1 && moonimplodesize > 0)
-        {
-            moon2(moonX, moonY, moonsize, countdown, multiplier);
-        }
-
-        //placeholder for implosion
-        //else if (countdown <= 1 && moonimplodesize <= 0)
-        else
-        {
-            moon3(moonX, moonY, moonsize, countdown, multiplier);
-        }
-     
-
-    //render() end
     }
 
-
-
-    //FUNCTIONS
+    private void stars()
+    {
+        for(int i = 0; i < 300; i++)
+        {
+            jg.stroke(0, 0, 255);
+            jg.circle(row[i], col[i], 2);
+        }
+    }
 
     //state of the moon before detonation
-    private void moon1(float moonX, float moonY, float moonsize, float countdown, float multiplier) {
+    private void moon1(float moonX, float moonY, float moonsize, float countdown, float multiplier)
+    {
      
         jg.fill(0, 0, 255);
         String timer = String.format("%.2f", countdown / 1000);
@@ -172,7 +208,6 @@ public class JasonsVisual extends Visual
             jg.text("Moon Detonation Immenent\n00:0"+timer, jg.width / 2, jg.height * (float) 0.07);
         }
         
-
         //moon
         jg.stroke(200, 0, 255);
         jg.fill(200, 255, 255);
@@ -213,10 +248,12 @@ public class JasonsVisual extends Visual
         jg.popMatrix();
 
 
-        jg.fill(0, 0, 0);
-        jg.circle(moonX, moonY, moonsize * 2);
+        web(moonX, moonY, moonsize, multiplier);
+
         for(int i = 0; i < jg.getAudioBuffer().size(); i++) 
         {
+            jg.fill(0, 0, 0);
+            jg.circle(moonX, moonY, moonsize * 2);
             jg.noFill();
 
             //looping colours
@@ -244,7 +281,7 @@ public class JasonsVisual extends Visual
             jg.stroke(hue, 255, 255);
             jg.circle(moonX, moonY, (jg.getAudioBuffer().get(i) * multiplier) + (moonsize* 2));
         }
-
+        web(moonX, moonY, moonsize, multiplier);
     }
 
     private void moonDetUI(float multiplier)
@@ -287,7 +324,6 @@ public class JasonsVisual extends Visual
         
         for(int k = 0; k < lerpedAudioBuffer.length; k++) 
         {
-            //v.mult(jg.getAudioBuffer().get(k) * multiplier / 5);
             distort[k] = lerpedAudioBuffer[k] * multiplier * 3;
 
         }
@@ -332,8 +368,9 @@ public class JasonsVisual extends Visual
         }
     }
 
-    private void lerpedAudioBuffer() {
-
+    //taken from calvin/jello
+    private void lerpedAudioBuffer()
+    {
         if (smoothedAudioBuffer == null) {
             smoothedAudioBuffer = new float[jg.getAudioBuffer().size()];
             // Initialize lerpedAudioBuffer array if not initialized
@@ -350,39 +387,28 @@ public class JasonsVisual extends Visual
         }
     }
 
-}
-
-/*
- 
-for(int i = 0 ; i < ab.size() ; i ++)
-{
-    sum += abs(ab.get(i));
-    lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.05f);
-
-    float hue = map(i, 0, ab.size(), 200, 255);
-    stroke(hue, 255, 255);
-    line(300 + i, (ab.get(i) * (cx) / 2)+400, 300 + i, (ab.get(i) * (cy)/2 )+400); 
-
-
-unused star function
-float stars[][];
-for(int i = 0; i < 100; i++)
-{
-    float row = 0;
-    float col = 0;
-
-    row = ((jg.width / 100)*i);
-    for(int j = 0; j < 40; j++)
+    private void web(float moonX, float moonY, float moonsize, float multiplier)
     {
 
-        float offsetx = 0;
-        float offsety = 0;
+        //accidental webbing effect
+        float dots = 100;
+        float dotangle = TWO_PI / dots;
+        float dotX = 0;
+        float dotY = 0;
+        float endX = 0;
+        float endY = 0;
+        for(int i = 0; i < lerpedAudioBuffer.length; i++)
+        {
+            dotX = moonX + moonsize * cos(dotangle * i);
+            dotY = moonY + moonsize * sin(dotangle * i);
 
-        offsetx = random(-10, 10);
-        offsety = random(-10, 10);
-        
-        col = ((jg.height / 40)*j);
-        jg.circle(row, col, 5);
+            endX = moonX + lerpedAudioBuffer[i] * cos(dotangle * i) * -multiplier * 20;
+            endY = moonY + lerpedAudioBuffer[i] * sin(dotangle * i) * multiplier * 20;
 
+            float hue = map(i, 0, jg.getAudioBuffer().size() -1, 80, 130);
+            jg.stroke(hue, 255, 255);
+            jg.line(dotX, dotY, endX, endY);
+        }
     }
-}*/
+
+}
