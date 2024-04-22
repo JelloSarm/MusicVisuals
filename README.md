@@ -45,6 +45,12 @@ Jello: I am most proud of my creation of terrain, implementing features that use
 My terrain function moves based on both Audio and x offset movement
 Secondly I am most proud of my little space invader type movement giving more depth into the scene.
 
+Franz: Personally, I take the most pride in learning how to use 3d modelling software to create the
+OBJ files for my scene. Although the softwares (paint 3d + 3d builder) were basic in nature, it is
+an area that I have never had experience in and this project allowed me to venture out of my comfort zone.
+I am also proud of orchestrating the scene as it did have to go through several iterations beforehand.
+Learning how to use the camera in ways such as screen-shake were fun to learn and were worth the work.
+
 # Markdown Tutorial
 
 This is *emphasis*
