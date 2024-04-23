@@ -27,6 +27,7 @@ public class JellosVisual extends Visual {
     int score = 0;
     float bugY;
     float bugX;
+    boolean init = false;
     boolean isAlive = false;
 
     float lerpFactor = 0.05f;
@@ -40,6 +41,12 @@ public class JellosVisual extends Visual {
         // Width and height variables
         int w = js.width;
         int h = js.height;
+        if (!init)
+        {
+            bugX = w/2;
+            init = true;
+        }
+
 
         // Code used for the parameteres for the camera
         float fov = PI / (float) 3.0;
@@ -206,18 +213,20 @@ public class JellosVisual extends Visual {
             bullet(bulx, offx, h, offy, bugX, bugY);
         }
 
-        if (!isAlive) {
+        if (!isAlive && score > 50) {
             bugX = random(w / 2.8f, w - w / 2.8f);
             spawnbug(bugX, bugY);
         }
 
+        if (!isAlive && score < 50)
+        {
+            spawnbug(bugX, bugY);
+        }
         // bugY = bugY - bugY - (js.getSmoothedAmplitude() * 60);
         bugY = (bugY - 1) - (score);
-        System.out.println(bugY);
-        if (bugY > h - 500) {
+        if (bugY < -h - 1000) {
             bugY = 0;
         }
-        System.out.println(bugX);
     }
 
     // This function allows the ship to tilt when you move and return to its
@@ -284,13 +293,22 @@ public class JellosVisual extends Visual {
         js.line(x - 50, 50 - bugY, 60, x + 50, 50 - bugY, 60);
         js.line(x + 50, 50 - bugY, 60, x, 0 - bugY, 60);
 
+        // Bars connecting the top and bottomg half
         js.line(x, 0 - bugY, 40, x, 0 - bugY, 60);
         js.line(x - 50, 50 - bugY, 40, x - 50, 50 - bugY, 60);
         js.line(x + 50, 50 - bugY, 40, x + 50, 50 - bugY, 60);
 
+        // Bottom half
         js.line(x, 0 - bugY, 40, x - 50, 50 - bugY, 40);
         js.line(x - 50, 50 - bugY, 40, x + 50, 50 - bugY, 40);
         js.line(x + 50, 50 - bugY, 40, x, 0 - bugY, 40);
+
+        js.line(x, 0 - bugY, 40, x - 50, 50 - bugY, 60);
+        js.line(x, 0 - bugY, 60, x - 50, 50 - bugY, 40);
+        js.line(x - 50, 50 - bugY, 40, x + 50, 50 - bugY, 60);
+        js.line(x - 50, 50 - bugY, 60, x + 50, 50 - bugY, 40);
+        js.line(x + 50, 50 - bugY, 40, x, 0 - bugY, 60);
+        js.line(x + 50, 50 - bugY, 60, x, 0 - bugY, 40);
     }
 
     void bullet(float startx, float offx, float h, float offy, float bugX, float bugY) {
@@ -304,12 +322,11 @@ public class JellosVisual extends Visual {
     }
 
     void killbug(float bugX, float bugY) {
-        System.out.println("Target Hit");
         score++;
-        this.bugY = -20;
+        this.bugX = random(js.width/2.8f, js.width - js.width/2.8f);
         System.out.println(bugX);
+        this.bugY = -20;
         isAlive = false;
-        System.out.println(isAlive);
     }
 
     public void lerpedAudioBuffer() {
