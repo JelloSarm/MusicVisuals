@@ -138,8 +138,7 @@ public class JellosVisual extends Visual {
 
         float shipx = w / 4, shipy = h / 1.08f;
         float bulx = w / 2;
-        float bugX = w/2;
-        float bugSize = h/10;
+        float bugX = w / 2;
 
         if (keyLeftpressed) {
             if (offx > -w / 20) {
@@ -203,15 +202,17 @@ public class JellosVisual extends Visual {
         js.popMatrix();
         lock = 0;
 
-        if (keyXpressed) 
-        {
-            bullet(bulx, offx, h, offy, bugX, bugSize, bugY);
+        if (keyXpressed) {
+            bullet(bulx, offx, h, offy, bugX, bugY);
         }
 
-        if(!isAlive)
-        {
-            spawnbug(bugX, bugY, bugSize);
+        if (!isAlive) {
+            bugX = random(w / 3, w - w / 3);
+            spawnbug(bugX, bugY);
         }
+
+        // bugY = bugY - bugY - (js.getSmoothedAmplitude() * 60);
+        bugY = (bugY - 1) - (score);
     }
 
     // This function allows the ship to tilt when you move and return to its
@@ -270,26 +271,42 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
-    public void spawnbug(float x, float y, float size)
-    {
-        
+    void spawnbug(float x, float y) {
+        js.stroke(2);
+        js.color(255, 0, 100);
+        js.fill(255, 0, 100);
+
+        // Top half
+        js.line(x, 0 - bugY, 60, x - 50, 50 - bugY, 60);
+        js.line(x - 50, 50 - bugY, 60, x + 50, 50 - bugY, 60);
+        js.line(x + 50, 50 - bugY, 60, x, 0 - bugY, 60);
+
+        js.line(x, 0 - bugY, 40, x, 0 - bugY, 60);
+        js.line(x - 50, 50 - bugY, 40, x - 50, 50 - bugY, 60);
+        js.line(x + 50, 50 - bugY, 40, x + 50, 0 - bugY, 60);
+
+        js.line(x, 0 - bugY, 40, x - 50, 50 - bugY, 40);
+        js.line(x - 50, 50 - bugY, 40, x + 50, 50 - bugY, 40);
+        js.line(x + 50, 50 - bugY, 40, x, 0 - bugY, 40);
     }
 
-    public void bullet(float startx, float offx, float h, float offy, float bugX, float bugSize, float bugY) {
+    void bullet(float startx, float offx, float h, float offy, float bugX, float bugY) {
         js.stroke(255, 255, 255);
         js.strokeWeight(5);
         js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + (offx * 2)), (0), 60);
         js.strokeWeight(1);
-        if(startx + offx * 2 >= bugX-(bugSize/2) && startx + offx*2 <= bugX+(bugSize/2))
-        {
-            killbug();
+        if (startx + offx >= bugX - 25 && startx + offx <= bugX + 25) {
+            killbug(bugX, bugY);
         }
     }
 
-    public void killbug()
-    {
+    void killbug(float bugX, float bugY) {
+        System.out.println("Target Hit");
         score++;
-
+        this.bugY = -20;
+        System.out.println(isAlive);
+        isAlive = false;
+        System.out.println(isAlive);
     }
 
     public void lerpedAudioBuffer() {
