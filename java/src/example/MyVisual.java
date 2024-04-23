@@ -175,7 +175,7 @@ public class MyVisual extends Visual {
         //jason part
         if (key == 'l' || key == 'L')
         {
-            getAudioPlayer().cue(233000);
+            getAudioPlayer().cue(232500);
             getAudioPlayer().play();
             frame = 6;
             Jason = null;
