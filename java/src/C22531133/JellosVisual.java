@@ -27,7 +27,6 @@ public class JellosVisual extends Visual {
     int score = 0;
     float bugY;
     float bugX;
-    boolean init = false;
     boolean isAlive = false;
 
     float lerpFactor = 0.05f;
@@ -41,12 +40,6 @@ public class JellosVisual extends Visual {
         // Width and height variables
         int w = js.width;
         int h = js.height;
-        if (!init)
-        {
-            bugX = w/2;
-            init = true;
-        }
-
 
         // Code used for the parameteres for the camera
         float fov = PI / (float) 3.0;
@@ -213,15 +206,11 @@ public class JellosVisual extends Visual {
             bullet(bulx, offx, h, offy, bugX, bugY);
         }
 
-        if (!isAlive && score > 50) {
+        if (!isAlive) {
             bugX = random(w / 2.8f, w - w / 2.8f);
             spawnbug(bugX, bugY);
         }
 
-        if (!isAlive && score < 50)
-        {
-            spawnbug(bugX, bugY);
-        }
         // bugY = bugY - bugY - (js.getSmoothedAmplitude() * 60);
         bugY = (bugY - 1) - (score);
         if (bugY < -h - 1000) {
@@ -317,14 +306,13 @@ public class JellosVisual extends Visual {
         js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + (offx * 2)), (0), 60);
         js.strokeWeight(1);
         if (startx + offx >= bugX - 25 && startx + offx <= bugX + 25) {
-            killbug(bugX, bugY);
+            killbug(bugY);
         }
     }
 
-    void killbug(float bugX, float bugY) {
+    void killbug(float bugY) {
         score++;
-        this.bugX = random(js.width/2.8f, js.width - js.width/2.8f);
-        System.out.println(bugX);
+        bugX = random(js.width / 2.8f , js.width - js.width/ 2.8f);
         this.bugY = -20;
         isAlive = false;
     }
