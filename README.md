@@ -51,6 +51,13 @@ an area that I have never had experience in and this project allowed me to ventu
 I am also proud of orchestrating the scene as it did have to go through several iterations beforehand.
 Learning how to use the camera in ways such as screen-shake were fun to learn and were worth the work.
 
+Jason: I'm most proud of the way that I brought my creative vision to life. When we came up with the idea to do a ROR2 
+themed project, the first thing I wanted to do was to create the scene where the planet explodes at the end of 
+the game because I knew it was going to be cool. I knew it was going to be difficult to do, but I stuck with the 
+idea and it all came together in the end. I'm also happy with how I handled the problem solving side of this assignment. 
+I ran into a few issues such as low frame rates and scaling on different screen sizes. I was able to resolve these issues by 
+optimizing my code and solving inefficiencies.
+
 # Markdown Tutorial
 
 This is *emphasis*
