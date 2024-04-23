@@ -4,7 +4,6 @@ import ie.tudublin.*;
 import processing.core.PApplet;
 import processing.core.PShape;
 import example.MyVisual;
-import java.awt.*;
 
 public class JellosVisual extends Visual {
     MyVisual js;
@@ -26,6 +25,8 @@ public class JellosVisual extends Visual {
     int lock = 0;
     int noOfBugs = 0;
     int score = 0;
+    float bugY;
+    boolean isAlive = false;
 
     float lerpFactor = 0.05f;
     float smoothedAudioBuffer[];
@@ -137,6 +138,8 @@ public class JellosVisual extends Visual {
 
         float shipx = w / 4, shipy = h / 1.08f;
         float bulx = w / 2;
+        float bugX = w/2;
+        float bugSize = h/10;
 
         if (keyLeftpressed) {
             if (offx > -w / 20) {
@@ -200,8 +203,14 @@ public class JellosVisual extends Visual {
         js.popMatrix();
         lock = 0;
 
-        if (keyXpressed) {
-            bullet(bulx, offx, h, offy);
+        if (keyXpressed) 
+        {
+            bullet(bulx, offx, h, offy, bugX, bugSize, bugY);
+        }
+
+        if(!isAlive)
+        {
+            spawnbug(bugX, bugY, bugSize);
         }
     }
 
@@ -261,11 +270,26 @@ public class JellosVisual extends Visual {
         return tiltX;
     }
 
-    public void bullet(float startx, float offx, float h, float offy) {
+    public void spawnbug(float x, float y, float size)
+    {
+        
+    }
+
+    public void bullet(float startx, float offx, float h, float offy, float bugX, float bugSize, float bugY) {
         js.stroke(255, 255, 255);
         js.strokeWeight(5);
-        js.line(startx + (offx * 2), (h + 950) + (offy * 2), 60, startx + (offx * 2), 0, 60);
+        js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + (offx * 2)), (0), 60);
         js.strokeWeight(1);
+        if(startx + offx * 2 >= bugX-(bugSize/2) && startx + offx*2 <= bugX+(bugSize/2))
+        {
+            killbug();
+        }
+    }
+
+    public void killbug()
+    {
+        score++;
+
     }
 
     public void lerpedAudioBuffer() {
