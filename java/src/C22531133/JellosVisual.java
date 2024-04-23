@@ -216,6 +216,8 @@ public class JellosVisual extends Visual {
         if (bugY < -h - 1000) {
             bugY = 0;
         }
+
+        // stars
     }
 
     // This function allows the ship to tilt when you move and return to its
@@ -303,7 +305,12 @@ public class JellosVisual extends Visual {
     void bullet(float startx, float offx, float h, float offy, float bugX, float bugY) {
         js.stroke(255, 255, 255);
         js.strokeWeight(5);
-        js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + (offx * 2)), (0), 60);
+        for (int i = 0; i < js.getAudioBuffer().size(); i++) 
+        {
+            float mapped = map((float) i, 0, lerpedAudioBuffer.length, 0, (float) js.height + ((h + 950) + (offy * 2)));
+            //js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + 8(offx * 2)), (-1) , 60); safe one simple line
+            js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + (offx * 2)), 1 * (mapped * js.width/2)*2 , 60);
+        }
         js.strokeWeight(1);
         if (startx + offx >= bugX - 25 && startx + offx <= bugX + 25) {
             killbug(bugY);
