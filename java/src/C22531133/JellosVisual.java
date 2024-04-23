@@ -26,6 +26,7 @@ public class JellosVisual extends Visual {
     int noOfBugs = 0;
     int score = 0;
     float bugY;
+    float bugX;
     boolean isAlive = false;
 
     float lerpFactor = 0.05f;
@@ -138,7 +139,6 @@ public class JellosVisual extends Visual {
 
         float shipx = w / 4, shipy = h / 1.08f;
         float bulx = w / 2;
-        float bugX = w / 2;
 
         if (keyLeftpressed) {
             if (offx > -w / 20) {
@@ -207,12 +207,17 @@ public class JellosVisual extends Visual {
         }
 
         if (!isAlive) {
-            bugX = random(w / 3, w - w / 3);
+            bugX = random(w / 2.8f, w - w / 2.8f);
             spawnbug(bugX, bugY);
         }
 
         // bugY = bugY - bugY - (js.getSmoothedAmplitude() * 60);
         bugY = (bugY - 1) - (score);
+        System.out.println(bugY);
+        if (bugY > h - 500) {
+            bugY = 0;
+        }
+        System.out.println(bugX);
     }
 
     // This function allows the ship to tilt when you move and return to its
@@ -272,9 +277,7 @@ public class JellosVisual extends Visual {
     }
 
     void spawnbug(float x, float y) {
-        js.stroke(2);
-        js.color(255, 0, 100);
-        js.fill(255, 0, 100);
+        js.stroke(255, 0, 255);
 
         // Top half
         js.line(x, 0 - bugY, 60, x - 50, 50 - bugY, 60);
@@ -283,7 +286,7 @@ public class JellosVisual extends Visual {
 
         js.line(x, 0 - bugY, 40, x, 0 - bugY, 60);
         js.line(x - 50, 50 - bugY, 40, x - 50, 50 - bugY, 60);
-        js.line(x + 50, 50 - bugY, 40, x + 50, 0 - bugY, 60);
+        js.line(x + 50, 50 - bugY, 40, x + 50, 50 - bugY, 60);
 
         js.line(x, 0 - bugY, 40, x - 50, 50 - bugY, 40);
         js.line(x - 50, 50 - bugY, 40, x + 50, 50 - bugY, 40);
@@ -304,7 +307,7 @@ public class JellosVisual extends Visual {
         System.out.println("Target Hit");
         score++;
         this.bugY = -20;
-        System.out.println(isAlive);
+        System.out.println(bugX);
         isAlive = false;
         System.out.println(isAlive);
     }
