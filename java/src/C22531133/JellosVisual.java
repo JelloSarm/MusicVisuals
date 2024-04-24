@@ -228,10 +228,10 @@ public class JellosVisual extends Visual {
             js.pushMatrix();
 
             temple2.resetMatrix();
-            temple2.translate(50, 0, -10);
             temple2.rotateX(radians(270));
-            js.scale(tempsize * 0.1f);
-            if (tempsize < 200) {
+            js.scale(tempsize * 0.01f);
+            temple2.translate(35, -50, -13);
+            if (tempsize < 2000) {
                 tempsize++;
                 appear++;
             }
