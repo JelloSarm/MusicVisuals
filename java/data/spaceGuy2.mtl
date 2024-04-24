@@ -1,0 +1,41 @@
+# Exported from 3D Builder
+
+newmtl Material_0
+Kd 0.615686 0.615686 0.615686
+
+newmtl Material_1
+Kd 0.349020 0.349020 0.349020
+
+newmtl Material_2
+Kd 1.000000 0.498039 0.152941
+
+newmtl Material_3
+Kd 0.525490 0.525490 0.525490
+
+newmtl Mat_0
+Kd 1.000000 1.000000 1.000000
+map_Kd 816.png
+
+newmtl Material_4
+Kd 0.447059 0.447059 0.447059
+
+newmtl Material_5
+Kd 0.501961 0.427451 0.360784
+
+newmtl Material_6
+Kd 0.000000 0.000000 0.000000
+
+newmtl Material_7
+Kd 0.000000 0.658824 0.952941
+
+newmtl Material_8
+Kd 0.596078 0.596078 0.596078
+
+newmtl Material_9
+Kd 0.298039 0.298039 0.298039
+
+newmtl Material_10
+Kd 1.000000 0.968628 0.870588
+
+newmtl Material_11
+Kd 0.854902 0.968628 1.000000

@@ -20,7 +20,8 @@ public class MyVisual extends Visual {
     JellosVisual Jello;
     JasonsVisual Jason;
     int frame = 1;
-    PShape hand, rocket, rocket2, guy, temple, door, arm;
+    PShape hand, rocket, rocket2, guy, temple, door, arm,;
+   
 
     public void settings() {
         size(1024, 500,P3D);
@@ -38,10 +39,10 @@ public class MyVisual extends Visual {
 
         // Call loadAudio to load an audio file to process
        // loadAudio("heroplanet.mp3");
-        //loadAudio("Chris Christodoulou - The Face of the Deep  ROR2_ Survivors of the Void (2022).mp3");
+        loadAudio("Chris Christodoulou - The Face of the Deep  ROR2_ Survivors of the Void (2022).mp3");
        // loadAudio("Meatball Parade (128kbps).mp3");
         //loadAudio("Genesis Retake Light (128kbps).mp3");
-        loadAudio("music.mp3");
+        //loadAudio("music.mp3");
 
 
         // Call this instead to read audio from the microphone
@@ -62,9 +63,10 @@ public class MyVisual extends Visual {
         // Rocket ship file
         rocket = loadShape("rocketShip2.obj");
         rocket2 = loadShape("rocketShip2.obj");
-        // First create the shape
 
-        
+        guy = loadShape("spaceGuy3.obj");
+     
+        // First create the shape
     }
 
     // key inputs
@@ -280,7 +282,7 @@ public class MyVisual extends Visual {
         }
         else if (frame == 5)
         {
-            Franz.render(rocket2,temple,door,arm);
+            Franz.render(rocket2,temple,door,arm,guy);
             
         }
         else if (frame == 6)
