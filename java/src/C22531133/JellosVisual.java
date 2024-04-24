@@ -227,6 +227,7 @@ public class JellosVisual extends Visual {
         if (countdown < 20000) {
             js.pushMatrix();
 
+            /* 
             temple2.resetMatrix();
             temple2.rotateX(radians(270));
             js.scale(tempsize * 0.01f);
@@ -238,6 +239,7 @@ public class JellosVisual extends Visual {
             js.shape(temple2);
 
             js.popMatrix();
+            */
         }
     }
 
