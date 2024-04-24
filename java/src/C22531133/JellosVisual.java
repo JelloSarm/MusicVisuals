@@ -28,15 +28,21 @@ public class JellosVisual extends Visual {
     float bugY;
     float bugX;
     boolean isAlive = false;
+    float tempsize;
 
     float lerpFactor = 0.05f;
     float smoothedAudioBuffer[];
 
     float lerpedAudioBuffer[];
 
-    public void render(PShape rocket, boolean keyLeftpressed, boolean keyRightpressed, boolean keyUppressed,
+    public void render(PShape rocket, PShape temple2, boolean keyLeftpressed, boolean keyRightpressed, boolean keyUppressed,
             boolean keyDownpressed, boolean keyXpressed) {
         lerpedAudioBuffer();
+
+        float countdown = (25000 - millis());
+
+        //tempsize = 
+
         // Width and height variables
         int w = js.width;
         int h = js.height;
@@ -217,7 +223,19 @@ public class JellosVisual extends Visual {
             bugY = 0;
         }
 
-        // stars
+        if(countdown < 5000)
+        {
+            js.pushMatrix();
+
+            temple2.resetMatrix();
+            temple2.translate(w/2, 0, -50);
+            temple2.scale(tempsize * 0.01f);
+            if(tempsize < 2)
+            {
+                tempsize++;
+            }
+            
+        }
     }
 
     // This function allows the ship to tilt when you move and return to its
@@ -307,6 +325,7 @@ public class JellosVisual extends Visual {
         js.strokeWeight(1);
         for (int i = 0; i < js.getAudioBuffer().size(); i++) 
         {
+
             float mapped = map((float) i, 0, lerpedAudioBuffer.length, 0, (float) js.height + ((h-140) + (offy * 2)));
             //js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + 8(offx * 2)), (-1) , 60); safe one simple line
             js.line((startx + (offx * 2)) , mapped, 60, ((startx + (offx * 2)) + (lerpedAudioBuffer[i] * js.width/2)/2), mapped , 60);
