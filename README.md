@@ -44,6 +44,21 @@ Figuring out circular movement in 3D space was *very* tricky but alas i persever
 Jello: I am most proud of my creation of terrain, implementing features that use noise and mapping.
 My terrain function moves based on both Audio and x offset movement
 Secondly I am most proud of my little space invader type movement giving more depth into the scene.
+I am proud of including the very easy but scary looking alien that teleports every second multiple times.
+
+
+Franz: Personally, I take the most pride in learning how to use 3d modelling software to create the
+OBJ files for my scene. Although the softwares (paint 3d + 3d builder) were basic in nature, it is
+an area that I have never had experience in and this project allowed me to venture out of my comfort zone.
+I am also proud of orchestrating the scene as it did have to go through several iterations beforehand.
+Learning how to use the camera in ways such as screen-shake were fun to learn and were worth the work.
+
+Jason: I'm most proud of the way that I brought my creative vision to life. When we came up with the idea to do a ROR2 
+themed project, the first thing I wanted to do was to create the scene where the planet explodes at the end of 
+the game because I knew it was going to be cool. I knew it was going to be difficult to do, but I stuck with the 
+idea and it all came together in the end. I'm also happy with how I handled the problem solving side of this assignment. 
+I ran into a few issues such as low frame rates and scaling on different screen sizes. I was able to resolve these issues by 
+optimizing my code and solving inefficiencies.
 
 # Markdown Tutorial
 

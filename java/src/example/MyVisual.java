@@ -20,8 +20,7 @@ public class MyVisual extends Visual {
     JellosVisual Jello;
     JasonsVisual Jason;
     int frame = 1;
-    PShape hand, rocket, rocket2, guy, temple, door, arm,;
-   
+    PShape hand, rocket, rocket2, guy, temple, door, arm, temple2;
 
     public void settings() {
         size(1024, 500,P3D);
@@ -59,7 +58,7 @@ public class MyVisual extends Visual {
         temple = loadShape("Temple.obj");
         arm = loadShape("arm.obj");
 
-        
+        temple2 = loadShape("Temple.obj");
         // Rocket ship file
         rocket = loadShape("rocketShip2.obj");
         rocket2 = loadShape("rocketShip2.obj");
@@ -100,20 +99,16 @@ public class MyVisual extends Visual {
         }
         if (key == '2') {
             frame = 2;
+            Jello = null;
+            Jello = new JellosVisual(this);
         }
         if (key == '3') {
             frame = 3;
-        }
-        if (key == '4') {
-            frame = 4;
-        }
-        if (key == '5') {
-            frame = 5;
             Franz = null;
             Franz = new FranzsVisual1(this);
         }
-        if (key == '6') {
-            frame = 6;
+        if (key == '4') {
+            frame = 4;
             Jason = null;
             Jason = new JasonsVisual(this);
         }
@@ -161,7 +156,9 @@ public class MyVisual extends Visual {
         {
             getAudioPlayer().cue(98000);
             getAudioPlayer().play();
-            frame = 4;
+            frame = 2;
+            Jello = null;
+            Jello = new JellosVisual(this);
         }
 
         //franz part
@@ -169,7 +166,7 @@ public class MyVisual extends Visual {
         {
             getAudioPlayer().cue(165000);
             getAudioPlayer().play();
-            frame = 5;
+            frame = 3;
             Franz = null;
             Franz = new FranzsVisual1(this);
         }
@@ -177,9 +174,9 @@ public class MyVisual extends Visual {
         //jason part
         if (key == 'l' || key == 'L')
         {
-            getAudioPlayer().cue(233000);
+            getAudioPlayer().cue(232500);
             getAudioPlayer().play();
-            frame = 6;
+            frame = 4;
             Jason = null;
             Jason = new JasonsVisual(this);
         }
@@ -261,28 +258,28 @@ public class MyVisual extends Visual {
             seconds += 1;
         }
 
-        if(frame == 1)
+        if(frame == 3)
         {
-            wf.render();   
+            Franz.render(rocket2,temple,door,arm);   
         }
-        else if(frame == 2)
+        else if(frame == 4)
         {
-            abv.render();   
+            Jason.render(rocket);
         }
-        else if(frame == 3 )
+        else if(frame == 1 )
         {
             Calvin.render(  keyQpressed,keyWpressed,keyEpressed,
                             keyApressed,keySpressed,keyDpressed,
                             rocket);
         }
-        else if(frame == 4)
+        else if(frame == 2)
         {
-            Jello.render(rocket, keyLeftpressed, keyRightpressed, keyUppressed, keyDownpressed, keyXpressed);
+            Jello.render(rocket, temple2, keyLeftpressed, keyRightpressed, keyUppressed, keyDownpressed, keyXpressed);
             
         }
         else if (frame == 5)
         {
-            Franz.render(rocket2,temple,door,arm,guy);
+            Franz.render(rocket2,temple,door,arm);
             
         }
         else if (frame == 6)
