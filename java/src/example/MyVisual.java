@@ -260,7 +260,7 @@ public class MyVisual extends Visual {
 
         if(frame == 3)
         {
-            Franz.render(rocket2,temple,door,arm);   
+            Franz.render(rocket2,temple2,door,arm,guy);
         }
         else if(frame == 4)
         {
@@ -279,7 +279,7 @@ public class MyVisual extends Visual {
         }
         else if (frame == 5)
         {
-            Franz.render(rocket2,temple,door,arm);
+            Franz.render(rocket2,temple2,door,arm,guy);
             
         }
         else if (frame == 6)
