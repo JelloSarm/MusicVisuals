@@ -48,7 +48,7 @@ public class FranzsVisual1 extends Visual{
         //countdown for changing the scenes
         float countdown = (65000- millis());
 
-       // cameraSetup();
+         cameraSetup();
 
         //First scene
         if (countdown > 60000)
@@ -92,7 +92,7 @@ public class FranzsVisual1 extends Visual{
         }
         else
         { 
-            //cameraSetup();
+            cameraSetup();
             Scene_7.render(rocket2,temple);
         }
     }
