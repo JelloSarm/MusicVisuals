@@ -29,19 +29,19 @@ public class JellosVisual extends Visual {
     float bugX;
     boolean isAlive = false;
     float tempsize;
+    float appear;
 
     float lerpFactor = 0.05f;
     float smoothedAudioBuffer[];
 
     float lerpedAudioBuffer[];
 
-    public void render(PShape rocket, PShape temple2, boolean keyLeftpressed, boolean keyRightpressed, boolean keyUppressed,
+    public void render(PShape rocket, PShape temple2, boolean keyLeftpressed, boolean keyRightpressed,
+            boolean keyUppressed,
             boolean keyDownpressed, boolean keyXpressed) {
         lerpedAudioBuffer();
 
         float countdown = (25000 - millis());
-
-        //tempsize = 
 
         // Width and height variables
         int w = js.width;
@@ -223,18 +223,21 @@ public class JellosVisual extends Visual {
             bugY = 0;
         }
 
-        if(countdown < 5000)
-        {
+        System.out.println(countdown);
+        if (countdown < 20000) {
             js.pushMatrix();
 
             temple2.resetMatrix();
-            temple2.translate(w/2, 0, -50);
-            temple2.scale(tempsize * 0.01f);
-            if(tempsize < 2)
-            {
+            temple2.translate(50, 0, -10);
+            temple2.rotateX(radians(270));
+            js.scale(tempsize * 0.1f);
+            if (tempsize < 200) {
                 tempsize++;
+                appear++;
             }
-            
+            js.shape(temple2);
+
+            js.popMatrix();
         }
     }
 
@@ -323,12 +326,14 @@ public class JellosVisual extends Visual {
     void bullet(float startx, float offx, float h, float offy, float bugX, float bugY) {
         js.stroke(255, 255, 255);
         js.strokeWeight(1);
-        for (int i = 0; i < js.getAudioBuffer().size(); i++) 
-        {
-
-            float mapped = map((float) i, 0, lerpedAudioBuffer.length, 0, (float) js.height + ((h-140) + (offy * 2)));
-            //js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + 8(offx * 2)), (-1) , 60); safe one simple line
-            js.line((startx + (offx * 2)) , mapped, 60, ((startx + (offx * 2)) + (lerpedAudioBuffer[i] * js.width/2)/2), mapped , 60);
+        for (int i = 0; i < js.getAudioBuffer().size(); i++) {
+            float hue = map(i, 0, js.getAudioBuffer().size(), 0, 256);
+            js.stroke(hue, 255, 255);
+            float mapped = map((float) i, 0, lerpedAudioBuffer.length, 0, (float) js.height + ((h - 140) + (offy * 2)));
+            // js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + 8(offx
+            // * 2)), (-1) , 60); safe one simple line
+            js.line((startx + (offx * 2)), mapped, 60,
+                    ((startx + (offx * 2)) + (lerpedAudioBuffer[i] * js.width / 2) / 2), mapped, 60);
         }
         js.strokeWeight(1);
         if (startx + offx >= bugX - 25 && startx + offx <= bugX + 25) {
@@ -338,7 +343,7 @@ public class JellosVisual extends Visual {
 
     void killbug(float bugY) {
         score++;
-        bugX = random(js.width / 2.8f , js.width - js.width/ 2.8f);
+        bugX = random(js.width / 2.8f, js.width - js.width / 2.8f);
         this.bugY = -20;
         isAlive = false;
     }
