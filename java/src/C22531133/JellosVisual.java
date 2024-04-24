@@ -307,9 +307,9 @@ public class JellosVisual extends Visual {
         js.strokeWeight(1);
         for (int i = 0; i < js.getAudioBuffer().size(); i++) 
         {
-            float mapped = map((float) i, 0, lerpedAudioBuffer.length, 0, (float) js.height + ((h + 950) + (offy * 2)));
+            float mapped = map((float) i, 0, lerpedAudioBuffer.length, 0, (float) js.height + ((h-140) + (offy * 2)));
             //js.line((startx + (offx * 2)), ((h + 950) + (offy * 2)), 60, (startx + 8(offx * 2)), (-1) , 60); safe one simple line
-            js.line((startx + (offx * 2)), mapped, 60, js.width * (lerpedAudioBuffer[i] * js.width/2), mapped , 60);
+            js.line((startx + (offx * 2)) , mapped, 60, ((startx + (offx * 2)) + (lerpedAudioBuffer[i] * js.width/2)/2), mapped , 60);
         }
         js.strokeWeight(1);
         if (startx + offx >= bugX - 25 && startx + offx <= bugX + 25) {

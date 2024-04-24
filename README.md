@@ -44,6 +44,8 @@ Figuring out circular movement in 3D space was *very* tricky but alas i persever
 Jello: I am most proud of my creation of terrain, implementing features that use noise and mapping.
 My terrain function moves based on both Audio and x offset movement
 Secondly I am most proud of my little space invader type movement giving more depth into the scene.
+I am proud of including the very easy but scary looking alien that teleports every second multiple times.
+
 
 Franz: Personally, I take the most pride in learning how to use 3d modelling software to create the
 OBJ files for my scene. Although the softwares (paint 3d + 3d builder) were basic in nature, it is
