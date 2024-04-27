@@ -29,6 +29,8 @@ This assignment takes inspiration from the game "Risk of Rain 2"
 The song chosen for the visualiser is also from the game.
 The visuals will include elements of outer space, space travel and an alien world.
 
+[Link to the youtube video](https://www.youtube.com/watch?v=VGXBTaEiNeU)
+
 
 # Instructions
 
@@ -37,6 +39,10 @@ For my scene on some devices the moving and shooting causes an error, but for ot
 The arrow keys are used to move the spaceship and 'X' is used for shooting the waveform laser.
 Pressing 'J' will directly bring you to my scene with and bring you to the optimal part of the song to show off my scene.
 
+Jason :
+Go to my scene by pressing '4' or 'L' if you want to go to the part of the song that's intended for the scene.
+No further user input is required.
+
 # How it works
 
 Jello :
@@ -44,6 +50,8 @@ My scene uses a 4 instances of a waveform, each waveform takes in a lerped audio
 The terrain that is constantly moving has set parameteres with offy and offx, which will keep the posiiton of the z values to move them down along the terrain.
 this intern is keeping track of movement variable which tracks the speed that the terrain will be moving at, automatically its set to -0.02, but i have amplified it to
 go with the frequency of the song, it takes in a lerped amplitude so its a smoother move but also means it will speed up the faster the song
+
+Jason :
 
 # What I am most proud of in the assignment
 
