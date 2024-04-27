@@ -32,7 +32,18 @@ The visuals will include elements of outer space, space travel and an alien worl
 
 # Instructions
 
+Jello :
+For my scene on some devices the moving and shooting causes an error, but for others its completely fine.
+The arrow keys are used to move the spaceship and 'X' is used for shooting the waveform laser.
+Pressing 'J' will directly bring you to my scene with and bring you to the optimal part of the song to show off my scene.
+
 # How it works
+
+Jello :
+My scene uses a 4 instances of a waveform, each waveform takes in a lerped audio buffer array that reads in each individual frequencies to put onto the scene.
+The terrain that is constantly moving has set parameteres with offy and offx, which will keep the posiiton of the z values to move them down along the terrain.
+this intern is keeping track of movement variable which tracks the speed that the terrain will be moving at, automatically its set to -0.02, but i have amplified it to
+go with the frequency of the song, it takes in a lerped amplitude so its a smoother move but also means it will speed up the faster the song
 
 # What I am most proud of in the assignment
 
@@ -44,8 +55,7 @@ Figuring out circular movement in 3D space was *very* tricky but alas i persever
 Jello: I am most proud of my creation of terrain, implementing features that use noise and mapping.
 My terrain function moves based on both Audio and x offset movement
 Secondly I am most proud of my little space invader type movement giving more depth into the scene.
-I am proud of including the very easy but scary looking alien that teleports every second multiple times.
-
+I am proud of including the very easy but scary looking alien that teleports every second multiple times, along with a waveform laser to kill the bug.
 
 Franz: Personally, I take the most pride in learning how to use 3d modelling software to create the
 OBJ files for my scene. Although the softwares (paint 3d + 3d builder) were basic in nature, it is
