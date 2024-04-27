@@ -52,6 +52,11 @@ this intern is keeping track of movement variable which tracks the speed that th
 go with the frequency of the song, it takes in a lerped amplitude so its a smoother move but also means it will speed up the faster the song
 
 Jason :
+My scene depicts a moon exploding. It has 3 states. The moon before detonation, during detonation and after detonation. I keep track of how much time has passed
+since the start of my scene with the millis() function which determines the moon state. The moon is constructed by two nested for loops. The first nested loop 
+calculates longitude and latitude values, and converts them from spherical coordinates to rectangular coordinates. These points are saved as vectors. The other nested
+loop connects these vectors and makes triangle strips which creates the sphere. The distortion effect is created by multiplying the vector by the lerped audio buffer
+and making it go in a random direction.
 
 # What I am most proud of in the assignment
 
