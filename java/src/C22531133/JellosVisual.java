@@ -222,26 +222,30 @@ public class JellosVisual extends Visual {
         bugY = (bugY - 1) - (score);
         if (bugY < -h - 1000) {
             bugY = 0;
+            score = 0;
         }
 
         System.out.println(countdown);
         if (countdown < 20000) {
+
+            /*
             js.pushMatrix();
 
-            /* 
             temple2.resetMatrix();
             temple2.rotateX(radians(270));
-            js.scale(tempsize * 0.01f);
+            js.scale(tempsize * 0.1f);
             temple2.translate(35, -50, -13);
-            if (tempsize < 2000) {
+            if (tempsize < 200) {
                 tempsize++;
                 appear++;
             }
             js.shape(temple2);
 
             js.popMatrix();
+            temple2.rotateX(radians(90));
             */
         }
+
     }
 
     // This function allows the ship to tilt when you move and return to its
