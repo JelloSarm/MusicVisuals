@@ -33,6 +33,10 @@ The visuals will include elements of outer space, space travel and an alien worl
 
 
 # Instructions
+Calvin :
+My scene has keyboard control for movement.
+WASD is used for moving around the center.
+Q/E is used for zooming in and out of the center.
 
 Jello :
 For my scene on some devices the moving and shooting causes an error, but for others its completely fine.
