@@ -198,6 +198,7 @@ public class JellosVisual extends Visual {
         // Code for creating the rocket starting it and rotating it to the correct
         // orientation
 
+        
         rocket.resetMatrix();
         rocket.rotateX(radians(270));
         tiltY = tiltyf(tiltY, lock, rocket);
