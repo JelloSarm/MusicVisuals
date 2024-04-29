@@ -33,6 +33,9 @@ The visuals will include elements of outer space, space travel and an alien worl
 
 
 # Instructions
+Use numbers 1-4 to change scenes.
+R can be used to reset the current scene.
+
 Calvin :
 My scene has keyboard control for movement.
 WASD is used for moving around the center.
